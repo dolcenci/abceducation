@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensation and Perception Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Sensation and Perception Quiz</h1>
+
+        <!-- Quiz: Sensation and Perception -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Sensation and Perception</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge of sensation and perception concepts.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">1. Which sensory system is responsible for detecting light and color?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="Vision">Vision</option>
+                            <option value="Hearing">Hearing</option>
+                            <option value="Smell">Smell</option>
+                            <option value="Touch">Touch</option>
+                        </select>
+                        <p class="answer">Correct Answer: Vision</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">2. What are the specialized photoreceptors in the eyes responsible for vision?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="Rods and cones">Rods and cones</option>
+                            <option value="Hair cells">Hair cells</option>
+                            <option value="Olfactory receptors">Olfactory receptors</option>
+                            <option value="Nociceptors">Nociceptors</option>
+                        </select>
+                        <p class="answer">Correct Answer: Rods and cones</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">3. Which sensory system involves detecting sound waves?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="Hearing">Hearing</option>
+                            <option value="Vision">Vision</option>
+                            <option value="Taste">Taste</option>
+                            <option value="Smell">Smell</option>
+                        </select>
+                        <p class="answer">Correct Answer: Hearing</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">4. What is the process by which sensory receptors convert physical stimuli into neural signals?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="Transduction">Transduction</option>
+                            <option value="Transmission">Transmission</option>
+                            <option value="Interpretation">Interpretation</option>
+                            <option value="Adaptation">Adaptation</option>
+                        </select>
+                        <p class="answer">Correct Answer: Transduction</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">5. What refers to the ability to perceive the world in three dimensions?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="Depth perception">Depth perception</option>
+                            <option value="Motion perception">Motion perception</option>
+                            <option value="Perceptual set">Perceptual set</option>
+                            <option value="Gestalt principles">Gestalt principles</option>
+                        </select>
+                        <p class="answer">Correct Answer: Depth perception</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz submission handler
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'Vision',
+                q2: 'Rods and cones',
+                q3: 'Hearing',
+                q4: 'Transduction',
+                q5: 'Depth perception',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>

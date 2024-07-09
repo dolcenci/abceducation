@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning and Conditioning Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Learning and Conditioning Quiz</h1>
+
+        <!-- Quiz: Learning and Conditioning -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Learning and Conditioning</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge of learning and conditioning theories.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">1. Who first described classical conditioning?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="Ivan Pavlov">Ivan Pavlov</option>
+                            <option value="B.F. Skinner">B.F. Skinner</option>
+                            <option value="Albert Bandura">Albert Bandura</option>
+                            <option value="Jean Piaget">Jean Piaget</option>
+                        </select>
+                        <p class="answer">Correct Answer: Ivan Pavlov</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">2. Which type of learning involves forming associations between stimuli and responses?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="Associative learning">Associative learning</option>
+                            <option value="Cognitive learning">Cognitive learning</option>
+                            <option value="Observational learning">Observational learning</option>
+                            <option value="Latent learning">Latent learning</option>
+                        </select>
+                        <p class="answer">Correct Answer: Associative learning</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">3. In operant conditioning, what strengthens a behavior?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="Positive reinforcement">Positive reinforcement</option>
+                            <option value="Negative reinforcement">Negative reinforcement</option>
+                            <option value="Positive punishment">Positive punishment</option>
+                            <option value="Negative punishment">Negative punishment</option>
+                        </select>
+                        <p class="answer">Correct Answer: Positive reinforcement</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">4. Who is known for his experiments with observational learning?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="Albert Bandura">Albert Bandura</option>
+                            <option value="Ivan Pavlov">Ivan Pavlov</option>
+                            <option value="B.F. Skinner">B.F. Skinner</option>
+                            <option value="Jean Piaget">Jean Piaget</option>
+                        </select>
+                        <p class="answer">Correct Answer: Albert Bandura</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">5. Which learning theory focuses on mental processes such as reasoning and memory?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="Cognitive learning">Cognitive learning</option>
+                            <option value="Associative learning">Associative learning</option>
+                            <option value="Operant conditioning">Operant conditioning</option>
+                            <option value="Observational learning">Observational learning</option>
+                        </select>
+                        <p class="answer">Correct Answer: Cognitive learning</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz submission handler
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'Ivan Pavlov',
+                q2: 'Associative learning',
+                q3: 'Positive reinforcement',
+                q4: 'Albert Bandura',
+                q5: 'Cognitive learning',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>

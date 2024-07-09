@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Management & Financial Derivatives Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Risk Management & Financial Derivatives Quiz</h1>
+
+        <!-- Quiz: Risk Management -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Risk Management</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge of risk management in finance.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">1. What is the primary purpose of risk management in finance?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="Minimizing potential financial losses">Minimizing potential financial losses</option>
+                            <option value="Maximizing profits">Maximizing profits</option>
+                            <option value="Avoiding regulations">Avoiding regulations</option>
+                            <option value="Expanding market reach">Expanding market reach</option>
+                        </select>
+                        <p class="answer">Correct Answer: Minimizing potential financial losses</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">2. Which type of risk refers to the exposure to potential financial loss due to fluctuations in market prices?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="Operational risk">Operational risk</option>
+                            <option value="Credit risk">Credit risk</option>
+                            <option value="Market risk">Market risk</option>
+                            <option value="Liquidity risk">Liquidity risk</option>
+                        </select>
+                        <p class="answer">Correct Answer: Market risk</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">3. What is the primary function of financial derivatives?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="Enhancing market efficiency">Enhancing market efficiency</option>
+                            <option value="Avoiding investments">Avoiding investments</option>
+                            <option value="Selling assets">Selling assets</option>
+                            <option value="Regulating prices">Regulating prices</option>
+                        </select>
+                        <p class="answer">Correct Answer: Enhancing market efficiency</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">4. Which financial derivative obligates the buyer to purchase an asset at a predetermined price on a future date?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="Option">Option</option>
+                            <option value="Swap">Swap</option>
+                            <option value="Futures">Futures</option>
+                            <option value="Forwards">Forwards</option>
+                        </select>
+                        <p class="answer">Correct Answer: Futures</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">5. What risk is associated with the possibility that one party in a derivative contract may default on its obligations?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="Market risk">Market risk</option>
+                            <option value="Operational risk">Operational risk</option>
+                            <option value="Counterparty risk">Counterparty risk</option>
+                            <option value="Legal/regulatory risk">Legal/regulatory risk</option>
+                        </select>
+                        <p class="answer">Correct Answer: Counterparty risk</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz submission handler
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'Minimizing potential financial losses',
+                q2: 'Market risk',
+                q3: 'Enhancing market efficiency',
+                q4: 'Futures',
+                q5: 'Counterparty risk',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>

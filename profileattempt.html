@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile App</title>
+</head>
+<body>
+  <h1>User Profile App</h1>
+
+  <!-- Registration Form -->
+  <div id="registrationForm">
+    <h2>Create Your Profile</h2>
+    <input type="text" id="name" placeholder="Name">
+    <input type="text" id="bio" placeholder="Bio">
+    <button onclick="createProfile()">Submit</button>
+  </div>
+
+  <!-- Profile Display -->
+  <div id="profile" style="display: none;">
+    <h2>Your Profile</h2>
+    <p><strong>Name:</strong> <span id="displayName"></span></p>
+    <p><strong>Bio:</strong> <span id="displayBio"></span></p>
+  </div>
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+       apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
+            authDomain: "prosper-a9810.Firebaseapp.com",
+            projectId: "prosper-a9810",
+            storageBucket: "prosper-a9810.appspot.com",
+            messagingSenderId: "1040350127188",
+            appId: "1:1040350127188:web:da8987386085d778eaf9cl1",
+            measurementId: "G-6G8BMD6S3G"
+    };
+    
+                                                                
+
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Function to show profile form
+        function showProfileForm() {
+            document.getElementById('profileContainer').style.display = 'block';
+            document.getElementById('profileDetailsContainer').style.display = 'none';
+        }
+
+        // Function to show profile details
+        function showProfileDetails(profile) {
+            document.getElementById('profileContainer').style.display = 'none';
+            document.getElementById('profileDetailsContainer').style.display = 'block';
+            document.getElementById('profileName').textContent = profile.name;
+            document.getElementById('profileAge').textContent = profile.age;
+        }
+
+        // Handle profile form submission
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (user) {
+                const name = document.getElementById('name').value;
+                const age = document.getElementById('age').value;
+                await setDoc(doc(db, "users", user.uid), {
+                    name: name,
+                    age: age
+                });
+                showProfileDetails({ name: name, age: age });
+            } else {
+                alert("No user is logged in!");
+            }
+        });
+
+        // Handle edit profile button click
+        document.getElementById('editProfileButton').addEventListener('click', () => {
+            showProfileForm();
+        });
+
+        // Check if user is logged in and load their profile
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists()) {
+                    showProfileDetails(userDoc.data());
+                } else {
+                    showProfileForm();
+                }
+            } else {
+                window.location.href = 'https://abceducation100.000webhostapp.com/index.html'; // Redirect to login page
+            }
+        });
+    </script>
+</body>
+</html>
+

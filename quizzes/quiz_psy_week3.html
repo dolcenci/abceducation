@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biological Bases of Behavior Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Biological Bases of Behavior Quiz</h1>
+
+        <!-- Quiz: Biological Bases of Behavior -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Biological Bases of Behavior</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge of the biological foundations of behavior.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">Which part of the nervous system is responsible for controlling voluntary movements and transmitting sensory information to the CNS?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="Central Nervous System">Central Nervous System</option>
+                            <option value="Peripheral Nervous System">Peripheral Nervous System</option>
+                            <option value="Somatic Nervous System">Somatic Nervous System</option>
+                            <option value="Autonomic Nervous System">Autonomic Nervous System</option>
+                        </select>
+                        <p class="answer">Correct Answer: Somatic Nervous System</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which neurotransmitter is primarily involved in regulating mood, appetite, and sleep?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="Acetylcholine">Acetylcholine</option>
+                            <option value="Dopamine">Dopamine</option>
+                            <option value="Serotonin">Serotonin</option>
+                            <option value="Glutamate">Glutamate</option>
+                        </select>
+                        <p class="answer">Correct Answer: Serotonin</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which hormone is released by the adrenal glands and prepares the body for 'fight or flight' responses?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="Cortisol">Cortisol</option>
+                            <option value="Adrenaline">Adrenaline</option>
+                            <option value="Testosterone">Testosterone</option>
+                            <option value="Insulin">Insulin</option>
+                        </select>
+                        <p class="answer">Correct Answer: Adrenaline (Epinephrine)</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">What does heritability measure in the context of behavioral genetics?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="Percentage of genetic influence on a trait">Percentage of genetic influence on a trait</option>
+                            <option value="Percentage of environmental influence on a trait">Percentage of environmental influence on a trait</option>
+                            <option value="Absolute genetic determinism">Absolute genetic determinism</option>
+                            <option value="The role of epigenetics in trait expression">The role of epigenetics in trait expression</option>
+                        </select>
+                        <p class="answer">Correct Answer: Percentage of genetic influence on a trait</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which of the following describes gene-environment interaction?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="Genes solely determine behavior">Genes solely determine behavior</option>
+                            <option value="Environment solely determines behavior">Environment solely determines behavior</option>
+                            <option value="Both genes and environment interact to influence behavior">Both genes and environment interact to influence behavior</option>
+                            <option value="Behavior is predetermined at birth">Behavior is predetermined at birth</option>
+                        </select>
+                        <p class="answer">Correct Answer: Both genes and environment interact to influence behavior</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz submission handler
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'Somatic Nervous System',
+                q2: 'Serotonin',
+                q3: 'Adrenaline',
+                q4: 'Percentage of genetic influence on a trait',
+                q5: 'Both genes and environment interact to influence behavior',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>

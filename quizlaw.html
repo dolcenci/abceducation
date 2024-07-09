@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Law Quiz</h1>
+
+        <!-- Quiz: Law Basics -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Law Basics</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your understanding of fundamental concepts in law.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">What is the highest court in the United States?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="Supreme Court">Supreme Court</option>
+                            <option value="District Court">District Court</option>
+                            <option value="Circuit Court">Circuit Court</option>
+                            <option value="Appeals Court">Appeals Court</option>
+                        </select>
+                        <p class="answer">Correct Answer: Supreme Court</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">What is the term for a law that has been passed by a legislative body?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="Statute">Statute</option>
+                            <option value="Ordinance">Ordinance</option>
+                            <option value="Regulation">Regulation</option>
+                            <option value="By-law">By-law</option>
+                        </select>
+                        <p class="answer">Correct Answer: Statute</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">What is the legal principle that requires judges to follow the precedents established in previous court decisions?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="Stare decisis">Stare decisis</option>
+                            <option value="Habeas corpus">Habeas corpus</option>
+                            <option value="Pro bono">Pro bono</option>
+                            <option value="Quid pro quo">Quid pro quo</option>
+                        </select>
+                        <p class="answer">Correct Answer: Stare decisis</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">What is the term for a legal process where a person challenges the legality of their detention?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="Habeas corpus">Habeas corpus</option>
+                            <option value="Subpoena">Subpoena</option>
+                            <option value="Amicus curiae">Amicus curiae</option>
+                            <option value="Injunction">Injunction</option>
+                        </select>
+                        <p class="answer">Correct Answer: Habeas corpus</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">What is the term for a written legal order issued by a judge or court requiring someone to do something or refrain from doing something?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="Injunction">Injunction</option>
+                            <option value="Writ">Writ</option>
+                            <option value="Summons">Summons</option>
+                            <option value="Affidavit">Affidavit</option>
+                        </select>
+                        <p class="answer">Correct Answer: Writ</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz submission handler
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'Supreme Court',
+                q2: 'Statute',
+                q3: 'Stare decisis',
+                q4: 'Habeas corpus',
+                q5: 'Writ',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>

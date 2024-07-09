@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Week 2 Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Finance Week 2 Quiz</h1>
+
+        <!-- Quiz: Financial Markets and Investment Principles -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Financial Markets and Investment Principles</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge of financial markets and investment principles.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">1. What is the primary function of the primary financial market?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="To enable initial issuance of securities">To enable initial issuance of securities</option>
+                            <option value="To provide liquidity to investors">To provide liquidity to investors</option>
+                            <option value="To regulate market participants">To regulate market participants</option>
+                            <option value="To facilitate trading of previously issued securities">To facilitate trading of previously issued securities</option>
+                        </select>
+                        <p class="answer">Correct Answer: To enable initial issuance of securities</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">2. Which financial instrument derives its value from an underlying asset, index, or benchmark?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="Common stock">Common stock</option>
+                            <option value="Corporate bond">Corporate bond</option>
+                            <option value="Derivative">Derivative</option>
+                            <option value="Treasury bond">Treasury bond</option>
+                        </select>
+                        <p class="answer">Correct Answer: Derivative</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">3. What type of security represents ownership stakes in corporations?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="Corporate bond">Corporate bond</option>
+                            <option value="Derivative">Derivative</option>
+                            <option value="Equity security">Equity security</option>
+                            <option value="Government bond">Government bond</option>
+                        </select>
+                        <p class="answer">Correct Answer: Equity security</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">4. What investment strategy aims to balance risk and return by spreading investments across different asset classes?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="Market timing">Market timing</option>
+                            <option value="Sector rotation">Sector rotation</option>
+                            <option value="Diversification">Diversification</option>
+                            <option value="Stock picking">Stock picking</option>
+                        </select>
+                        <p class="answer">Correct Answer: Diversification</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">5. What regulatory body oversees market activities to ensure fair practices and investor protection?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="Federal Reserve">Federal Reserve</option>
+                            <option value="Financial Conduct Authority (FCA)">Financial Conduct Authority (FCA)</option>
+                            <option value="Securities and Exchange Commission (SEC)">Securities and Exchange Commission (SEC)</option>
+                            <option value="European Central Bank (ECB)">European Central Bank (ECB)</option>
+                        </select>
+                        <p class="answer">Correct Answer: Securities and Exchange Commission (SEC)</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz submission handler
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'To enable initial issuance of securities',
+                q2: 'Derivative',
+                q3: 'Equity security',
+                q4: 'Diversification',
+                q5: 'Securities and Exchange Commission (SEC)',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>

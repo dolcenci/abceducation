@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Memory Quiz</h1>
+
+        <!-- Quiz: Memory -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Memory</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge of memory processes and concepts.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">1. What is memory encoding?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="Transforming sensory input into a form that can be stored">Transforming sensory input into a form that can be stored</option>
+                            <option value="Retrieving stored information">Retrieving stored information</option>
+                            <option value="Storing information for extended periods">Storing information for extended periods</option>
+                            <option value="Processing information for immediate use">Processing information for immediate use</option>
+                        </select>
+                        <p class="answer">Correct Answer: Transforming sensory input into a form that can be stored</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">2. Which type of memory holds sensory information briefly?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="Short-term memory">Short-term memory</option>
+                            <option value="Long-term memory">Long-term memory</option>
+                            <option value="Sensory memory">Sensory memory</option>
+                            <option value="Working memory">Working memory</option>
+                        </select>
+                        <p class="answer">Correct Answer: Sensory memory</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">3. What is the capacity of short-term memory?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="Unlimited">Unlimited</option>
+                            <option value="7±2 items">7±2 items</option>
+                            <option value="Short duration">Short duration</option>
+                            <option value="24 hours">24 hours</option>
+                        </select>
+                        <p class="answer">Correct Answer: 7±2 items</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">4. Which memory type stores information for extended periods?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="Short-term memory">Short-term memory</option>
+                            <option value="Sensory memory">Sensory memory</option>
+                            <option value="Long-term memory">Long-term memory</option>
+                            <option value="Working memory">Working memory</option>
+                        </select>
+                        <p class="answer">Correct Answer: Long-term memory</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">5. What is the process of accessing stored information?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="Encoding">Encoding</option>
+                            <option value="Storing">Storing</option>
+                            <option value="Retrieval">Retrieval</option>
+                            <option value="Forgetting">Forgetting</option>
+                        </select>
+                        <p class="answer">Correct Answer: Retrieval</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz submission handler
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'Transforming sensory input into a form that can be stored',
+                q2: 'Sensory memory',
+                q3: '7±2 items',
+                q4: 'Long-term memory',
+                q5: 'Retrieval',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>

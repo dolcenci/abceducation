@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Strategies and Portfolio Management Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Investment Strategies and Portfolio Management Quiz</h1>
+
+        <!-- Quiz: Investment Strategies and Portfolio Management -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Investment Strategies and Portfolio Management</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge of investment strategies and portfolio management concepts.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">1. What is the primary objective of asset allocation in portfolio management?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="Balancing risk and return">Balancing risk and return</option>
+                            <option value="Maximizing dividends">Maximizing dividends</option>
+                            <option value="Minimizing taxes">Minimizing taxes</option>
+                            <option value="Achieving short-term gains">Achieving short-term gains</option>
+                        </select>
+                        <p class="answer">Correct Answer: Balancing risk and return</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">2. Which investment strategy focuses on buying stocks at a discount based on intrinsic value?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="Value Investing">Value Investing</option>
+                            <option value="Growth Investing">Growth Investing</option>
+                            <option value="Momentum Investing">Momentum Investing</option>
+                            <option value="Passive Investing">Passive Investing</option>
+                        </select>
+                        <p class="answer">Correct Answer: Value Investing</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">3. What does diversification in portfolio management aim to achieve?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="Reduce investment risk">Reduce investment risk</option>
+                            <option value="Maximize tax benefits">Maximize tax benefits</option>
+                            <option value="Increase short-term gains">Increase short-term gains</option>
+                            <option value="Achieve high liquidity">Achieve high liquidity</option>
+                        </select>
+                        <p class="answer">Correct Answer: Reduce investment risk</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">4. Which type of investment strategy aims to capitalize on trends in stock price movements?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="Momentum Investing">Momentum Investing</option>
+                            <option value="Active Investing">Active Investing</option>
+                            <option value="Value Investing">Value Investing</option>
+                            <option value="Passive Investing">Passive Investing</option>
+                        </select>
+                        <p class="answer">Correct Answer: Momentum Investing</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">5. What is the primary risk associated with growth investing?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="Higher volatility">Higher volatility</option>
+                            <option value="Lower returns">Lower returns</option>
+                            <option value="Increased taxes">Increased taxes</option>
+                            <option value="Market stagnation">Market stagnation</option>
+                        </select>
+                        <p class="answer">Correct Answer: Higher volatility</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz submission handler
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'Balancing risk and return',
+                q2: 'Value Investing',
+                q3: 'Reduce investment risk',
+                q4: 'Momentum Investing',
+                q5: 'Higher volatility',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>

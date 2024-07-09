@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theoretical Perspectives in Psychology Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Theoretical Perspectives in Psychology Quiz</h1>
+
+        <!-- Quiz: Theoretical Perspectives in Psychology -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Theoretical Perspectives in Psychology</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge of major theoretical perspectives in psychology.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">Who pioneered the psychodynamic perspective in psychology?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="Sigmund Freud">Sigmund Freud</option>
+                            <option value="Ivan Pavlov">Ivan Pavlov</option>
+                            <option value="Jean Piaget">Jean Piaget</option>
+                            <option value="Carl Rogers">Carl Rogers</option>
+                        </select>
+                        <p class="answer">Correct Answer: Sigmund Freud</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which theoretical perspective emphasizes observable behaviors as the primary focus of study?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="Psychodynamic perspective">Psychodynamic perspective</option>
+                            <option value="Behavioral perspective">Behavioral perspective</option>
+                            <option value="Cognitive perspective">Cognitive perspective</option>
+                            <option value="Humanistic perspective">Humanistic perspective</option>
+                        </select>
+                        <p class="answer">Correct Answer: Behavioral perspective</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Who proposed the hierarchy of needs in the humanistic perspective?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="Abraham Maslow">Abraham Maslow</option>
+                            <option value="Jean Piaget">Jean Piaget</option>
+                            <option value="Viktor Frankl">Viktor Frankl</option>
+                            <option value="Rollo May">Rollo May</option>
+                        </select>
+                        <p class="answer">Correct Answer: Abraham Maslow</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which perspective views humans as active processors of information?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="Psychodynamic perspective">Psychodynamic perspective</option>
+                            <option value="Behavioral perspective">Behavioral perspective</option>
+                            <option value="Cognitive perspective">Cognitive perspective</option>
+                            <option value="Humanistic perspective">Humanistic perspective</option>
+                        </select>
+                        <p class="answer">Correct Answer: Cognitive perspective</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which perspective applies principles of natural selection to understand human behavior?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="Psychodynamic perspective">Psychodynamic perspective</option>
+                            <option value="Behavioral perspective">Behavioral perspective</option>
+                            <option value="Cognitive perspective">Cognitive perspective</option>
+                            <option value="Evolutionary perspective">Evolutionary perspective</option>
+                        </select>
+                        <p class="answer">Correct Answer: Evolutionary perspective</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz submission handler
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'Sigmund Freud',
+                q2: 'Behavioral perspective',
+                q3: 'Abraham Maslow',
+                q4: 'Cognitive perspective',
+                q5: 'Evolutionary perspective',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>
+

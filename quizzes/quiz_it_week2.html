@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to HTML Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Introduction to HTML Quiz</h1>
+
+        <!-- Quiz: Introduction to Coding - HTML Basics -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Introduction to Coding - HTML Basics</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge of HTML basics from Week 2.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">Which HTML tag is used to define a hyperlink?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="a">a</option>
+                            <option value="img">img</option>
+                            <option value="p">p</option>
+                            <option value="h1">h1</option>
+                        </select>
+                        <p class="answer">Correct Answer: a</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which HTML tag is used for the largest heading?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="h1">h1</option>
+                            <option value="h2">h2</option>
+                            <option value="h3">h3</option>
+                            <option value="h4">h4</option>
+                        </select>
+                        <p class="answer">Correct Answer: h1</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which HTML tag is used to define an image?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="img">img</option>
+                            <option value="a">a</option>
+                            <option value="div">div</option>
+                            <option value="p">p</option>
+                        </select>
+                        <p class="answer">Correct Answer: img</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which HTML tag defines a list item in an ordered list?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="li">li</option>
+                            <option value="ul">ul</option>
+                            <option value="ol">ol</option>
+                            <option value="list">list</option>
+                        </select>
+                        <p class="answer">Correct Answer: li</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which HTML tag is used to define a form?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="form">form</option>
+                            <option value="input">input</option>
+                            <option value="button">button</option>
+                            <option value="label">label</option>
+                        </select>
+                        <p class="answer">Correct Answer: form</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz submission handler
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'a',
+                q2: 'h1',
+                q3: 'img',
+                q4: 'li',
+                q5: 'form',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>

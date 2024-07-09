@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Instruments and Market Analysis Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Financial Instruments and Market Analysis Quiz</h1>
+
+        <!-- Quiz: Financial Instruments and Market Analysis -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Financial Instruments and Market Analysis</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge on financial instruments, market analysis, and valuation methods.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">1. What type of financial instrument represents ownership in a company?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="Equities">Equities</option>
+                            <option value="Debt Instruments">Debt Instruments</option>
+                            <option value="Derivatives">Derivatives</option>
+                            <option value="Hybrid Instruments">Hybrid Instruments</option>
+                        </select>
+                        <p class="answer">Correct Answer: Equities</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">2. Which financial instrument is considered a fixed-income security?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="Bonds">Bonds</option>
+                            <option value="Common Stocks">Common Stocks</option>
+                            <option value="Options">Options</option>
+                            <option value="Swaps">Swaps</option>
+                        </select>
+                        <p class="answer">Correct Answer: Bonds</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">3. What are options and futures examples of?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="Derivatives">Derivatives</option>
+                            <option value="Equities">Equities</option>
+                            <option value="Debt Instruments">Debt Instruments</option>
+                            <option value="Hybrid Instruments">Hybrid Instruments</option>
+                        </select>
+                        <p class="answer">Correct Answer: Derivatives</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">4. What valuation method involves projecting future cash flows?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="Discounted Cash Flow (DCF) Analysis">Discounted Cash Flow (DCF) Analysis</option>
+                            <option value="Comparable Company Analysis">Comparable Company Analysis</option>
+                            <option value="Precedent Transaction Analysis">Precedent Transaction Analysis</option>
+                            <option value="Technical Analysis">Technical Analysis</option>
+                        </select>
+                        <p class="answer">Correct Answer: Discounted Cash Flow (DCF) Analysis</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">5. What type of stock offers fixed dividend payments?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="Preferred Stock">Preferred Stock</option>
+                            <option value="Common Stock">Common Stock</option>
+                            <option value="Convertible Stock">Convertible Stock</option>
+                            <option value="Hybrid Stock">Hybrid Stock</option>
+                        </select>
+                        <p class="answer">Correct Answer: Preferred Stock</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz submission handler
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'Equities',
+                q2: 'Bonds',
+                q3: 'Derivatives',
+                q4: 'Discounted Cash Flow (DCF) Analysis',
+                q5: 'Preferred Stock',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>
