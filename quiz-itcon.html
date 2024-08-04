@@ -55,6 +55,7 @@
             display: none;
         }
     </style>
+    <!-- Include the confetti library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.0/dist/confetti.browser.min.js"></script>
 </head>
 
@@ -167,9 +168,9 @@
             // Show confetti if score is 3 or more
             if (score >= 3) {
                 confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 }
+                    particleCount: 200, // Increase the particle count for more confetti
+                    spread: 90,         // Spread the confetti wider
+                    origin: { y: 0.6 }, // Start confetti slightly from the bottom
                 });
             }
         });
