@@ -1,6 +1,5 @@
  
-
-<!DOCTYPE html>
+       <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -77,7 +76,7 @@
     <script>
         // Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
+           apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
             authDomain: "prosper-a9810.firebaseapp.com",
             projectId: "prosper-a9810",
             storageBucket: "prosper-a9810.appspot.com",
@@ -91,6 +90,12 @@
         const auth = firebase.auth();
         const firestore = firebase.firestore();
         const storage = firebase.storage();
+
+        // Dummy user authentication for demo purposes
+        // In a real application, users should be authenticated
+        firebase.auth().signInAnonymously().catch((error) => {
+            console.error("Authentication failed:", error);
+        });
 
         // Profile creation and viewing logic
         document.getElementById('form').addEventListener('submit', async (event) => {
@@ -166,4 +171,4 @@
     </script>
 </body>
 </html>
-        
+ 
