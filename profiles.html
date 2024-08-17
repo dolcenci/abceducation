@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Management</title>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"></script>
+    <!-- Your Firebase Config -->
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group input {
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+        }
+        .form-group button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        #profile-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Profile Management</h1>
+    
+    <div id="create-profile">
+        <h2>Create Profile</h2>
+        <form id="profile-form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Profile Image:</label>
+                <input type="file" id="image">
+            </div>
+            <button type="submit">Create Profile</button>
+        </form>
+    </div>
+
+    <div id="view-profile">
+        <h2>View Profile</h2>
+        <div class="form-group">
+            <label for="profile-id">Enter Profile ID:</label>
+            <input type="text" id="profile-id">
+            <button id="fetch-profile">Fetch Profile</button>
+        </div>
+        <div id="profile-info">
+            <h3 id="profile-name"></h3>
+            <p id="profile-email"></p>
+            <img id="profile-image" class="profile-image" src="" alt="Profile Image" style="display: none;">
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script>
+        // Initialize Firebase
+        const auth = firebase.auth();
+        const firestore = firebase.firestore();
+        const storage = firebase.storage();
+
+        // Create Profile
+        document.getElementById('profile-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const image = document.getElementById('image').files[0];
+            
+            let imageUrl = '';
+
+            if (image) {
+                const imageRef = storage.ref().child(`profile_images/${image.name}`);
+                await imageRef.put(image);
+                imageUrl = await imageRef.getDownloadURL();
+            }
+
+            await firestore.collection('profiles').add({
+                name,
+                email,
+                imageUrl
+            });
+
+            alert('Profile created!');
+            document.getElementById('profile-form').reset();
+        });
+
+        // View Profile
+        document.getElementById('fetch-profile').addEventListener('click', async () => {
+            const profileId = document.getElementById('profile-id').value;
+            const profileRef = firestore.collection('profiles').doc(profileId);
+            const doc = await profileRef.get();
+            
+            if (doc.exists) {
+                const profile = doc.data();
+                document.getElementById('profile-name').innerText = profile.name;
+                document.getElementById('profile-email').innerText = profile.email;
+                
+                const profileImage = document.getElementById('profile-image');
+                if (profile.imageUrl) {
+                    profileImage.src = profile.imageUrl;
+                    profileImage.style.display = 'block';
+                } else {
+                    profileImage.style.display = 'none';
+                }
+            } else {
+                alert('Profile not found');
+            }
+        });
+    </script>
+</body>
+</html>
