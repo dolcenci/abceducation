@@ -61,7 +61,7 @@
 
     <div class="container">
         <h1>Information Technology Week 1 Quiz</h1>
-
+      <button class="logout-button" id="results">results firebase</button>
         <!-- Quiz: Introduction to Information Technology -->
         <div class="card">
             <div class="card-header">
@@ -207,6 +207,13 @@
                 }
             }
         });
+
+document.getElementById('results').addEventListener('click', () => {
+             
+                window.location.href = 'quizzes/results.html'; // Redirect to login page
+            
+        });
+        
     </script>
 </body>
 
