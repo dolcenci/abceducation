@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <style>
+        /* Existing CSS styles */
         body {
             display: flex;
             justify-content: center;
@@ -41,7 +42,10 @@
             color: #555555;
         }
         input[type="email"],
-        input[type="password"] {
+        input[type="password"],
+        input[type="text"],
+        input[type="date"],
+        textarea {
             width: 100%;
             padding: 10px;
             border-radius: 5px;
@@ -99,6 +103,22 @@
                 <label for="registerPassword">Password</label>
                 <input type="password" id="registerPassword" placeholder="Enter your password" required>
             </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" placeholder="Enter your address" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" required>
+            </div>
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" rows="4" placeholder="Tell us about yourself" required></textarea>
+            </div>
             <button type="submit" class="form-button">Register</button>
         </form>
         <div class="form-toggle">
@@ -112,11 +132,12 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
-            authDomain: "prosper-a9810.Firebaseapp.com",
+            authDomain: "prosper-a9810.firebaseapp.com",
             projectId: "prosper-a9810",
             storageBucket: "prosper-a9810.appspot.com",
             messagingSenderId: "1040350127188",
@@ -128,6 +149,7 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const auth = getAuth(app);
+        const firestore = getFirestore(app);
 
         // Toggle between login and register forms
         document.getElementById('toggleForm').addEventListener('click', (e) => {
@@ -158,7 +180,7 @@
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     // Successful login
-                    window.location.href = 'https://dolcenci.github.io/abceducation/indexreal.html'; // Replace with your redirect URL
+                    window.location.href = 'https://dolcenci.github.io/abceducation/indexreal2.html'; // Redirect to profile page
                 })
                 .catch((error) => {
                     alert(error.message);
@@ -166,19 +188,33 @@
         });
 
         // Handle register form submission
-        document.getElementById('registerForm').addEventListener('submit', (e) => {
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('registerEmail').value;
             const password = document.getElementById('registerPassword').value;
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Successful registration
-                    alert("User registered successfully!");
-                    // You may redirect the user to another page here if needed
-                })
-                .catch((error) => {
-                    alert(error.message);
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const dob = document.getElementById('dob').value;
+            const bio = document.getElementById('bio').value;
+
+            try {
+                // Create user with email and password
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Save additional user details to Firestore
+                await setDoc(doc(firestore, 'users', user.uid), {
+                    name,
+                    address,
+                    dob,
+                    bio
                 });
+
+                alert("User registered successfully!");
+                window.location.href = 'https://dolcenci.github.io/abceducation/indexreal2.html'; // Redirect to profile page
+            } catch (error) {
+                alert(error.message);
+            }
         });
     </script>
 </body>
