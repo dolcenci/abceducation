@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f3f7f9;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+            margin: 20px;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+        .container h1 {
+            color: #333333;
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .profile-info {
+            margin-bottom: 20px;
+        }
+        .profile-info p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Profile</h1>
+        <div class="profile-info">
+            <p><strong>Email:</strong> <span id="profile-email"></span></p>
+            <p><strong>Name:</strong> <span id="profile-name"></span></p>
+            <p><strong>Address:</strong> <span id="profile-address"></span></p>
+            <p><strong>Date of Birth:</strong> <span id="profile-dob"></span></p>
+            <p><strong>Bio:</strong> <span id="profile-bio"></span></p>
+        </div>
+    </div>
+
+    <!-- Import Firebase SDKs and JavaScript -->
+    <script type="module">
+        // Import Firebase SDKs and functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
+            authDomain: "prosper-a9810.firebaseapp.com",
+            projectId: "prosper-a9810",
+            storageBucket: "prosper-a9810.appspot.com",
+            messagingSenderId: "1040350127188",
+            appId: "1:1040350127188:web:da8987386085d778eaf9cl1",
+            measurementId: "G-6G8BMD6S3G"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+        const firestore = getFirestore(app);
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = auth.currentUser;
+            if (!user) {
+                window.location.href = 'index.html'; // Redirect to login if not authenticated
+                return;
+            }
+
+            try {
+                const userDoc = await getDoc(doc(firestore, 'users', user.uid));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    document.getElementById('profile-email').textContent = user.email;
+                    document.getElementById('profile-name').textContent = userData.name;
+                    document.getElementById('profile-address').textContent = userData.address;
+                    document.getElementById('profile-dob').textContent = userData.dob;
+                    document.getElementById('profile-bio').textContent = userData.bio;
+                } else {
+                    document.body.innerHTML = 'No profile data found.';
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        });
+    </script>
+</body>
+</html>
