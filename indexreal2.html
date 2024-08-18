@@ -84,6 +84,7 @@
             <p id="profileBio">Loading...</p>
         </div>
         <button class="logout-button" id="logoutButton">Logout</button>
+         <button class="logout-button" id="home">home</button>
     </div>
 
     <!-- Import Firebase SDKs and JavaScript -->
@@ -135,7 +136,7 @@
                 window.location.href = 'login.html';
             }
         });
-
+home
         // Handle logout
         document.getElementById('logoutButton').addEventListener('click', () => {
             signOut(auth).then(() => {
@@ -144,6 +145,13 @@
                 alert(error.message);
             });
         });
+
+document.getElementById('home').addEventListener('click', () => {
+             
+                window.location.href = 'indexreal.html'; // Redirect to login page
+            
+        });
+        
     </script>
 </body>
 </html>
