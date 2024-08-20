@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passed Quizzes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-list {
+            margin-top: 20px;
+        }
+
+        .quiz-item {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Quizzes You've Passed</h1>
+        <div id="quizList" class="quiz-list">
+            <!-- Passed quizzes will be displayed here -->
+        </div>
+    </div>
+
+    <!-- Import Firebase SDKs and JavaScript -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
+            authDomain: "prosper-a9810.firebaseapp.com",
+            projectId: "prosper-a9810",
+            storageBucket: "prosper-a9810.appspot.com",
+            messagingSenderId: "1040350127188",
+            appId: "1:1040350127188:web:da8987386085d778eaf9cl1",
+            measurementId: "G-6G8BMD6S3G"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+        const firestore = getFirestore(app);
+
+        async function loadPassedQuizzes() {
+            const user = auth.currentUser;
+            if (user) {
+                const userId = user.uid;
+                const quizListDiv = document.getElementById('quizList');
+
+                try {
+                    const q = query(collection(firestore, 'user_quizzes'), where('passed', '==', true));
+                    const querySnapshot = await getDocs(q);
+
+                    querySnapshot.forEach((doc) => {
+                        const quizData = doc.data();
+                        const quizDate = new Date(quizData.date).toLocaleDateString();
+                        const quizItem = document.createElement('div');
+                        quizItem.className = 'quiz-item';
+                        quizItem.innerHTML = `
+                            <h5>Quiz: Week 1</h5>
+                            <p>Score: ${quizData.score}/5</p>
+                            <p>Date Passed: ${quizDate}</p>
+                        `;
+                        quizListDiv.appendChild(quizItem);
+                    });
+                } catch (error) {
+                    console.error('Error fetching quizzes:', error);
+                }
+            } else {
+                alert('Please log in to view your passed quizzes.');
+                window.location.href = 'index.html'; // Redirect to login if not authenticated
+            }
+        }
+
+        loadPassedQuizzes();
+    </script>
+</body>
+
+</html>
