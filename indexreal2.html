@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <style>
-        /* Basic styling similar to login page for consistency */
         body {
             display: flex;
             justify-content: center;
@@ -46,6 +45,16 @@
             margin: 0;
             color: #333333;
         }
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
         .logout-button {
             display: block;
             width: 100%;
@@ -58,15 +67,34 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             text-align: center;
+            margin-top: 10px;
         }
         .logout-button:hover {
             background-color: #0056b3;
+        }
+        .home-button {
+            display: block;
+            width: 100%;
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .home-button:hover {
+            background-color: #1e7e34;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>User Profile</h1>
+        <img id="profileImage" class="profile-image" src="default-profile.png" alt="Profile Photo">
         <div class="profile-group">
             <label for="profileName">Name:</label>
             <p id="profileName">Loading...</p>
@@ -84,7 +112,7 @@
             <p id="profileBio">Loading...</p>
         </div>
         <button class="logout-button" id="logoutButton">Logout</button>
-         <button class="logout-button" id="home">home</button>
+        <button class="home-button" id="homeButton">Home</button>
     </div>
 
     <!-- Import Firebase SDKs and JavaScript -->
@@ -93,8 +121,8 @@
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-        // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
             authDomain: "prosper-a9810.firebaseapp.com",
@@ -105,13 +133,12 @@
             measurementId: "G-6G8BMD6S3G"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const auth = getAuth(app);
         const firestore = getFirestore(app);
+        const storage = getStorage(app);
 
-        // Function to fetch and display user data
         async function fetchUserData(userId) {
             const docRef = doc(firestore, 'users', userId);
             const docSnap = await getDoc(docRef);
@@ -122,36 +149,35 @@
                 document.getElementById('profileAddress').textContent = userData.address;
                 document.getElementById('profileDob').textContent = userData.dob;
                 document.getElementById('profileBio').textContent = userData.bio;
+                
+                if (userData.photoURL) {
+                    const img = document.getElementById('profileImage');
+                    img.src = userData.photoURL;
+                }
             } else {
                 alert("No user data found.");
             }
         }
 
-        // Check user authentication state
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 fetchUserData(user.uid);
             } else {
-                // Redirect to login if no user is authenticated
                 window.location.href = 'login.html';
             }
         });
-home
-        // Handle logout
+
         document.getElementById('logoutButton').addEventListener('click', () => {
             signOut(auth).then(() => {
-                window.location.href = 'login.html'; // Redirect to login page
+                window.location.href = 'login.html';
             }).catch((error) => {
                 alert(error.message);
             });
         });
 
-document.getElementById('home').addEventListener('click', () => {
-             
-                window.location.href = 'indexreal.html'; // Redirect to login page
-            
+        document.getElementById('homeButton').addEventListener('click', () => {
+            window.location.href = 'indexreal.html';
         });
-        
     </script>
 </body>
 </html>
