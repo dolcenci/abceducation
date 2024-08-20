@@ -11,108 +11,122 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #f3f7f9;
-            font-family: Arial, sans-serif;
+            background-color: #f4f7f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .container {
             background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             margin: 20px;
             padding: 40px;
             box-sizing: border-box;
         }
-        .container h1 {
-            color: #333333;
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .profile-group {
+        .profile-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eeeeee;
+            padding-bottom: 20px;
             margin-bottom: 20px;
         }
-        .profile-group label {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 5px;
-            color: #555555;
-        }
-        .profile-group p {
-            font-size: 16px;
-            margin: 0;
-            color: #333333;
-        }
-        .profile-image {
-            width: 100px;
-            height: 100px;
+        .profile-header img {
             border-radius: 50%;
+            width: 120px;
+            height: 120px;
             object-fit: cover;
-            margin-bottom: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin-right: 20px;
         }
-        .logout-button {
+        .profile-header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #333333;
+        }
+        .profile-header p {
+            margin: 5px 0;
+            color: #666666;
+        }
+        .profile-details {
+            margin-bottom: 20px;
+        }
+        .profile-details label {
             display: block;
-            width: 100%;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333333;
+        }
+        .profile-details p {
+            margin: 0;
+            color: #444444;
+        }
+        .profile-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .profile-actions button {
             background-color: #007bff;
             color: #ffffff;
             border: none;
             border-radius: 5px;
-            padding: 12px;
+            padding: 12px 20px;
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            text-align: center;
-            margin-top: 10px;
         }
-        .logout-button:hover {
+        .profile-actions button:hover {
             background-color: #0056b3;
         }
         .home-button {
-            display: block;
-            width: 100%;
             background-color: #28a745;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            padding: 12px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-align: center;
-            margin-top: 10px;
         }
         .home-button:hover {
             background-color: #1e7e34;
+        }
+        .intro-section {
+            margin-bottom: 30px;
+        }
+        .intro-section h2 {
+            font-size: 22px;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+        .intro-section p {
+            font-size: 16px;
+            color: #555555;
+            line-height: 1.5;
+        }
+        .divider {
+            border-top: 1px solid #eeeeee;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>User Profile</h1>
-        <img id="profileImage" class="profile-image" src="default-profile.png" alt="Profile Photo">
-        <div class="profile-group">
-            <label for="profileName">Name:</label>
-            <p id="profileName">Loading...</p>
+        <div class="profile-header">
+            <img id="profileImage" src="default-profile.png" alt="Profile Photo">
+            <div>
+                <h1 id="profileName">Loading...</h1>
+                <p id="profileAddress">Loading...</p>
+                <p id="profileDob">Loading...</p>
+                <p id="profileBio">Loading...</p>
+            </div>
         </div>
-        <div class="profile-group">
-            <label for="profileAddress">Address:</label>
-            <p id="profileAddress">Loading...</p>
+
+        <div class="intro-section">
+            <h2>Welcome to Your Profile</h2>
+            <p>Here you can view and manage your personal details. Make sure your information is up to date to fully benefit from our online courses. Update your profile as needed and check out the various courses and resources available to enhance your learning experience.</p>
         </div>
-        <div class="profile-group">
-            <label for="profileDob">Date of Birth:</label>
-            <p id="profileDob">Loading...</p>
+
+        <div class="divider"></div>
+
+        <div class="profile-actions">
+            <button class="logout-button" id="logoutButton">Logout</button>
+            <button class="home-button" id="homeButton">Home</button>
         </div>
-        <div class="profile-group">
-            <label for="profileBio">Bio:</label>
-            <p id="profileBio">Loading...</p>
-        </div>
-        <button class="logout-button" id="logoutButton">Logout</button>
-        <button class="home-button" id="homeButton">Home</button>
     </div>
 
     <!-- Import Firebase SDKs and JavaScript -->
