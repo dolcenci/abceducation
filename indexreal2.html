@@ -11,13 +11,13 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #e9f5f9;
+            background-color: #f0f4f8;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .container {
             background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             max-width: 900px;
             width: 100%;
@@ -28,38 +28,56 @@
         .profile-header {
             display: flex;
             align-items: center;
-            border-bottom: 2px solid #d3d3d3;
+            border-bottom: 2px solid #e0e0e0;
             padding-bottom: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            position: relative;
         }
         .profile-header img {
             border-radius: 50%;
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             object-fit: cover;
+            border: 5px solid #007bff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin-right: 20px;
         }
         .profile-header h1 {
             margin: 0;
-            font-size: 30px;
-            color: #2d3e50;
+            font-size: 32px;
+            color: #1f2d3d;
+            font-weight: 600;
         }
         .profile-header p {
             margin: 5px 0;
-            color: #5a5a5a;
+            color: #4a4a4a;
+            font-size: 18px;
         }
         .profile-details {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
-        .profile-details label {
-            display: block;
+        .profile-details .profile-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+        .profile-details .profile-item:last-child {
+            border-bottom: none;
+        }
+        .profile-details .profile-item label {
+            display: inline-block;
+            width: 150px;
             font-weight: bold;
-            margin-bottom: 5px;
-            color: #2d3e50;
+            color: #1f2d3d;
         }
-        .profile-details p {
+        .profile-details .profile-item p {
             margin: 0;
-            color: #4a4a4a;
+            color: #6c757d;
+            font-size: 18px;
+            flex-grow: 1;
         }
         .profile-actions {
             display: flex;
@@ -69,8 +87,8 @@
         }
         .profile-actions button {
             border: none;
-            border-radius: 6px;
-            padding: 14px 22px;
+            border-radius: 8px;
+            padding: 14px 24px;
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -101,7 +119,7 @@
         }
         .intro-section h2 {
             font-size: 24px;
-            color: #2d3e50;
+            color: #1f2d3d;
             margin-bottom: 12px;
         }
         .intro-section p {
@@ -110,16 +128,17 @@
             line-height: 1.6;
         }
         .divider {
-            border-top: 2px solid #d3d3d3;
+            border-top: 2px solid #e0e0e0;
             margin: 20px 0;
         }
         .edit-profile {
             margin-top: 20px;
             display: none; /* Initially hidden */
+            padding-top: 20px;
         }
         .edit-profile h2 {
             font-size: 24px;
-            color: #2d3e50;
+            color: #1f2d3d;
             margin-bottom: 12px;
         }
         .edit-profile form {
@@ -135,7 +154,7 @@
         .edit-profile textarea {
             width: 100%;
             padding: 10px;
-            border-radius: 6px;
+            border-radius: 8px;
             border: 1px solid #ced4da;
             font-size: 16px;
         }
@@ -146,7 +165,7 @@
             background-color: #007bff;
             color: #ffffff;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             padding: 14px;
             font-size: 16px;
             cursor: pointer;
@@ -172,6 +191,27 @@
         <div class="intro-section">
             <h2>Welcome to Your Profile</h2>
             <p>Here you can view and manage your personal details. Make sure your information is up to date to fully benefit from our online courses. Update your profile as needed and check out the various courses and resources available to enhance your learning experience.</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="profile-details">
+            <div class="profile-item">
+                <label for="profileNameDetail">Name:</label>
+                <p id="profileNameDetail">Loading...</p>
+            </div>
+            <div class="profile-item">
+                <label for="profileAddressDetail">Address:</label>
+                <p id="profileAddressDetail">Loading...</p>
+            </div>
+            <div class="profile-item">
+                <label for="profileDobDetail">Date of Birth:</label>
+                <p id="profileDobDetail">Loading...</p>
+            </div>
+            <div class="profile-item">
+                <label for="profileBioDetail">Bio:</label>
+                <p id="profileBioDetail">Loading...</p>
+            </div>
         </div>
 
         <div class="divider"></div>
@@ -220,6 +260,7 @@
         import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
+        // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
             authDomain: "prosper-a9810.firebaseapp.com",
@@ -230,18 +271,25 @@
             measurementId: "G-6G8BMD6S3G"
         };
 
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const auth = getAuth(app);
         const firestore = getFirestore(app);
         const storage = getStorage(app);
 
+        // Function to fetch and display user data
         async function fetchUserData(userId) {
             const docRef = doc(firestore, 'users', userId);
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
                 const userData = docSnap.data();
+                document.getElementById('profileNameDetail').textContent = userData.name;
+                document.getElementById('profileAddressDetail').textContent = userData.address;
+                document.getElementById('profileDobDetail').textContent = userData.dob;
+                document.getElementById('profileBioDetail').textContent = userData.bio;
+
                 document.getElementById('profileName').textContent = userData.name;
                 document.getElementById('profileAddress').textContent = userData.address;
                 document.getElementById('profileDob').textContent = userData.dob;
