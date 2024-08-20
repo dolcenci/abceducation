@@ -94,7 +94,8 @@
                     console.error('Error fetching quizzes:', error);
                 }
             } else {
-                 
+               alert('Please log in to view your passed quizzes.');
+                window.location.href = 'loginquizzes.html'; // Redirect to login if not authenticated   
             }
         }
 
