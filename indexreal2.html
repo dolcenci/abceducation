@@ -65,6 +65,7 @@
             display: flex;
             justify-content: center;
             gap: 10px;
+            margin-top: 20px;
         }
         .profile-actions button {
             background-color: #007bff;
@@ -239,7 +240,7 @@
                     img.src = userData.photoURL;
                 }
 
-                // Pre-fill the edit form with current data
+                // Pre-fill the form for editing
                 document.getElementById('editName').value = userData.name;
                 document.getElementById('editAddress').value = userData.address;
                 document.getElementById('editDob').value = userData.dob;
