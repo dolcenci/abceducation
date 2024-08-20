@@ -7,12 +7,19 @@
     <style>
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             background-color: #f0f4f8;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1f2d3d;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
         .container {
             background-color: #ffffff;
@@ -61,7 +68,7 @@
             display: flex;
             align-items: center;
             border-radius: 8px;
-            background-color: #f9f9f9;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             padding: 15px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border: 1px solid #e0e0e0;
@@ -77,9 +84,16 @@
         }
         .profile-details .profile-item p {
             margin: 0;
-            color: #333333;
+            color: #343a40;
             font-size: 18px;
             flex-grow: 1;
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid #ced4da;
+        }
+        .profile-details .profile-item:nth-child(even) {
+            background: linear-gradient(135deg, #e9ecef, #f8f9fa);
         }
         .profile-actions {
             display: flex;
@@ -179,6 +193,7 @@
     </style>
 </head>
 <body>
+    <div class="title">ABC EDUCATION</div>
     <div class="container">
         <div class="profile-header">
             <img id="profileImage" src="default-profile.png" alt="Profile Photo">
