@@ -11,15 +11,15 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #f4f7f9;
+            background-color: #e9f5f9;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .container {
             background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             margin: 20px;
             padding: 40px;
@@ -28,7 +28,7 @@
         .profile-header {
             display: flex;
             align-items: center;
-            border-bottom: 1px solid #eeeeee;
+            border-bottom: 2px solid #d3d3d3;
             padding-bottom: 20px;
             margin-bottom: 20px;
         }
@@ -41,12 +41,12 @@
         }
         .profile-header h1 {
             margin: 0;
-            font-size: 28px;
-            color: #333333;
+            font-size: 30px;
+            color: #2d3e50;
         }
         .profile-header p {
             margin: 5px 0;
-            color: #666666;
+            color: #5a5a5a;
         }
         .profile-details {
             margin-bottom: 20px;
@@ -55,61 +55,72 @@
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
-            color: #333333;
+            color: #2d3e50;
         }
         .profile-details p {
             margin: 0;
-            color: #444444;
+            color: #4a4a4a;
         }
         .profile-actions {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             margin-top: 20px;
         }
         .profile-actions button {
-            background-color: #007bff;
-            color: #ffffff;
             border: none;
-            border-radius: 5px;
-            padding: 12px 20px;
+            border-radius: 6px;
+            padding: 14px 22px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .profile-actions button:hover {
-            background-color: #0056b3;
+        .logout-button {
+            background-color: #ff4c4c;
+            color: #ffffff;
+        }
+        .logout-button:hover {
+            background-color: #d43f3f;
         }
         .home-button {
             background-color: #28a745;
+            color: #ffffff;
         }
         .home-button:hover {
-            background-color: #1e7e34;
+            background-color: #218838;
+        }
+        .edit-profile-button {
+            background-color: #ffc107;
+            color: #ffffff;
+        }
+        .edit-profile-button:hover {
+            background-color: #e0a800;
         }
         .intro-section {
             margin-bottom: 30px;
         }
         .intro-section h2 {
-            font-size: 22px;
-            color: #333333;
-            margin-bottom: 10px;
+            font-size: 24px;
+            color: #2d3e50;
+            margin-bottom: 12px;
         }
         .intro-section p {
             font-size: 16px;
-            color: #555555;
-            line-height: 1.5;
+            color: #6c757d;
+            line-height: 1.6;
         }
         .divider {
-            border-top: 1px solid #eeeeee;
+            border-top: 2px solid #d3d3d3;
             margin: 20px 0;
         }
         .edit-profile {
             margin-top: 20px;
+            display: none; /* Initially hidden */
         }
         .edit-profile h2 {
-            font-size: 22px;
-            color: #333333;
-            margin-bottom: 10px;
+            font-size: 24px;
+            color: #2d3e50;
+            margin-bottom: 12px;
         }
         .edit-profile form {
             display: flex;
@@ -124,8 +135,8 @@
         .edit-profile textarea {
             width: 100%;
             padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #cccccc;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
             font-size: 16px;
         }
         .edit-profile .form-group input[type="file"] {
@@ -135,8 +146,8 @@
             background-color: #007bff;
             color: #ffffff;
             border: none;
-            border-radius: 5px;
-            padding: 12px;
+            border-radius: 6px;
+            padding: 14px;
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
@@ -168,11 +179,12 @@
         <div class="profile-actions">
             <button class="logout-button" id="logoutButton">Logout</button>
             <button class="home-button" id="homeButton">Home</button>
+            <button class="edit-profile-button" id="editProfileButton">Edit Profile</button>
         </div>
 
         <div class="divider"></div>
 
-        <div class="edit-profile">
+        <div class="edit-profile" id="editProfileSection">
             <h2>Edit Your Profile</h2>
             <form id="editProfileForm">
                 <div class="form-group">
@@ -236,11 +248,11 @@
                 document.getElementById('profileBio').textContent = userData.bio;
 
                 if (userData.photoURL) {
-                    const img = document.getElementById('profileImage');
-                    img.src = userData.photoURL;
+                    document.getElementById('profileImage').src = userData.photoURL;
+                } else {
+                    document.getElementById('profileImage').src = 'default-profile.png';
                 }
 
-                // Pre-fill the form for editing
                 document.getElementById('editName').value = userData.name;
                 document.getElementById('editAddress').value = userData.address;
                 document.getElementById('editDob').value = userData.dob;
@@ -268,6 +280,19 @@
 
         document.getElementById('homeButton').addEventListener('click', () => {
             window.location.href = 'indexreal.html';
+        });
+
+        document.getElementById('editProfileButton').addEventListener('click', () => {
+            const profileSection = document.querySelector('.profile-header');
+            const editProfileSection = document.getElementById('editProfileSection');
+
+            if (editProfileSection.style.display === 'none' || editProfileSection.style.display === '') {
+                profileSection.style.display = 'none';
+                editProfileSection.style.display = 'block';
+            } else {
+                profileSection.style.display = 'block';
+                editProfileSection.style.display = 'none';
+            }
         });
 
         document.getElementById('editProfileForm').addEventListener('submit', async (event) => {
@@ -304,6 +329,10 @@
                 await updateDoc(userRef, updateData);
                 alert("Profile updated successfully.");
                 fetchUserData(user.uid); // Refresh profile data
+
+                // Hide the edit form and show the profile again
+                document.querySelector('.profile-header').style.display = 'block';
+                document.getElementById('editProfileSection').style.display = 'none';
             } catch (error) {
                 alert("Error updating profile: " + error.message);
             }
