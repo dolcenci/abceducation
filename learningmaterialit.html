@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -117,6 +117,24 @@
             font-size: 1.1rem;
             line-height: 1.4;
         }
+
+        /* Video Container Styles */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -140,17 +158,13 @@
             </ul>
         </section>
         <section>
-
-             
-
-            
             <h2>Week 1: Introduction to Information Technology</h2>
             <div class="video-container">
-                <iframe src="https://www.youtube.com/watch?v=O5nskjZ_GoI&pp=ygUpY3Jhc2ggY291cnNlIGNvbXB1dGVyIHNjaWVuY2UgZnVsbCBzZXJpZXM%3D" title="Introduction to Psychology" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/O5nskjZ_GoI" title="Introduction to Information Technology" frameborder="0" allowfullscreen></iframe>
             </div>
             <ul>
                 <li><a class="download-link" href="https://docs.google.com/document/d/e/2PACX-1vTxgCN7woILRvv0W6elf_SQY2FI3j8iTlhyoXAswH7A4xFZgLT9fyrJRx2PYAjMeVamrN22QF2FGuJe/pub" download>Week 1 Content</a></li>
-                <li><a class="download-link" href="quiz_it_week1.html" >Week 1 Quiz</a></li>
+                <li><a class="download-link" href="quiz_it_week1.html">Week 1 Quiz</a></li>
             </ul>
             <div class="outline">
                 <h3>Outline</h3>
@@ -167,14 +181,11 @@
         <section>
             <h2>Week 2: Cybersecurity and Network Administration</h2>
             <div class="video-container">
-                <iframe src="https://www.youtube.com/watch?v=bPVaOlJ6ln0&pp=ygVGY3Jhc2ggY291cnNlIGNvbXB1dGVyIHNjaWVuY2UgQ3liZXJzZWN1cml0eSBhbmQgTmV0d29yayBBZG1pbmlzdHJhdGlvbg%3D%3D" title="Introduction to Psychology" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/watch?v=bPVaOlJ6ln0&pp=ygVGY3Jhc2ggY291cnNlIGNvbXB1dGVyIHNjaWVuY2UgQ3liZXJzZWN1cml0eSBhbmQgTmV0d29yayBBZG1pbmlzdHJhdGlvbg%3D%3D" title="Introduction to Psychology" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/bPVaOlJ6ln0" title="Cybersecurity and Network Administration" frameborder="0" allowfullscreen></iframe>
             </div>
             <ul>
                 <li><a class="download-link" href="https://docs.google.com/document/d/e/2PACX-1vTbf0Ery5LXznbIZKj1kJPFWjVrE_y6BVHG0fYDUrHwZe31oeiw20s5l54l0nQfkVsKYiF1oINe0Uac/pub" download>Week 2 Content</a></li>
-                <li><a class="download-link" href="quizzes/quiz_it_week2.html" >Week 2 Quiz</a></li>
+                <li><a class="download-link" href="quizzes/quiz_it_week2.html">Week 2 Quiz</a></li>
             </ul>
             <div class="outline">
                 <h3>Outline</h3>
@@ -191,115 +202,66 @@
         <section>
             <h2>Week 3: Introduction to CSS - Styling the Web</h2>
             <div class="video-container">
-                <iframe src="https://www.youtube.com/watch?v=RU1u-js7db8&pp=ygUkY3Jhc2ggY291cnNlIGNvbXB1dGVyIHNjaWVuY2UgY29kaW5n" title="Introduction to Psychology" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/RU1u-js7db8" title="Introduction to CSS" frameborder="0" allowfullscreen></iframe>
             </div>
-            
             <ul>
-                <li><a class="download-link" href="https://docs.google.com/document/d/e/2PACX-1vST6AMumvjMzIicmkLwYiTad3bYzcGYSw1ugtGR2J6L9FhxacGtIY8WUrRtPHxAZR5Ih8SDR6_cfX8V/pub" download>Week 2 Content</a></li>
-                <li><a class="download-link" href="quizzes/quiz_it_week2.html" >Week 2 Quiz</a></li>
+                <li><a class="download-link" href="https://docs.google.com/document/d/e/2PACX-1vST6AMumvjMzIicmkLwYiTad3bYzcGYSw1ugtGR2J6L9FhxacGtIY8WUrRtPHxAZR5Ih8SDR6_cfX8V/pub" download>Week 3 Content</a></li>
+                <li><a class="download-link" href="quizzes/quiz_it_week3.html">Week 3 Quiz</a></li>
             </ul>
             <div class="outline">
                 <h3>Outline</h3>
-                <p>This week's material explores cybersecurity principles and network administration:</p>
+                <p>This week's material covers:</p>
                 <ul>
-                    <li>Threats and vulnerabilities in information systems: malware, phishing, and social engineering.</li>
-                    <li>Network security protocols: encryption, firewalls, and intrusion detection systems (IDS).</li>
-                    <li>Role of ethical hacking and penetration testing in cybersecurity.</li>
-                    <li>System administration: managing servers, virtual machines, and cloud-based services.</li>
-                    <li>Compliance and regulatory frameworks in cybersecurity.</li>
+                    <li>Introduction to CSS and its role in web design.</li>
+                    <li>Selectors, properties, and values.</li>
+                    <li>Box model, margins, and padding.</li>
+                    <li>Styling text and fonts.</li>
+                    <li>Layout techniques including flexbox and grid.</li>
                 </ul>
             </div>
         </section>
         <section>
             <h2>Week 4: Advanced CSS Techniques</h2>
             <div class="video-container">
-                <iframe src="https://www.youtube.com/watch?v=Z4pCqK-V_Wo&pp=ygUNY3NzIGV4cGxhaW5lZA%3D%3D" title="Introduction to Psychology" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/n7FhQQJ0VQ8" title="Advanced CSS Techniques" frameborder="0" allowfullscreen></iframe>
             </div>
             <ul>
-                <li><a class="download-link" href="https://docs.google.com/document/d/e/2PACX-1vQopuA6_AhiE3cjZQRzxkyyL1VC5CDPcpbYvAk-rMlj8MTy7zbau07J0yEUw6CvbqvRsSUiKdYCTjZu/pub" download>Week 2 Content</a></li>
-                <li><a class="download-link" href="quizzes/quiz_it_week2.html" >Week 2 Quiz</a></li>
+                <li><a class="download-link" href="https://docs.google.com/document/d/e/2PACX-1vRU4WqslPndqhnZ7Dgjc49NyZ1Rt-W3SkBoOUCBIibsmU1QRl75kW9JqIRdFLu0j59GHtW84QobPEVu/pub" download>Week 4 Content</a></li>
+                <li><a class="download-link" href="quizzes/quiz_it_week4.html">Week 4 Quiz</a></li>
             </ul>
             <div class="outline">
                 <h3>Outline</h3>
-                <p>This week's material explores cybersecurity principles and network administration:</p>
+                <p>This week's material focuses on advanced CSS techniques:</p>
                 <ul>
-                    <li>Threats and vulnerabilities in information systems: malware, phishing, and social engineering.</li>
-                    <li>Network security protocols: encryption, firewalls, and intrusion detection systems (IDS).</li>
-                    <li>Role of ethical hacking and penetration testing in cybersecurity.</li>
-                    <li>System administration: managing servers, virtual machines, and cloud-based services.</li>
-                    <li>Compliance and regulatory frameworks in cybersecurity.</li>
+                    <li>CSS animations and transitions.</li>
+                    <li>Responsive design principles.</li>
+                    <li>CSS preprocessors like SASS and LESS.</li>
+                    <li>Accessibility considerations in web design.</li>
+                    <li>Performance optimization techniques for CSS.</li>
                 </ul>
             </div>
         </section>
         <section>
-            <h2>Week 5: Javascript For Web Development</h2>
+            <h2>Week 5: Introduction to JavaScript</h2>
             <div class="video-container">
-                <iframe src="https://www.youtube.com/watch?v=guvsH5OFizE&pp=ygUtY3Jhc2ggY291cnNlIGNvbXB1dGVyIHNjaWVuY2Ugd2ViIGRldmVsb3BtZW50" title="Introduction to Psychology" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/watch?v=upDLs1sn7g4&pp=ygUUamF2YXNjcmlwdCBleHBsYWluZWQ%3D" title="Introduction to Psychology" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/Zq2cPeFQEkY" title="Introduction to JavaScript" frameborder="0" allowfullscreen></iframe>
             </div>
             <ul>
-                <li><a class="download-link" href="https://docs.google.com/document/d/e/2PACX-1vTzRHaH--OvyGkYZp4wBLRpRYD31-l2Zg-lkbDggSIUepjiIm_3MURRXVCfe1ghPQV6vFpIRfDEThqh/pub" download>Week 2 Content</a></li>
-                <li><a class="download-link" href="quizzes/quiz_it_week2.html" >Week 2 Quiz</a></li>
+                <li><a class="download-link" href="https://docs.google.com/document/d/e/2PACX-1vSkRkHkZt7qJ8LG1izTZ4r1oih2xlk4l9LqG7iJ3U8NWkAcN4V6xoa5X2BWIekZlHc4LmsUd5I9wzbxY/pub" download>Week 5 Content</a></li>
+                <li><a class="download-link" href="quizzes/quiz_it_week5.html">Week 5 Quiz</a></li>
             </ul>
             <div class="outline">
                 <h3>Outline</h3>
-                <p>This week's material explores cybersecurity principles and network administration:</p>
+                <p>This week's material introduces JavaScript:</p>
                 <ul>
-                    <li>Threats and vulnerabilities in information systems: malware, phishing, and social engineering.</li>
-                    <li>Network security protocols: encryption, firewalls, and intrusion detection systems (IDS).</li>
-                    <li>Role of ethical hacking and penetration testing in cybersecurity.</li>
-                    <li>System administration: managing servers, virtual machines, and cloud-based services.</li>
-                    <li>Compliance and regulatory frameworks in cybersecurity.</li>
-                </ul>
-            </div>
-        </section>
-        <section>
-            <h2>Week 6: Advanced Javascript For Web Development</h2>
-            <ul>
-                <li><a class="download-link" href="https://docs.google.com/document/d/e/2PACX-1vQkew-hoGZ9sP2jaObzFIQT04IqM52rzwFpTJjxcuT47MJ_7q51P7WR5CkCO-qtFikBdxs3K0wvpXiw/pub" download>Week 2 Content</a></li>
-                <li><a class="download-link" href="quizzes/quiz_it_week2.html" >Week 2 Quiz</a></li>
-            </ul>
-            <div class="outline">
-                <h3>Outline</h3>
-                <p>This week's material explores cybersecurity principles and network administration:</p>
-                <ul>
-                    <li>Threats and vulnerabilities in information systems: malware, phishing, and social engineering.</li>
-                    <li>Network security protocols: encryption, firewalls, and intrusion detection systems (IDS).</li>
-                    <li>Role of ethical hacking and penetration testing in cybersecurity.</li>
-                    <li>System administration: managing servers, virtual machines, and cloud-based services.</li>
-                    <li>Compliance and regulatory frameworks in cybersecurity.</li>
+                    <li>Basics of JavaScript syntax and data types.</li>
+                    <li>Functions, events, and DOM manipulation.</li>
+                    <li>Working with APIs and asynchronous programming.</li>
+                    <li>Debugging and testing JavaScript code.</li>
+                    <li>Best practices for writing clean and efficient JavaScript.</li>
                 </ul>
             </div>
         </section>
     </div>
-
-    <div class="related-content">
-        <h2>Related Courses and Resources</h2>
-        <ul>
-            <li><a href="#">Software Engineering and Development</a></li>
-            <li><a href="#">Data Science and Analytics</a></li>
-            <li><a href="#">Cloud Computing and Infrastructure</a></li>
-            <li><a href="#">IT Project Management and Agile Methodologies</a></li>
-        </ul>
-        <p>Explore more topics related to IT to expand your knowledge and skills:</p>
-        <ul>
-            <li><a href="#">Internet of Things (IoT) and Connected Devices</a></li>
-            <li><a href="#">Big Data and Machine Learning</a></li>
-            <li><a href="#">IT Governance and Risk Management</a></li>
-            <li><a href="#">Emerging Technologies in IT</a></li>
-        </ul>
-    </div>
-
-    <script>
-        // JavaScript for download link functionality
-        document.querySelectorAll('.download-link').forEach(link => {
-            link.addEventListener('click', function(event) {
-                console.log(`Downloading ${this.textContent}`);
-                // You can add more functionality here, such as tracking downloads or displaying messages
-            });
-        });
-    </script>
 </body>
 </html>
