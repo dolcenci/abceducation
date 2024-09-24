@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f7f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        .form-button:hover {
+            background-color: #0056b3;
+        }
+        .comment {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .comment-author {
+            font-weight: bold;
+        }
+        .comment-text {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Comments</h1>
+        <div class="form-group">
+            <label for="commentText">Leave a comment:</label>
+            <textarea id="commentText" placeholder="Write your comment here..." required></textarea>
+        </div>
+        <button class="form-button" id="submitComment">Post Comment</button>
+
+        <div id="commentsList">
+            <h2>Previous Comments</h2>
+        </div>
+    </div>
+
+    <!-- Import Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
+            authDomain: "prosper-a9810.firebaseapp.com",
+            projectId: "prosper-a9810",
+            storageBucket: "prosper-a9810.appspot.com",
+            messagingSenderId: "1040350127188",
+            appId: "1:1040350127188:web:da8987386085d778eaf9cl1",
+            measurementId: "G-6G8BMD6S3G"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const firestore = getFirestore(app);
+
+        const commentsList = document.getElementById('commentsList');
+
+        // Function to display comments
+        function displayComments() {
+            const commentsRef = collection(firestore, 'comments');
+            onSnapshot(commentsRef, (snapshot) => {
+                commentsList.innerHTML = '<h2>Previous Comments</h2>';
+                snapshot.forEach((doc) => {
+                    const commentData = doc.data();
+                    const commentDiv = document.createElement('div');
+                    commentDiv.className = 'comment';
+                    commentDiv.innerHTML = `<div class="comment-author">${commentData.name}</div>
+                                            <div class="comment-text">${commentData.text}</div>`;
+                    commentsList.appendChild(commentDiv);
+                });
+            });
+        }
+
+        // Posting a comment
+        document.getElementById('submitComment').addEventListener('click', async () => {
+            const user = auth.currentUser;
+            const commentText = document.getElementById('commentText').value;
+
+            if (user && commentText) {
+                try {
+                    await addDoc(collection(firestore, 'comments'), {
+                        uid: user.uid,
+                        name: user.displayName || user.email,
+                        text: commentText,
+                        timestamp: new Date()
+                    });
+                    document.getElementById('commentText').value = ''; // Clear input
+                } catch (error) {
+                    alert(error.message);
+                }
+            } else {
+                alert("You must be logged in to post a comment.");
+            }
+        });
+
+        // Load comments on page load
+        displayComments();
+    </script>
+</body>
+</html>
