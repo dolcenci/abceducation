@@ -131,7 +131,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
         const firebaseConfig = {
@@ -153,8 +153,7 @@
 
         // Function to format timestamp
         function formatDate(timestamp) {
-            const date = new Date(timestamp);
-            return date.toLocaleString(); // Adjust format as needed
+            return timestamp.toLocaleString(); // Format date as needed
         }
 
         // Function to display comments
@@ -168,6 +167,7 @@
                     commentDiv.className = 'comment-container';
 
                     const profilePicUrl = await getDownloadURL(ref(storage, 'user_photos/' + commentData.uid));
+                    const timestamp = commentData.timestamp ? commentData.timestamp.toDate() : new Date(); // Convert Firestore timestamp to JS Date
 
                     commentDiv.innerHTML = `
                         <div class="comment">
@@ -176,7 +176,7 @@
                                 <div class="comment-author">${commentData.name} ${commentData.surname}</div>
                                 <div class="comment-text">${commentData.text}</div>
                                 ${commentData.image ? `<img src="${commentData.image}" class="comment-image" alt="Comment Image">` : ''}
-                                <div class="comment-timestamp">${formatDate(commentData.timestamp)}</div>
+                                <div class="comment-timestamp">${formatDate(timestamp)}</div>
                             </div>
                         </div>
                     `;
@@ -210,7 +210,7 @@
                         surname: surname,
                         text: commentText,
                         image: imageUrl,
-                        timestamp: new Date()
+                        timestamp: serverTimestamp()  // Use serverTimestamp() here
                     });
                     document.getElementById('commentText').value = '';
                     document.getElementById('commentImage').value = ''; // Clear file input
