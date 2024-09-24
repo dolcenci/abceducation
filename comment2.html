@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -139,10 +139,14 @@
 
             if (user && commentText) {
                 try {
+                    const displayName = user.displayName ? user.displayName.split(" ") : [user.email.split("@")[0], ""];
+                    const name = displayName[0]; // First part (name)
+                    const surname = displayName[1] || ""; // Second part (surname, if available)
+
                     await addDoc(collection(firestore, 'comments'), {
                         uid: user.uid,
-                        name: user.displayName.split(" ")[0], // Assuming name is the first part of the display name
-                        surname: user.displayName.split(" ")[1] || "", // Assuming surname is the second part of the display name
+                        name: name,
+                        surname: surname,
                         text: commentText,
                         timestamp: new Date()
                     });
