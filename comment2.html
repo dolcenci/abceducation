@@ -80,6 +80,11 @@
             font-size: 15px;
             color: #444;
         }
+        .comment-timestamp {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 5px;
+        }
         .profile-pic {
             border-radius: 50%;
             width: 50px;
@@ -98,6 +103,14 @@
             background-color: #f9f9f9;
             border-radius: 5px;
         }
+        .comment-image {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .image-input {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -106,6 +119,7 @@
         <div class="form-group">
             <label for="commentText">Leave a comment:</label>
             <textarea id="commentText" placeholder="Write your comment here..." required></textarea>
+            <input type="file" id="commentImage" accept="image/*" class="image-input">
         </div>
         <button class="form-button" id="submitComment">Post Comment</button>
 
@@ -118,7 +132,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-        import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
@@ -136,6 +150,12 @@
         const storage = getStorage(app);
 
         const commentsList = document.getElementById('commentsList');
+
+        // Function to format timestamp
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleString(); // Adjust format as needed
+        }
 
         // Function to display comments
         function displayComments() {
@@ -155,6 +175,8 @@
                             <div>
                                 <div class="comment-author">${commentData.name} ${commentData.surname}</div>
                                 <div class="comment-text">${commentData.text}</div>
+                                ${commentData.image ? `<img src="${commentData.image}" class="comment-image" alt="Comment Image">` : ''}
+                                <div class="comment-timestamp">${formatDate(commentData.timestamp)}</div>
                             </div>
                         </div>
                     `;
@@ -167,21 +189,31 @@
         document.getElementById('submitComment').addEventListener('click', async () => {
             const user = auth.currentUser;
             const commentText = document.getElementById('commentText').value;
+            const commentImage = document.getElementById('commentImage').files[0];
 
             if (user && commentText) {
                 try {
                     const displayName = user.displayName ? user.displayName.split(" ") : [user.email.split("@")[0], ""];
-                    const name = displayName[0]; // First part (name)
-                    const surname = displayName[1] || ""; // Second part (surname, if available)
+                    const name = displayName[0];
+                    const surname = displayName[1] || "";
+
+                    let imageUrl = '';
+                    if (commentImage) {
+                        const imageRef = ref(storage, 'comment_images/' + commentImage.name);
+                        await uploadBytes(imageRef, commentImage);
+                        imageUrl = await getDownloadURL(imageRef);
+                    }
 
                     await addDoc(collection(firestore, 'comments'), {
                         uid: user.uid,
                         name: name,
                         surname: surname,
                         text: commentText,
+                        image: imageUrl,
                         timestamp: new Date()
                     });
-                    document.getElementById('commentText').value = ''; // Clear input
+                    document.getElementById('commentText').value = '';
+                    document.getElementById('commentImage').value = ''; // Clear file input
                 } catch (error) {
                     alert(error.message);
                 }
