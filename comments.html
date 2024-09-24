@@ -3,127 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comments Page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Join Zoom Meeting</title>
     <style>
         body {
-            background-color: #f8f9fa; /* Light background */
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
         }
-        .comments-section {
-            background-color: #ffffff; /* White background for comments */
+        h1 {
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
             border-radius: 5px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 20px;
         }
-        .comment {
-            margin-bottom: 15px;
-            border-bottom: 1px solid #e9ecef;
-            padding-bottom: 10px;
-        }
-        .comment img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        iframe {
+            width: 80%;
+            height: 80%;
+            border: 1px solid #ccc;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2 class="text-center mt-4">Comments</h2>
-    <div class="comments-section" id="comments-section"></div>
+    <h1>Join Our Zoom Meeting</h1>
+    <a class="btn" href="https://us05web.zoom.us/s/7099953744?pwd=Ukw2aWhQaHdNbjVMM1pmb2VRZ2QvZz09" target="_blank">Start Class</a>
 
-    <div class="mb-4">
-        <h4>Post a Comment</h4>
-        <div class="form-group">
-            <textarea class="form-control" id="comment-input" rows="3" placeholder="Write your comment here..."></textarea>
-        </div>
-        <button class="btn btn-primary" id="submit-comment">Submit</button>
-    </div>
-</div>
+    <p>If the meeting doesn't appear below, click the button to join.</p>
+    <iframe src="https://us05web.zoom.us/s/7099953744?pwd=Ukw2aWhQaHdNbjVMM1pmb2VRZ2QvZz09" 
+            allow="camera; microphone; encrypted-media" 
+            frameborder="0"></iframe>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"></script>
-<script>
-    // Your Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
-        authDomain: "prosper-a9810.firebaseapp.com",
-        projectId: "prosper-a9810",
-        storageBucket: "prosper-a9810.appspot.com",
-        messagingSenderId: "1040350127188",
-        appId: "1:1040350127188:web:da8987386085d778eaf9cl1",
-        measurementId: "G-6G8BMD6S3G"
-    };
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    const auth = firebase.auth();
-
-    // Function to load comments
-    function loadComments() {
-        db.collection('comments').orderBy('timestamp', 'desc').get().then((snapshot) => {
-            const commentsSection = document.getElementById('comments-section');
-            commentsSection.innerHTML = '';
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                commentsSection.innerHTML += `
-                    <div class="comment">
-                         
-                        <strong>${data.name} ${data.surname}</strong>
-                        <p>${data.comment}</p>
-                    </div>
-                `;
-            });
-        });
-    }
-
-    // Function to post a comment
-    document.getElementById('submit-comment').addEventListener('click', async () => {
-        const commentInput = document.getElementById('comment-input');
-        const commentText = commentInput.value;
-        const user = auth.currentUser;
-
-        if (user && commentText) {
-            try {
-                // Fetch user details from Firestore
-                const userDoc = await db.collection('users').doc(user.uid).get();
-                const userData = userDoc.data();
-
-                // Add the comment to Firestore
-                await db.collection('comments').add({
-                    comment: commentText,
-                    name: userData.name,
-                    surname: userData.surname || '',
-                   // profilePic: userData.photoURL || 'defaultProfilePicURL',  
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                });
-
-                commentInput.value = ''; // Clear input
-                loadComments(); // Reload comments
-            } catch (error) {
-                console.error("Error posting comment: ", error);
-            }
-        } else {
-            alert("You must be logged in to post a comment.");
-        }
-    });
-
-    // Auth listener
-    auth.onAuthStateChanged(user => {
-        if (user) {
-            loadComments(); // Load comments if user is logged in
-        } else {
-            document.getElementById('comments-section').innerHTML = '<p>You must log in to see comments.</p>';
-        }
-    });
-</script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
