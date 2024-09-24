@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -46,6 +46,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"></script>
 <script>
     // Your Firebase configuration
     const firebaseConfig = {
@@ -82,22 +83,31 @@
     }
 
     // Function to post a comment
-    document.getElementById('submit-comment').addEventListener('click', () => {
+    document.getElementById('submit-comment').addEventListener('click', async () => {
         const commentInput = document.getElementById('comment-input');
         const commentText = commentInput.value;
         const user = auth.currentUser;
 
         if (user && commentText) {
-            db.collection('comments').add({
-                comment: commentText,
-                name: user.displayName.split(' ')[0], // Assuming name is first
-                surname: user.displayName.split(' ')[1] || '', // Assuming surname is second
-                profilePic: user.photoURL || 'defaultProfilePicURL', // Use a default URL if none
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
+            try {
+                // Fetch user details from Firestore
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                const userData = userDoc.data();
+
+                // Add the comment to Firestore
+                await db.collection('comments').add({
+                    comment: commentText,
+                    name: userData.name,
+                    surname: userData.surname || '',
+                    profilePic: userData.photoURL || 'defaultProfilePicURL', // Use a default URL if none
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
                 commentInput.value = ''; // Clear input
                 loadComments(); // Reload comments
-            });
+            } catch (error) {
+                console.error("Error posting comment: ", error);
+            }
         } else {
             alert("You must be logged in to post a comment.");
         }
