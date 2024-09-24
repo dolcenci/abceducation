@@ -73,7 +73,7 @@
                 const data = doc.data();
                 commentsSection.innerHTML += `
                     <div class="comment">
-                        <img src="${data.profilePic}" alt="Profile Picture">
+                         
                         <strong>${data.name} ${data.surname}</strong>
                         <p>${data.comment}</p>
                     </div>
@@ -99,7 +99,7 @@
                     comment: commentText,
                     name: userData.name,
                     surname: userData.surname || '',
-                    profilePic: userData.photoURL || 'defaultProfilePicURL', // Use a default URL if none
+                   // profilePic: userData.photoURL || 'defaultProfilePicURL',  
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
