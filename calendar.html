@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,24 +12,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
+        body {
+            background-color: #f8f9fa;
+        }
         .calendar-container {
             border: 1px solid #007bff;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4);
             margin-bottom: 30px;
+            transition: transform 0.3s;
+        }
+        .calendar-container:hover {
+            transform: scale(1.02);
         }
         .calendar-header {
             background-color: #007bff;
             color: white;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.8em;
+            font-weight: bold;
+            border-bottom: 5px solid #0056b3;
         }
         iframe {
             width: 100%;
             height: 600px;
             border: none;
+        }
+        .trello-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4);
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -57,7 +72,7 @@
     <section class="text-light bg-dark p-5" id="learn">
         <div class="container">
             <h1>Your Timetable</h1>
-            <p>Here is the timetable to your course. Click on each card for more information, including links to class materials. You will receive reminders 15 minutes before each class.</p>
+            <p>Here is the timetable for your course. Click on each card for more information, including links to class materials. You will receive reminders 15 minutes before each class.</p>
         </div>
 
         <!-- Google Calendar Section -->
@@ -68,7 +83,7 @@
         </div>
 
         <!-- Trello Section -->
-        <div class="container">
+        <div class="trello-container">
             <iframe src="https://trello.com/b/pde2OUF2.html" 
                     style="border: 0; width: 100%; height: 600px;" 
                     frameborder="0" scrolling="no"></iframe>
