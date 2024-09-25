@@ -11,6 +11,27 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .calendar-container {
+            border: 1px solid #007bff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            margin-bottom: 30px;
+        }
+        .calendar-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,6 +59,15 @@
             <h1>Your Timetable</h1>
             <p>Here is the timetable to your course. Click on each card for more information, including links to class materials. You will receive reminders 15 minutes before each class.</p>
         </div>
+
+        <!-- Google Calendar Section -->
+        <div class="calendar-container">
+            <div class="calendar-header">Course Calendar</div>
+            <iframe src="https://calendar.google.com/calendar/embed?src=242567f0da013b89d1df155992047ba4cd86225ca4091acd8a265c4095182a77%40group.calendar.google.com&ctz=Africa%2FJohannesburg" 
+                    scrolling="no"></iframe>
+        </div>
+
+        <!-- Trello Section -->
         <div class="container">
             <iframe src="https://trello.com/b/pde2OUF2.html" 
                     style="border: 0; width: 100%; height: 600px;" 
