@@ -14,6 +14,37 @@
             line-height: 1.6;
         }
 
+     /* Navigation Styles */
+        nav {
+            background-color: #007bff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #0056b3;
+        }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -136,27 +167,17 @@
     </style>
 </head>
 <body>
- <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark py-3">
-        <div class="container"><a class="navbar-brand" href="#">ABC Education</a><button data-bs-toggle="collapse" data-bs-target="#navmenu" class="navbar-toggler" type="button"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navmenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="indexreal.html">Home</a></li>
-                     <li class="nav-item"><a class="nav-link" href="indexreal.html">Questions</a></li>
-                    <li class="nav-item"><a class="nav-link" href="indexreal.html">Instructors</a></li>
-                    <li class="nav-item"><a class="nav-link" href="indexreal.html">Courses</a></li>
-                    <li class="nav-item"><a class="nav-link" href="indexreal.html">Sign up</a></li>
-                     <li class="nav-item"><a class="nav-link" href="indexreal2.html">Profile</a></li> 
-                    <li class="nav-item"><a class="nav-link" href="about-us.html">About-Us</a></li>
-                    
-                    
-                    <li class="nav-item"><a class="nav-link" href="comment2.html"> Forum </a></li>
-                    
-                     
-                    
-                    <li class="nav-item"></li>
-                </ul>
-            </div>
-        </div>
+ <nav>
+        <ul>
+            <li><a href="indexreal.html">Home</a></li>
+            <li><a href="indexreal.html">Questions</a></li>
+            <li><a href="indexreal.html">Instructors</a></li>
+            <li><a href="indexreal.html">Courses</a></li>
+            <li><a href="indexreal.html">Sign Up</a></li>
+            <li><a href="indexreal2.html">Profile</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="comment2.html">Forum</a></li>
+        </ul>
     </nav>
     <div class="container">
         <header>
