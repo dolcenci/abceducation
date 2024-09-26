@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -81,6 +81,20 @@
             margin-top: 20px;
             font-size: 14px;
         }
+        .google-button {
+            background-color: #db4437;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .google-button:hover {
+            background-color: #c1351d;
+        }
     </style>
 </head>
 <body>
@@ -100,6 +114,7 @@
                     <input type="password" id="password" placeholder="Enter your password" required>
                 </div>
                 <button type="submit" class="form-button">Login</button>
+                <button type="button" class="google-button" id="googleSignIn">Sign in with Google</button>
             </form>
 
             <!-- Registration Form -->
@@ -145,6 +160,7 @@
                         <input type="file" id="photo" accept="image/*" required>
                     </div>
                     <button type="submit" class="form-button">Register</button>
+                    <button type="button" class="google-button" id="googleSignUp">Sign up with Google</button>
                 </div>
             </form>
 
@@ -157,7 +173,7 @@
     <!-- Import Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
@@ -175,15 +191,43 @@
         const auth = getAuth(app);
         const firestore = getFirestore(app);
         const storage = getStorage(app);
+        const provider = new GoogleAuthProvider();
 
         // Set images for each step
         const imageStep = document.getElementById('imageStep');
         const images = [
             'assets/img/case-law-677940_640.jpg', // Step 1
-           
             'assets/img/lawyer-28838_640.png', // Step 2
             'assets/img/analytics-3088958_640.jpg'  // Step 3
         ];
+
+        // Google Sign In
+        document.getElementById('googleSignIn').addEventListener('click', () => {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    window.location.href = 'indexreal2.html';
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
+
+        // Google Sign Up
+        document.getElementById('googleSignUp').addEventListener('click', () => {
+            signInWithPopup(auth, provider)
+                .then(async (result) => {
+                    const user = result.user;
+                    await setDoc(doc(firestore, 'users', user.uid), {
+                        name: user.displayName,
+                        email: user.email,
+                        photoURL: user.photoURL
+                    });
+                    window.location.href = 'indexreal2.html';
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
 
         // Login functionality
         document.getElementById('loginForm').addEventListener('submit', (e) => {
@@ -200,34 +244,7 @@
                 });
         });
 
-        // Registration step functionality
-        document.getElementById('nextToStep2').addEventListener('click', () => {
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const name = document.getElementById('name').value;
-
-            if (email && password && name) {
-                document.getElementById('step1').style.display = 'none';
-                document.getElementById('step2').style.display = 'block';
-                imageStep.style.backgroundImage = `url(${images[1]})`;
-            } else {
-                alert("Please fill in all fields.");
-            }
-        });
-
-        document.getElementById('nextToStep3').addEventListener('click', () => {
-            const address = document.getElementById('address').value;
-            const dob = document.getElementById('dob').value;
-
-            if (address && dob) {
-                document.getElementById('step2').style.display = 'none';
-                document.getElementById('step3').style.display = 'block';
-                imageStep.style.backgroundImage = `url(${images[2]})`;
-            } else {
-                alert("Please fill in all fields.");
-            }
-        });
-
+        // Registration functionality
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('registerEmail').value;
@@ -236,25 +253,25 @@
             const address = document.getElementById('address').value;
             const dob = document.getElementById('dob').value;
             const bio = document.getElementById('bio').value;
-            const photo = document.getElementById('photo').files[0];
+            const photoFile = document.getElementById('photo').files[0];
 
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-                let photoURL = '';
-                if (photo) {
-                    const photoRef = ref(storage, 'user_photos/' + user.uid);
-                    await uploadBytes(photoRef, photo);
-                    photoURL = await getDownloadURL(photoRef);
-                }
+                // Upload photo to Firebase Storage
+                const photoRef = ref(storage, 'users/' + user.uid + '/profile.jpg');
+                await uploadBytes(photoRef, photoFile);
+                const photoURL = await getDownloadURL(photoRef);
 
+                // Save user information in Firestore
                 await setDoc(doc(firestore, 'users', user.uid), {
-                    name: name,
-                    address: address,
-                    dob: dob,
-                    bio: bio,
-                    photoURL: photoURL
+                    name,
+                    email,
+                    address,
+                    dob,
+                    bio,
+                    photoURL
                 });
 
                 window.location.href = 'indexreal2.html';
@@ -263,7 +280,7 @@
             }
         });
 
-        // Toggle between login and registration forms
+        // Toggle between Login and Register forms
         document.getElementById('toggleForm').addEventListener('click', (e) => {
             e.preventDefault();
             const loginForm = document.getElementById('loginForm');
@@ -271,19 +288,39 @@
             const formTitle = document.getElementById('formTitle');
             const toggleText = document.getElementById('toggleText');
 
-            if (loginForm.style.display === 'none') {
-                loginForm.style.display = 'block';
-                registerForm.style.display = 'none';
-                formTitle.textContent = 'Login';
+            if (loginForm.style.display === "none") {
+                loginForm.style.display = "block";
+                registerForm.style.display = "none";
+                formTitle.textContent = "Login";
                 toggleText.innerHTML = "Don't have an account? <a href='#' id='toggleForm'>Register</a>";
             } else {
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'block';
-                formTitle.textContent = 'Register';
+                loginForm.style.display = "none";
+                registerForm.style.display = "block";
+                formTitle.textContent = "Register";
                 toggleText.innerHTML = "Already have an account? <a href='#' id='toggleForm'>Login</a>";
-                imageStep.style.backgroundImage = `url(${images[0]})`;
             }
         });
+
+        // Update image in the image container based on the current step
+        function updateImage(step) {
+            imageStep.style.backgroundImage = `url('${images[step]}')`;
+        }
+
+        // Navigation between registration steps
+        document.getElementById('nextToStep2').addEventListener('click', () => {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+            updateImage(1);
+        });
+
+        document.getElementById('nextToStep3').addEventListener('click', () => {
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'block';
+            updateImage(2);
+        });
+
+        // Initialize with the first image
+        updateImage(0);
     </script>
 </body>
 </html>
