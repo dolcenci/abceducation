@@ -12,24 +12,29 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #000; /* Change background to black */
-            color: #fff; /* Change text color to white */
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
         }
         h1 {
             text-align: center;
             color: #007bff;
             margin-bottom: 20px;
         }
-        .editor-container {
+        .container {
             display: flex;
             height: 70vh;
             margin-top: 20px;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .info {
+            width: 30%; /* Information section width */
+            padding: 20px;
+            background-color: #1e1e2f; /* Dark background for info */
+            overflow-y: auto; /* Allow scrolling */
         }
         .editor, .output {
-            width: 50%;
+            width: 35%; /* Editor and output section width */
             padding: 20px;
             box-sizing: border-box;
             border-radius: 8px;
@@ -64,11 +69,11 @@
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
         }
         @media (max-width: 800px) {
-            .editor-container {
+            .container {
                 flex-direction: column;
                 height: auto;
             }
-            .editor, .output {
+            .info, .editor, .output {
                 width: 100%;
                 margin-bottom: 10px;
             }
@@ -78,20 +83,45 @@
 <body>
     <h1>HTML/CSS Code Editor</h1>
     
-    <!-- Mode Selection Dropdown -->
-    <select id="modeSelect">
-        <option value="html">HTML/CSS/JavaScript</option>
-        <option value="html-only">HTML</option>
-        <option value="css">CSS</option>
-        <option value="javascript">JavaScript</option>
-    </select>
-    
-    <div class="editor-container">
+    <div class="container">
+        <!-- Information Section -->
+        <div class="info">
+            <h2>CSS Flexbox</h2>
+            <h3>Overview</h3>
+            <p>Flexbox is a layout model that allows you to design a complex layout structure with a more efficient and predictable way to arrange items in a container.</p>
+            
+            <h3>Code Example</h3>
+            <pre><code>/* Flex container */
+.container {
+    display: flex;
+    justify-content: space-between; /* Aligns items with space in between */
+}
+
+/* Flex items */
+.item {
+    flex: 1; /* Each item takes equal space */
+    margin: 10px; /* Space around items */
+}
+</code></pre>
+
+            <h3>Instructions</h3>
+            <ol>
+                <li>Set up a container `<div>` with the class `container`.</li>
+                <li>Add three child `<div>` elements inside it with the class `item`.</li>
+                <li>Apply the provided CSS to style the container and items.</li>
+                <li>Experiment by changing the `justify-content` property to `center` or `flex-end` and observe the changes.</li>
+            </ol>
+        </div>
+
+        <!-- Code Editor Section -->
         <div class="editor" id="codeEditor"></div>
+
+        <!-- Output Section -->
         <div class="output">
             <iframe id="outputFrame"></iframe>
         </div>
     </div>
+    
     <button id="runCode">Run Code</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
@@ -105,41 +135,18 @@
             lineNumbers: true,
             theme: "default",
             lineWrapping: true,
-            value: "<!-- Write your HTML/CSS/JavaScript code here... -->\n",
+            value: "<!DOCTYPE html>\n<html>\n<head>\n<style>\n/* Add your CSS here */\n.container {\n  display: flex;\n  justify-content: space-between;\n}\n.item {\n  flex: 1;\n  margin: 10px;\n}\n</style>\n</head>\n<body>\n\n<div class='container'>\n    <div class='item'>Item 1</div>\n    <div class='item'>Item 2</div>\n    <div class='item'>Item 3</div>\n</div>\n\n</body>\n</html>",
         });
 
-        function runCode() {
+        document.getElementById('runCode').addEventListener('click', () => {
             const code = editor.getValue();
             const outputFrame = document.getElementById('outputFrame');
             const output = outputFrame.contentWindow.document;
 
             // Clear previous content
             output.open();
-            const mode = document.getElementById('modeSelect').value;
-
-            if (mode === "html") {
-                output.write(code);
-            } else if (mode === "html-only") {
-                // Only run HTML
-                output.write(code);
-            } else if (mode === "css") {
-                // Inject CSS into the HTML
-                output.write(`<style>${code}</style>`);
-            } else if (mode === "javascript") {
-                // Inject JavaScript into the HTML
-                output.write(`<script>${code}<\/script>`);
-            }
-
+            output.write(code);
             output.close();
-        }
-
-        document.getElementById('runCode').addEventListener('click', runCode);
-
-        // Optional: Set the editor mode based on selection
-        document.getElementById('modeSelect').addEventListener('change', function() {
-            const selectedMode = this.value === 'html' ? 'text/html' : (this.value === 'css' ? 'text/css' : 'text/javascript');
-            editor.setOption("mode", selectedMode);
-            editor.setValue(""); // Clear the editor for new mode
         });
     </script>
 </body>
