@@ -68,6 +68,10 @@
             border-radius: 5px;
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
         }
+        .feedback {
+            margin-top: 10px;
+            color: #ffcc00; /* Yellow color for feedback */
+        }
         @media (max-width: 800px) {
             .container {
                 flex-direction: column;
@@ -123,6 +127,7 @@
     </div>
     
     <button id="runCode">Run Code</button>
+    <div class="feedback" id="feedback"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/xml/xml.min.js"></script>
@@ -147,6 +152,16 @@
             output.open();
             output.write(code);
             output.close();
+
+            // Test the code against expected results
+            const feedback = document.getElementById('feedback');
+            if (code.includes("class='container'") && (code.match(/class='item'/g || []).length === 3)) {
+                feedback.textContent = "Great job! Your code is set up correctly.";
+                feedback.style.color = "#28a745"; // Green for success
+            } else {
+                feedback.textContent = "Please make sure you have a container with class 'container' and three items with class 'item'.";
+                feedback.style.color = "#dc3545"; // Red for error
+            }
         });
     </script>
 </body>
