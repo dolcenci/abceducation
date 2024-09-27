@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -77,6 +77,15 @@
 </head>
 <body>
     <h1>HTML/CSS Code Editor</h1>
+    
+    <!-- Mode Selection Dropdown -->
+    <select id="modeSelect">
+        <option value="html">HTML/CSS/JavaScript</option>
+        <option value="html-only">HTML</option>
+        <option value="css">CSS</option>
+        <option value="javascript">JavaScript</option>
+    </select>
+    
     <div class="editor-container">
         <div class="editor" id="codeEditor"></div>
         <div class="output">
@@ -96,18 +105,41 @@
             lineNumbers: true,
             theme: "default",
             lineWrapping: true,
-            value: "<!-- Write your HTML/CSS code here... -->\n",
+            value: "<!-- Write your HTML/CSS/JavaScript code here... -->\n",
         });
 
-        document.getElementById('runCode').addEventListener('click', () => {
+        function runCode() {
             const code = editor.getValue();
             const outputFrame = document.getElementById('outputFrame');
             const output = outputFrame.contentWindow.document;
 
             // Clear previous content
             output.open();
-            output.write(code);
+            const mode = document.getElementById('modeSelect').value;
+
+            if (mode === "html") {
+                output.write(code);
+            } else if (mode === "html-only") {
+                // Only run HTML
+                output.write(code);
+            } else if (mode === "css") {
+                // Inject CSS into the HTML
+                output.write(`<style>${code}</style>`);
+            } else if (mode === "javascript") {
+                // Inject JavaScript into the HTML
+                output.write(`<script>${code}<\/script>`);
+            }
+
             output.close();
+        }
+
+        document.getElementById('runCode').addEventListener('click', runCode);
+
+        // Optional: Set the editor mode based on selection
+        document.getElementById('modeSelect').addEventListener('change', function() {
+            const selectedMode = this.value === 'html' ? 'text/html' : (this.value === 'css' ? 'text/css' : 'text/javascript');
+            editor.setOption("mode", selectedMode);
+            editor.setValue(""); // Clear the editor for new mode
         });
     </script>
 </body>
