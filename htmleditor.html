@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML/CSS Code Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.css">
     <style>
         body {
             display: flex;
@@ -31,30 +32,14 @@
             width: 50%;
             padding: 20px;
             box-sizing: border-box;
-            border: 1px solid #ccc;
             border-radius: 8px;
         }
         .editor {
             background-color: #1e1e2f; /* Dark blue background */
             color: #f8f8f2; /* Light text color */
-            position: relative;
         }
         .output {
             background-color: #ffffff; /* White background for output */
-        }
-        textarea {
-            width: 100%;
-            height: calc(100% - 50px);
-            border: none;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            resize: none;
-            outline: none;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-            background-color: #1e1e2f; /* Dark blue */
-            color: #f8f8f2; /* Light text color */
         }
         button {
             margin-top: 10px;
@@ -85,44 +70,37 @@
             }
             .editor, .output {
                 width: 100%;
-                border: none;
                 margin-bottom: 10px;
             }
-            .editor {
-                border-bottom: 1px solid #ccc;
-            }
-        }
-
-        /* Syntax highlighting */
-        .highlight {
-            color: #66d9ef; /* Cyan */
-        }
-        .highlight-keyword {
-            color: #f92672; /* Pink */
-        }
-        .highlight-string {
-            color: #e6db74; /* Yellow */
-        }
-        .highlight-comment {
-            color: #75715e; /* Gray */
         }
     </style>
 </head>
 <body>
     <h1>HTML/CSS Code Editor</h1>
     <div class="editor-container">
-        <div class="editor">
-            <textarea id="code" placeholder="Write your HTML/CSS code here..."></textarea>
-            <button id="runCode">Run Code</button>
-        </div>
+        <div class="editor" id="codeEditor"></div>
         <div class="output">
             <iframe id="outputFrame"></iframe>
         </div>
     </div>
+    <button id="runCode">Run Code</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/css/css.min.js"></script>
 
     <script>
+        const editor = CodeMirror(document.getElementById("codeEditor"), {
+            mode: "text/html",
+            lineNumbers: true,
+            theme: "default",
+            lineWrapping: true,
+            value: "<!-- Write your HTML/CSS code here... -->\n",
+        });
+
         document.getElementById('runCode').addEventListener('click', () => {
-            const code = document.getElementById('code').value;
+            const code = editor.getValue();
             const outputFrame = document.getElementById('outputFrame');
             const output = outputFrame.contentWindow.document;
 
@@ -130,17 +108,6 @@
             output.open();
             output.write(code);
             output.close();
-        });
-
-        // Basic syntax highlighting for demonstration
-        document.getElementById('code').addEventListener('input', () => {
-            const code = document.getElementById('code').value;
-            const highlightedCode = code
-                .replace(/(\/\/.*$)/gm, '<span class="highlight-comment">$1</span>') // Comments
-                .replace(/('.*?'|".*?")/g, '<span class="highlight-string">$1</span>') // Strings
-                .replace(/\b(function|return|if|else|for|while|var|let|const|class|new|this|import|export|async|await|try|catch)\b/g, '<span class="highlight-keyword">$1</span>'); // Keywords
-
-            document.getElementById('code').innerHTML = highlightedCode;
         });
     </script>
 </body>
