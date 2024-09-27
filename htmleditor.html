@@ -110,10 +110,10 @@
 
             <h3>Instructions</h3>
             <ol>
-                <li>Set up a container `<div>` with the class `container`.</li>
-                <li>Add three child `<div>` elements inside it with the class `item`.</li>
-                <li>Apply the provided CSS to style the container and items.</li>
-                <li>Experiment by changing the `justify-content` property to `center` or `flex-end` and observe the changes.</li>
+                <li>Change the class name of the first `<div>` item from `item` to `box`.</li>
+                <li>Edit the `margin` property of the `.item` class to `5px`.</li>
+                <li>Change the `justify-content` property of the `.container` class to `center`.</li>
+                <li>Experiment with different background colors for the `.item` class.</li>
             </ol>
         </div>
 
@@ -155,11 +155,11 @@
 
             // Test the code against expected results
             const feedback = document.getElementById('feedback');
-            if (code.includes("class='container'") && (code.match(/class='item'/g || []).length === 3)) {
+            if (code.includes("class='container'") && (code.match(/class='item'/g || []).length === 2) && code.includes("class='box'")) {
                 feedback.textContent = "Great job! Your code is set up correctly.";
                 feedback.style.color = "#28a745"; // Green for success
             } else {
-                feedback.textContent = "Please make sure you have a container with class 'container' and three items with class 'item'.";
+                feedback.textContent = "Please make sure you have a container with class 'container', two items with class 'item', and the first item should have class 'box'.";
                 feedback.style.color = "#dc3545"; // Red for error
             }
         });
