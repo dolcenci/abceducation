@@ -18,9 +18,9 @@
         .container {
             background-color: #ffffff;
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 500px;
             text-align: center;
         }
         h1 {
@@ -52,26 +52,45 @@
         .certificate {
             display: none;
             margin-top: 20px;
-            border: 5px solid #007bff;
             padding: 20px;
             border-radius: 10px;
-            background-color: #e9ecef;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
         .logo {
-            height: 50px;
+            height: 80px;
             margin-bottom: 20px;
         }
-        a {
+        h2 {
+            font-family: 'Georgia', serif;
+            font-size: 30px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        h3 {
+            font-family: 'Georgia', serif;
+            font-size: 22px;
             color: #007bff;
-            text-decoration: none;
+            margin: 5px 0;
+        }
+        .details {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #aaa;
         }
         .signature {
             margin-top: 40px;
-            height: 50px;
             border-top: 1px solid #333;
-            width: 250px;
+            width: 300px;
             margin-left: auto;
             margin-right: auto;
+            padding-top: 5px;
+            text-align: center;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -83,14 +102,15 @@
         <button class="form-button" id="generateCertificate">Generate Certificate</button>
 
         <div class="certificate" id="certificate">
-            <h2>Certificate of Completion</h2>
             <img src="logo-placeholder.png" alt="Logo" class="logo"> <!-- Replace with actual logo -->
+            <h2>Certificate of Completion</h2>
             <h3>ABC EDUCATION</h3>
-            <p>This certifies that <span id="nameDisplay"></span> has completed the course:</p>
+            <p class="details">This certifies that <span id="nameDisplay"></span></p>
+            <p class="details">has successfully completed the course:</p>
             <h3 id="courseTitle">Course Title</h3>
-            <p>Certificate Number: <span id="certificateNumber"></span></p>
-            <p>Date: <span id="issueDate"></span></p>
-            <div class="signature" id="signature"></div>
+            <p class="details">Certificate Number: <span id="certificateNumber"></span></p>
+            <p class="details">Date: <span id="issueDate"></span></p>
+            <div class="signature" id="signature">Authorized Signature</div>
             <button class="form-button" id="downloadCertificate">Download Certificate</button>
         </div>
     </div>
@@ -118,7 +138,7 @@
         document.getElementById('generateCertificate').addEventListener('click', async () => {
             const name = document.getElementById('studentName').value;
             document.getElementById('nameDisplay').textContent = name;
-            document.getElementById('courseTitle').textContent = "Your Course Title"; // Add actual course title here
+            document.getElementById('courseTitle').textContent = "Your Course Title"; // Update with actual course title
             const certificateNumber = Math.floor(Math.random() * 1000000); // Generate a random certificate number
             document.getElementById('certificateNumber').textContent = certificateNumber;
             document.getElementById('issueDate').textContent = new Date().toLocaleDateString();
@@ -133,21 +153,21 @@
             canvas.height = 400;
 
             // Draw the certificate background
-            ctx.fillStyle = '#f0f0f0';
+            ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.strokeStyle = '#007bff';
             ctx.lineWidth = 5;
             ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
             ctx.fillStyle = '#333';
-            ctx.font = '24px Arial';
+            ctx.font = '28px Georgia';
             ctx.textAlign = 'center';
             ctx.fillText('Certificate of Completion', canvas.width / 2, 80);
-            ctx.font = '20px Arial';
-            ctx.fillText('ABC EDUCATION', canvas.width / 2, 110); // Site name
+            ctx.font = '24px Georgia';
+            ctx.fillText('ABC EDUCATION', canvas.width / 2, 110);
             ctx.fillText('This certifies that', canvas.width / 2, 150);
             ctx.fillText(name, canvas.width / 2, 200);
-            ctx.fillText('has completed the course:', canvas.width / 2, 230);
-            ctx.fillText("Your Course Title", canvas.width / 2, 260); // Add actual course title here
+            ctx.fillText('has successfully completed the course:', canvas.width / 2, 230);
+            ctx.fillText("Your Course Title", canvas.width / 2, 260);
             ctx.fillText('Certificate Number: ' + certificateNumber, canvas.width / 2, 290);
             ctx.fillText('Date: ' + new Date().toLocaleDateString(), canvas.width / 2, 320);
 
@@ -162,7 +182,7 @@
                 // Save to Firestore
                 await setDoc(doc(firestore, 'certificates', name), {
                     name,
-                    courseTitle: "Your Course Title", // Add actual course title here
+                    courseTitle: "Your Course Title", // Update with actual course title
                     certificateNumber,
                     timestamp: new Date()
                 });
@@ -185,21 +205,21 @@
             canvas.height = 400;
 
             // Draw the certificate background
-            ctx.fillStyle = '#f0f0f0';
+            ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.strokeStyle = '#007bff';
             ctx.lineWidth = 5;
             ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
             ctx.fillStyle = '#333';
-            ctx.font = '24px Arial';
+            ctx.font = '28px Georgia';
             ctx.textAlign = 'center';
             ctx.fillText('Certificate of Completion', canvas.width / 2, 80);
-            ctx.font = '20px Arial';
-            ctx.fillText('ABC EDUCATION', canvas.width / 2, 110); // Site name
+            ctx.font = '24px Georgia';
+            ctx.fillText('ABC EDUCATION', canvas.width / 2, 110);
             ctx.fillText('This certifies that', canvas.width / 2, 150);
             ctx.fillText(name, canvas.width / 2, 200);
-            ctx.fillText('has completed the course:', canvas.width / 2, 230);
-            ctx.fillText("Your Course Title", canvas.width / 2, 260); // Add actual course title here
+            ctx.fillText('has successfully completed the course:', canvas.width / 2, 230);
+            ctx.fillText("Your Course Title", canvas.width / 2, 260);
             ctx.fillText('Certificate Number: ' + certificateNumber, canvas.width / 2, 290);
             ctx.fillText('Date: ' + new Date().toLocaleDateString(), canvas.width / 2, 320);
 
