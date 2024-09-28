@@ -103,7 +103,7 @@
                 </iframe>
             </div>
 
-            <a class="download-link" id="downloadCertificate" href="" target="_blank" rel="noopener">
+            <a class="download-link" id="downloadCertificate" href="#" target="_blank" rel="noopener">
                 Download Certificate
             </a>
         </div>
@@ -117,12 +117,13 @@
             // Show the certificate section
             document.getElementById('certificate').style.display = 'block';
 
-            // Set the src of the iframe to the Canva link with the student's name
+            // Set the src of the iframe to the Canva link
             const canvaLink = "https://www.canva.com/design/DAGSCvcBbeE/QHf1NUNDLtbA3VTKuI0aOA/view?embed"; // Your Canva link
             document.getElementById('certificateEmbed').src = canvaLink;
 
             // Set download link to open the Canva design
-            document.getElementById('downloadCertificate').href = canvaLink;
+            const downloadLink = `https://www.canva.com/design/DAGSCvcBbeE/QHf1NUNDLtbA3VTKuI0aOA/view?utm_content=DAGSCvcBbeE&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink`;
+            document.getElementById('downloadCertificate').href = downloadLink;
         });
     </script>
 </body>
