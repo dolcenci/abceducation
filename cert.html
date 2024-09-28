@@ -18,9 +18,9 @@
         .container {
             background-color: #ffffff;
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
             text-align: center;
         }
         h1 {
@@ -52,69 +52,39 @@
         .certificate {
             display: none;
             margin-top: 20px;
+            border: 1px solid #cccccc;
             padding: 20px;
-            border-radius: 10px;
-            background-color: #ffffff;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
+        .embed-container {
             position: relative;
+            width: 100%;
+            height: 0;
+            padding-top: 70.7071%;
+            box-shadow: 0 2px 8px 0 rgba(63, 69, 81, 0.16);
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
         }
-        .logo {
-            height: 80px;
-            margin-bottom: 20px;
-        }
-        h2 {
-            font-family: 'Georgia', serif;
-            font-size: 32px;
-            color: #007bff;
-            margin-bottom: 10px;
-        }
-        h3 {
-            font-family: 'Georgia', serif;
-            font-size: 24px;
-            color: #333;
-            margin: 5px 0;
-        }
-        .details {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #555;
-        }
-        .footer {
-            margin-top: 30px;
-            font-size: 14px;
-            color: #aaa;
-        }
-        .signature {
-            margin-top: 40px;
-            border-top: 2px solid #333;
-            width: 300px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-top: 5px;
-            text-align: center;
-        }
-        .decorative-border {
+        iframe {
             position: absolute;
             width: 100%;
             height: 100%;
-            border-radius: 10px;
             top: 0;
             left: 0;
-            z-index: -1;
-            background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(0, 255, 123, 0.1));
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+            border: none;
         }
-        .art {
-            position: absolute;
-            width: 80%;
-            height: auto;
-            top: 20px;
-            left: 10%;
-            opacity: 0.1;
-            z-index: -2;
+        .download-link {
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .download-link:hover {
+            text-decoration: underline;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -123,105 +93,36 @@
         <button class="form-button" id="generateCertificate">Generate Certificate</button>
 
         <div class="certificate" id="certificate">
-            <div class="decorative-border"></div>
-            <img src="logo-placeholder.png" alt="Logo" class="logo"> <!-- Replace with actual logo -->
             <h2>Certificate of Completion</h2>
-            <h3>ABC EDUCATION</h3>
-            <p class="details">This certifies that <span id="nameDisplay"></span></p>
-            <p class="details">has successfully completed the course:</p>
-            <h3 id="courseTitle">Course Title</h3>
-            <p class="details">Certificate Number: <span id="certificateNumber"></span></p>
-            <p class="details">Date: <span id="issueDate"></span></p>
-            <div class="signature" id="signature">Authorized Signature</div>
-            <button class="form-button" id="downloadCertificate">Download Certificate</button>
-            <img src="art-placeholder.png" alt="Art" class="art"> <!-- Replace with actual art -->
+            <p>This certifies that <span id="nameDisplay"></span> has completed the course.</p>
+
+            <div class="embed-container">
+                <iframe loading="lazy"
+                    id="certificateEmbed"
+                    src="" allowfullscreen="allowfullscreen" allow="fullscreen">
+                </iframe>
+            </div>
+
+            <a class="download-link" id="downloadCertificate" href="" target="_blank" rel="noopener">
+                Download Certificate
+            </a>
         </div>
     </div>
 
-    <!-- Import Firebase SDKs -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-        import { getStorage, ref, uploadString } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
-            authDomain: "prosper-a9810.firebaseapp.com",
-            projectId: "prosper-a9810",
-            storageBucket: "prosper-a9810.appspot.com",
-            messagingSenderId: "1040350127188",
-            appId: "1:1040350127188:web:da8987386085d778eaf9cl1",
-            measurementId: "G-6G8BMD6S3G"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const firestore = getFirestore(app);
-        const storage = getStorage(app);
-
-        document.getElementById('generateCertificate').addEventListener('click', async () => {
+    <script>
+        document.getElementById('generateCertificate').addEventListener('click', () => {
             const name = document.getElementById('studentName').value;
             document.getElementById('nameDisplay').textContent = name;
-            document.getElementById('courseTitle').textContent = "Your Course Title"; // Update with actual course title
-            const certificateNumber = Math.floor(Math.random() * 1000000); // Generate a random certificate number
-            document.getElementById('certificateNumber').textContent = certificateNumber;
-            document.getElementById('issueDate').textContent = new Date().toLocaleDateString();
 
             // Show the certificate section
             document.getElementById('certificate').style.display = 'block';
 
-            // Generate a simple certificate image (canvas)
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = 600;
-            canvas.height = 400;
+            // Set the src of the iframe to the Canva link with the student's name
+            const canvaLink = "https://www.canva.com/design/DAGSCvcBbeE/QHf1NUNDLtbA3VTKuI0aOA/view?embed"; // Your Canva link
+            document.getElementById('certificateEmbed').src = canvaLink;
 
-            // Draw the certificate background
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = '#007bff';
-            ctx.lineWidth = 5;
-            ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
-            ctx.fillStyle = '#007bff';
-            ctx.font = '28px Georgia';
-            ctx.textAlign = 'center';
-            ctx.fillText('Certificate of Completion', canvas.width / 2, 80);
-            ctx.font = '24px Georgia';
-            ctx.fillText('ABC EDUCATION', canvas.width / 2, 110);
-            ctx.fillStyle = '#333';
-            ctx.fillText('This certifies that', canvas.width / 2, 150);
-            ctx.fillText(name, canvas.width / 2, 200);
-            ctx.fillText('has successfully completed the course:', canvas.width / 2, 230);
-            ctx.fillText("Your Course Title", canvas.width / 2, 260);
-            ctx.fillText('Certificate Number: ' + certificateNumber, canvas.width / 2, 290);
-            ctx.fillText('Date: ' + new Date().toLocaleDateString(), canvas.width / 2, 320);
-
-            // Convert to base64 string and upload
-            const certificateDataUrl = canvas.toDataURL();
-            const certificateRef = ref(storage, `certificates/${name}.png`);
-
-            try {
-                // Upload to Firebase Storage
-                await uploadString(certificateRef, certificateDataUrl.split(',')[1], 'base64');
-
-                // Save to Firestore
-                await setDoc(doc(firestore, 'certificates', name), {
-                    name,
-                    courseTitle: "Your Course Title", // Update with actual course title
-                    certificateNumber,
-                    timestamp: new Date()
-                });
-            } catch (error) {
-                console.error("Error uploading certificate:", error);
-            }
-        });
-
-        document.getElementById('downloadCertificate').addEventListener('click', async () => {
-            const name = document.getElementById('studentName').value;
-            const pdf = new jsPDF();
-            const imgData = document.getElementById('certificate').toDataURL('image/png');
-
-            pdf.addImage(imgData, 'PNG', 10, 10, 190, 130);
-            pdf.save(`${name}_certificate.pdf`);
+            // Set download link to open the Canva design
+            document.getElementById('downloadCertificate').href = canvaLink;
         });
     </script>
 </body>
