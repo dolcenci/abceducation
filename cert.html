@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -83,7 +83,7 @@
         import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
         const firebaseConfig = {
-           apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
+            apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
             authDomain: "prosper-a9810.firebaseapp.com",
             projectId: "prosper-a9810",
             storageBucket: "prosper-a9810.appspot.com",
@@ -114,7 +114,7 @@
             ctx.font = '24px Arial';
             ctx.fillText('Certificate of Completion', 150, 100);
             ctx.font = '20px Arial';
-            ctx.fillText(`This certifies that`, 200, 150);
+            ctx.fillText('This certifies that', 200, 150);
             ctx.fillText(name, 200, 200);
             ctx.fillText('has completed the course.', 200, 250);
 
@@ -122,24 +122,33 @@
             const certificateDataUrl = canvas.toDataURL();
             const certificateRef = ref(storage, `certificates/${name}.png`);
 
-            // Upload to Firebase Storage
-            await uploadString(certificateRef, certificateDataUrl.split(',')[1], 'base64');
+            try {
+                // Upload to Firebase Storage
+                await uploadString(certificateRef, certificateDataUrl.split(',')[1], 'base64');
 
-            // Save to Firestore
-            await setDoc(doc(firestore, 'certificates', name), {
-                name,
-                timestamp: new Date()
-            });
+                // Save to Firestore
+                await setDoc(doc(firestore, 'certificates', name), {
+                    name,
+                    timestamp: new Date()
+                });
+            } catch (error) {
+                console.error("Error uploading certificate:", error);
+            }
         });
 
         document.getElementById('downloadCertificate').addEventListener('click', async () => {
             const name = document.getElementById('studentName').value;
             const certificateRef = ref(storage, `certificates/${name}.png`);
-            const url = await getDownloadURL(certificateRef);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `${name}_certificate.png`;
-            link.click();
+            
+            try {
+                const url = await getDownloadURL(certificateRef);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `${name}_certificate.png`;
+                link.click();
+            } catch (error) {
+                console.error("Error downloading certificate:", error);
+            }
         });
     </script>
 </body>
