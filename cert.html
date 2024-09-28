@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,116 +15,25 @@
             background-color: #f3f7f9;
             font-family: Arial, sans-serif;
         }
-        .container {
-            background-color: #ffffff;
-            padding: 40px;
+        .form-container {
+            width: 100%;
+            max-width: 600px;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-        h1 {
-            color: #333333;
-            font-size: 24px;
-            margin-bottom: 30px;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #cccccc;
-            font-size: 16px;
-        }
-        .form-button {
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            padding: 12px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .form-button:hover {
-            background-color: #0056b3;
-        }
-        .certificate {
-            display: none;
-            margin-top: 20px;
-            border: 1px solid #cccccc;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: #e9ecef;
-        }
-        .embed-container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-top: 70.7071%;
-            box-shadow: 0 2px 8px 0 rgba(63, 69, 81, 0.16);
-            margin: 20px 0;
-            border-radius: 8px;
             overflow: hidden;
+            margin: 20px 0;
         }
         iframe {
-            position: absolute;
             width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
+            height: 600px; /* Adjust as needed */
             border: none;
-        }
-        .download-link {
-            margin-top: 10px;
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .download-link:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Generate Certificate</h1>
-        <input type="text" id="studentName" placeholder="Enter Student Name" required>
-        <button class="form-button" id="generateCertificate">Generate Certificate</button>
-
-        <div class="certificate" id="certificate">
-            <h2>Certificate of Completion</h2>
-            <p>This certifies that <span id="nameDisplay"></span> has completed the course.</p>
-
-            <div class="embed-container">
-                <iframe loading="lazy"
-                    id="certificateEmbed"
-                    src="" allowfullscreen="allowfullscreen" allow="fullscreen">
-                </iframe>
-            </div>
-
-            <a class="download-link" id="downloadCertificate" href="#" target="_blank" rel="noopener">
-                Download Certificate
-            </a>
-        </div>
+    <h1>Generate Certificate</h1>
+    <div class="form-container">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScQzQuNDNpJ2hC67r7iwmx_YCgOxBSmVs7jhVATLOJQjX152A/viewform?usp=sf_link" allowfullscreen></iframe>
     </div>
-
-    <script>
-        document.getElementById('generateCertificate').addEventListener('click', () => {
-            const name = document.getElementById('studentName').value;
-            document.getElementById('nameDisplay').textContent = name;
-
-            // Show the certificate section
-            document.getElementById('certificate').style.display = 'block';
-
-            // Set the src of the iframe to the Canva link
-            const canvaLink = "https://www.canva.com/design/DAGSCvcBbeE/QHf1NUNDLtbA3VTKuI0aOA/view?embed"; // Your Canva link
-            document.getElementById('certificateEmbed').src = canvaLink;
-
-            // Set download link to open the Canva design
-            const downloadLink = `https://www.canva.com/design/DAGSCvcBbeE/QHf1NUNDLtbA3VTKuI0aOA/view?utm_content=DAGSCvcBbeE&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink`;
-            document.getElementById('downloadCertificate').href = downloadLink;
-        });
-    </script>
 </body>
 </html>
