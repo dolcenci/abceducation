@@ -56,6 +56,7 @@
             border-radius: 10px;
             background-color: #ffffff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
         .logo {
             height: 80px;
@@ -63,14 +64,14 @@
         }
         h2 {
             font-family: 'Georgia', serif;
-            font-size: 30px;
-            color: #333;
+            font-size: 32px;
+            color: #007bff;
             margin-bottom: 10px;
         }
         h3 {
             font-family: 'Georgia', serif;
-            font-size: 22px;
-            color: #007bff;
+            font-size: 24px;
+            color: #333;
             margin: 5px 0;
         }
         .details {
@@ -85,12 +86,32 @@
         }
         .signature {
             margin-top: 40px;
-            border-top: 1px solid #333;
+            border-top: 2px solid #333;
             width: 300px;
             margin-left: auto;
             margin-right: auto;
             padding-top: 5px;
             text-align: center;
+        }
+        .decorative-border {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(0, 255, 123, 0.1));
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .art {
+            position: absolute;
+            width: 80%;
+            height: auto;
+            top: 20px;
+            left: 10%;
+            opacity: 0.1;
+            z-index: -2;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -102,6 +123,7 @@
         <button class="form-button" id="generateCertificate">Generate Certificate</button>
 
         <div class="certificate" id="certificate">
+            <div class="decorative-border"></div>
             <img src="logo-placeholder.png" alt="Logo" class="logo"> <!-- Replace with actual logo -->
             <h2>Certificate of Completion</h2>
             <h3>ABC EDUCATION</h3>
@@ -112,6 +134,7 @@
             <p class="details">Date: <span id="issueDate"></span></p>
             <div class="signature" id="signature">Authorized Signature</div>
             <button class="form-button" id="downloadCertificate">Download Certificate</button>
+            <img src="art-placeholder.png" alt="Art" class="art"> <!-- Replace with actual art -->
         </div>
     </div>
 
@@ -158,12 +181,13 @@
             ctx.strokeStyle = '#007bff';
             ctx.lineWidth = 5;
             ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
-            ctx.fillStyle = '#333';
+            ctx.fillStyle = '#007bff';
             ctx.font = '28px Georgia';
             ctx.textAlign = 'center';
             ctx.fillText('Certificate of Completion', canvas.width / 2, 80);
             ctx.font = '24px Georgia';
             ctx.fillText('ABC EDUCATION', canvas.width / 2, 110);
+            ctx.fillStyle = '#333';
             ctx.fillText('This certifies that', canvas.width / 2, 150);
             ctx.fillText(name, canvas.width / 2, 200);
             ctx.fillText('has successfully completed the course:', canvas.width / 2, 230);
@@ -193,38 +217,9 @@
 
         document.getElementById('downloadCertificate').addEventListener('click', async () => {
             const name = document.getElementById('studentName').value;
-            const certificateNumber = document.getElementById('certificateNumber').textContent;
-
-            const { jsPDF } = window.jspdf;
             const pdf = new jsPDF();
+            const imgData = document.getElementById('certificate').toDataURL('image/png');
 
-            // Create a canvas to draw the certificate
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = 600;
-            canvas.height = 400;
-
-            // Draw the certificate background
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = '#007bff';
-            ctx.lineWidth = 5;
-            ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
-            ctx.fillStyle = '#333';
-            ctx.font = '28px Georgia';
-            ctx.textAlign = 'center';
-            ctx.fillText('Certificate of Completion', canvas.width / 2, 80);
-            ctx.font = '24px Georgia';
-            ctx.fillText('ABC EDUCATION', canvas.width / 2, 110);
-            ctx.fillText('This certifies that', canvas.width / 2, 150);
-            ctx.fillText(name, canvas.width / 2, 200);
-            ctx.fillText('has successfully completed the course:', canvas.width / 2, 230);
-            ctx.fillText("Your Course Title", canvas.width / 2, 260);
-            ctx.fillText('Certificate Number: ' + certificateNumber, canvas.width / 2, 290);
-            ctx.fillText('Date: ' + new Date().toLocaleDateString(), canvas.width / 2, 320);
-
-            // Convert the canvas to an image and add it to the PDF
-            const imgData = canvas.toDataURL('image/png');
             pdf.addImage(imgData, 'PNG', 10, 10, 190, 130);
             pdf.save(`${name}_certificate.pdf`);
         });
