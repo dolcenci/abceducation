@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -52,10 +52,14 @@
         .certificate {
             display: none;
             margin-top: 20px;
-            border: 1px solid #cccccc;
+            border: 5px solid #007bff;
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             background-color: #e9ecef;
+        }
+        .logo {
+            height: 50px;
+            margin-bottom: 20px;
         }
         a {
             color: #007bff;
@@ -72,6 +76,7 @@
 
         <div class="certificate" id="certificate">
             <h2>Certificate of Completion</h2>
+            <img src="logo-placeholder.png" alt="Logo" class="logo"> <!-- Replace with actual logo -->
             <p>This certifies that <span id="nameDisplay"></span> has completed the course.</p>
             <button class="form-button" id="downloadCertificate">Download Certificate</button>
         </div>
@@ -109,15 +114,22 @@
             const ctx = canvas.getContext('2d');
             canvas.width = 600;
             canvas.height = 400;
+
+            // Draw the certificate background
             ctx.fillStyle = '#f0f0f0';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#007bff';
+            ctx.lineWidth = 5;
+            ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
             ctx.fillStyle = '#333';
             ctx.font = '24px Arial';
-            ctx.fillText('Certificate of Completion', 150, 100);
+            ctx.textAlign = 'center';
+            ctx.fillText('Certificate of Completion', canvas.width / 2, 80);
             ctx.font = '20px Arial';
-            ctx.fillText('This certifies that', 200, 150);
-            ctx.fillText(name, 200, 200);
-            ctx.fillText('has completed the course.', 200, 250);
+            ctx.fillText('This certifies that', canvas.width / 2, 150);
+            ctx.fillText(name, canvas.width / 2, 200);
+            ctx.fillText('has completed the course.', canvas.width / 2, 250);
+            ctx.fillText('Date: ' + new Date().toLocaleDateString(), canvas.width / 2, 300);
 
             // Convert to base64 string and upload
             const certificateDataUrl = canvas.toDataURL();
@@ -149,20 +161,25 @@
             canvas.width = 600;
             canvas.height = 400;
 
-            // Draw the certificate
+            // Draw the certificate background
             ctx.fillStyle = '#f0f0f0';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#007bff';
+            ctx.lineWidth = 5;
+            ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
             ctx.fillStyle = '#333';
             ctx.font = '24px Arial';
-            ctx.fillText('Certificate of Completion', 150, 100);
+            ctx.textAlign = 'center';
+            ctx.fillText('Certificate of Completion', canvas.width / 2, 80);
             ctx.font = '20px Arial';
-            ctx.fillText('This certifies that', 200, 150);
-            ctx.fillText(name, 200, 200);
-            ctx.fillText('has completed the course.', 200, 250);
+            ctx.fillText('This certifies that', canvas.width / 2, 150);
+            ctx.fillText(name, canvas.width / 2, 200);
+            ctx.fillText('has completed the course.', canvas.width / 2, 250);
+            ctx.fillText('Date: ' + new Date().toLocaleDateString(), canvas.width / 2, 300);
 
             // Convert the canvas to an image and add it to the PDF
             const imgData = canvas.toDataURL('image/png');
-            pdf.addImage(imgData, 'PNG', 10, 10, 180, 120);
+            pdf.addImage(imgData, 'PNG', 10, 10, 190, 130);
             pdf.save(`${name}_certificate.pdf`);
         });
     </script>
