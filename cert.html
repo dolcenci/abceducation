@@ -62,6 +62,7 @@
             text-decoration: none;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -138,17 +139,27 @@
 
         document.getElementById('downloadCertificate').addEventListener('click', async () => {
             const name = document.getElementById('studentName').value;
-            const certificateRef = ref(storage, `certificates/${name}.png`);
-            
-            try {
-                const url = await getDownloadURL(certificateRef);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `${name}_certificate.png`;
-                link.click();
-            } catch (error) {
-                console.error("Error downloading certificate:", error);
-            }
+            const pdf = window.jspdf.jsPDF();
+
+            // Create PDF from the canvas
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 600;
+            canvas.height = 400;
+
+            ctx.fillStyle = '#f0f0f0';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#333';
+            ctx.font = '24px Arial';
+            ctx.fillText('Certificate of Completion', 150, 100);
+            ctx.font = '20px Arial';
+            ctx.fillText('This certifies that', 200, 150);
+            ctx.fillText(name, 200, 200);
+            ctx.fillText('has completed the course.', 200, 250);
+
+            // Add the canvas to the PDF
+            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 180, 120);
+            pdf.save(`${name}_certificate.pdf`);
         });
     </script>
 </body>
