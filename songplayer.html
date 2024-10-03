@@ -174,7 +174,7 @@
             stations.forEach(station => {
                 const stationItem = document.createElement('div');
                 stationItem.className = 'radio-station-item';
-                stationItem.textContent = station.name;
+                stationItem.textContent = station.name; 
                 stationItem.addEventListener('click', () => playRadio(station.url));
                 radioStationList.appendChild(stationItem);
             });
