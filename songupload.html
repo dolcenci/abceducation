@@ -30,16 +30,19 @@
         .form-group {
             margin-bottom: 20px;
         }
-        input[type="file"] {
+        input[type="file"],
+        input[type="text"],
+        textarea {
             display: block;
             margin: 10px 0;
+            width: 100%;
         }
         .song-list {
             margin-top: 20px;
         }
         audio {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .upload-button {
             background-color: #007bff;
@@ -53,13 +56,28 @@
         .upload-button:hover {
             background-color: #0056b3;
         }
+        .song-item {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .song-cover {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Upload Songs</h1>
         <div class="form-group">
+            <input type="text" id="songTitle" placeholder="Song Title" required>
+            <input type="text" id="artistName" placeholder="Artist Name" required>
+            <textarea id="description" placeholder="Song Description" rows="3" required></textarea>
             <input type="file" id="audioUpload" accept="audio/*" required>
+            <input type="file" id="coverUpload" accept="image/*" required>
             <button class="upload-button" id="uploadButton">Upload Song</button>
         </div>
         <div class="song-list" id="songList">
@@ -89,28 +107,49 @@
         const firestore = getFirestore(app);
 
         const uploadButton = document.getElementById('uploadButton');
+        const songTitle = document.getElementById('songTitle');
+        const artistName = document.getElementById('artistName');
+        const description = document.getElementById('description');
         const audioUpload = document.getElementById('audioUpload');
+        const coverUpload = document.getElementById('coverUpload');
         const songList = document.getElementById('songList');
 
         uploadButton.addEventListener('click', async () => {
-            const file = audioUpload.files[0];
-            if (file) {
-                const audioRef = ref(storage, 'songs/' + file.name);
-                await uploadBytes(audioRef, file);
-                const audioURL = await getDownloadURL(audioRef);
+            const audioFile = audioUpload.files[0];
+            const coverFile = coverUpload.files[0];
 
-                // Save audio URL to Firestore
+            if (audioFile && coverFile) {
+                const audioRef = ref(storage, 'songs/' + audioFile.name);
+                const coverRef = ref(storage, 'covers/' + coverFile.name);
+
+                // Upload audio and cover files
+                await Promise.all([
+                    uploadBytes(audioRef, audioFile),
+                    uploadBytes(coverRef, coverFile)
+                ]);
+
+                const audioURL = await getDownloadURL(audioRef);
+                const coverURL = await getDownloadURL(coverRef);
+
+                // Save song details to Firestore
                 await addDoc(collection(firestore, 'songs'), {
-                    url: audioURL,
-                    name: file.name,
+                    title: songTitle.value,
+                    artist: artistName.value,
+                    description: description.value,
+                    audioURL: audioURL,
+                    coverURL: coverURL,
                     createdAt: new Date()
                 });
 
-                // Reset file input
+                // Reset input fields
+                songTitle.value = '';
+                artistName.value = '';
+                description.value = '';
                 audioUpload.value = '';
+                coverUpload.value = '';
                 displaySongs(); // Refresh song list
             } else {
-                alert('Please select an audio file to upload.');
+                alert('Please select both an audio file and a cover image to upload.');
             }
         });
 
@@ -119,11 +158,33 @@
             const querySnapshot = await getDocs(collection(firestore, 'songs'));
             querySnapshot.forEach((doc) => {
                 const songData = doc.data();
+                const songItem = document.createElement('div');
+                songItem.className = 'song-item';
+
+                const coverImage = document.createElement('img');
+                coverImage.src = songData.coverURL;
+                coverImage.className = 'song-cover';
+
                 const audioElement = document.createElement('audio');
-                audioElement.src = songData.url;
+                audioElement.src = songData.audioURL;
                 audioElement.controls = true;
 
-                songList.appendChild(audioElement);
+                const titleElement = document.createElement('h3');
+                titleElement.textContent = songData.title;
+
+                const artistElement = document.createElement('p');
+                artistElement.textContent = `Artist: ${songData.artist}`;
+
+                const descriptionElement = document.createElement('p');
+                descriptionElement.textContent = songData.description;
+
+                songItem.appendChild(coverImage);
+                songItem.appendChild(titleElement);
+                songItem.appendChild(artistElement);
+                songItem.appendChild(descriptionElement);
+                songItem.appendChild(audioElement);
+                
+                songList.appendChild(songItem);
             });
         }
 
