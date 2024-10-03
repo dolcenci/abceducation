@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +31,7 @@
 
         async function loadSongs() {
             const songList = document.getElementById('songList');
-            const snapshot = await db.collection('songs').where('name', '==', artistName).get();
+            const snapshot = await db.collection('songs').where('artist', '==', artistName).get();
 
             snapshot.forEach(doc => {
                 const data = doc.data();
@@ -49,3 +50,4 @@
     </script>
 </body>
 </html>
+
