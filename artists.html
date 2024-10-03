@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
 
     <script>
         const firebaseConfig = {
-            apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
+           apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
             authDomain: "prosper-a9810.firebaseapp.com",
             projectId: "prosper-a9810",
             storageBucket: "prosper-a9810.appspot.com",
@@ -28,11 +29,16 @@
         async function loadArtists() {
             const artistList = document.getElementById('artistList');
             const snapshot = await db.collection('songs').get();
+            const artists = new Set();
 
             snapshot.forEach(doc => {
                 const data = doc.data();
+                artists.add(data.artist);
+            });
+
+            artists.forEach(artist => {
                 const listItem = document.createElement('li');
-                listItem.innerHTML = `<a href="songs.html?artist=${data.name}">${data.name}</a>`;
+                listItem.innerHTML = `<a href="songs.html?artist=${encodeURIComponent(artist)}">${artist}</a>`;
                 artistList.appendChild(listItem);
             });
         }
@@ -41,3 +47,4 @@
     </script>
 </body>
 </html>
+
