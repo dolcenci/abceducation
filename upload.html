@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Song</title>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+</head>
+<body>
+    <h1>Upload Your Song</h1>
+    <form id="uploadForm">
+        <input type="text" id="songName" placeholder="Song Name" required>
+        <textarea id="songDetails" placeholder="Song Details" required></textarea>
+        <input type="file" id="audioFile" accept="audio/*" required>
+        <input type="file" id="coverFile" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = firebase.initializeApp(firebaseConfig);
+        const storage = firebase.storage();
+        const db = firebase.firestore();
+
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const songName = document.getElementById('songName').value;
+            const songDetails = document.getElementById('songDetails').value;
+            const audioFile = document.getElementById('audioFile').files[0];
+            const coverFile = document.getElementById('coverFile').files[0];
+
+            const audioRef = storage.ref().child(`songs/${audioFile.name}`);
+            const coverRef = storage.ref().child(`covers/${coverFile.name}`);
+
+            await audioRef.put(audioFile);
+            await coverRef.put(coverFile);
+
+            const audioUrl = await audioRef.getDownloadURL();
+            const coverUrl = await coverRef.getDownloadURL();
+
+            await db.collection('songs').add({
+                name: songName,
+                details: songDetails,
+                audioUrl: audioUrl,
+                coverUrl: coverUrl
+            });
+
+            alert('Song uploaded successfully!');
+            document.getElementById('uploadForm').reset();
+        });
+    </script>
+</body>
+</html>
