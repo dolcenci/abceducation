@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Songs</title>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+</head>
+<body>
+    <h1>Artist Songs</h1>
+    <ul id="songList"></ul>
+
+    <script>
+        const firebaseConfig = {
+             apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
+            authDomain: "prosper-a9810.firebaseapp.com",
+            projectId: "prosper-a9810",
+            storageBucket: "prosper-a9810.appspot.com",
+            messagingSenderId: "1040350127188",
+            appId: "1:1040350127188:web:da8987386085d778eaf9cl1",
+            measurementId: "G-6G8BMD6S3G"
+        };
+
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const artistName = urlParams.get('artist');
+
+        async function loadSongs() {
+            const songList = document.getElementById('songList');
+            const snapshot = await db.collection('songs').where('name', '==', artistName).get();
+
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="#" onclick="playSong('${data.audioUrl}')">${data.name}</a>`;
+                songList.appendChild(listItem);
+            });
+        }
+
+        function playSong(url) {
+            const audio = new Audio(url);
+            audio.play();
+        }
+
+        loadSongs();
+    </script>
+</body>
+</html>
