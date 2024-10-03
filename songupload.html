@@ -67,6 +67,17 @@
             height: auto;
             margin-bottom: 10px;
         }
+        .download-linkpurple {
+            display: block;
+            padding: 10px 15px;
+            background-color: #9b59b6;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -79,7 +90,7 @@
             <input type="file" id="audioUpload" accept="audio/*" required>
             <input type="file" id="coverUpload" accept="image/*" required>
             <button class="upload-button" id="uploadButton">Upload Song</button>
-            <li><a class="download-link" href="songplayer.html" >music player</a></li>
+            <li><a class="download-linkpurple" href="songplayer.html" >music player</a></li>
         </div>
          
         <div class="song-list" id="songList">
