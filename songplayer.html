@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -69,13 +69,6 @@
         .iframe-container {
             display: none; /* Hidden by default */
             margin-top: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        iframe {
-            width: 100%;
-            height: 150px;
-            border: none;
         }
     </style>
 </head>
@@ -90,9 +83,10 @@
         
         <div class="radio-player" id="radioPlayer">
             <h3>Now Playing</h3>
-            <div class="iframe-container" id="iframeContainer">
-                <iframe id="radioIframe" src="" allow="autoplay"></iframe>
-            </div>
+            <audio id="radioAudio" controls>
+                <source id="radioSource" src="" type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
         </div>
     </div>
 
@@ -117,8 +111,8 @@
         const artistList = document.getElementById('artistList');
         const songList = document.getElementById('songList');
         const radioStationList = document.getElementById('radioStationList');
-        const iframeContainer = document.getElementById('iframeContainer');
-        const radioIframe = document.getElementById('radioIframe');
+        const radioAudio = document.getElementById('radioAudio');
+        const radioSource = document.getElementById('radioSource');
 
         async function displayArtists() {
             const querySnapshot = await getDocs(collection(firestore, 'songs'));
@@ -174,11 +168,11 @@
 
         function displayRadioStations() {
             const stations = [
-                { name: "BBC Radio 1", url: "https://www.bbc.co.uk/radio/player/bbc_radio_one" },
-                { name: "NPR", url: "https://www.npr.org/player/embed/7111" },
-                { name: "KEXP", url: "https://www.kexp.org/listen" },
-                { name: "Jazz24", url: "https://www.jazz24.org" },
-                { name: "Radio Paradise", url: "http://www.radioparadise.com" }
+                { name: "BBC Radio 1", url: "http://stream.live.vc.bbcmedia.co.uk/bbc_radio_one" },
+                { name: "NPR", url: "http://npr-ice.streamguys1.com/npr24.mp3" },
+                { name: "KEXP", url: "http://live-hls.kexp.org/kexp/playlist.m3u8" },
+                { name: "Jazz24", url: "http://jazz24.org/listen" },
+                { name: "Radio Paradise", url: "http://stream.radioparadise.com/aac-320" }
             ];
 
             stations.forEach(station => {
@@ -191,8 +185,9 @@
         }
 
         function playRadio(url) {
-            radioIframe.src = url;
-            iframeContainer.style.display = 'block'; // Show iframe container
+            radioSource.src = url;
+            radioAudio.load();
+            radioAudio.play();
         }
 
         // Load artists and radio stations on page load
