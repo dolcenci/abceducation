@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,10 +27,10 @@
             text-align: center;
             color: #333;
         }
-        .artist-list {
+        .artist-list, .radio-station-list {
             margin-bottom: 20px;
         }
-        .artist-item {
+        .artist-item, .radio-station-item {
             cursor: pointer;
             margin: 5px 0;
             padding: 10px;
@@ -38,7 +38,7 @@
             border-radius: 5px;
             transition: background-color 0.3s;
         }
-        .artist-item:hover {
+        .artist-item:hover, .radio-station-item:hover {
             background-color: #e0e0e0;
         }
         .song-list {
@@ -59,17 +59,30 @@
             height: auto;
             margin-bottom: 10px;
         }
+        .radio-player {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Artists</h1>
-        <div class="artist-list" id="artistList">
-            <!-- Artist names will be displayed here -->
-        </div>
-        <div class="song-list" id="songList">
-            <h2>Songs</h2>
-            <!-- Artist songs will be displayed here -->
+        <div class="artist-list" id="artistList"></div>
+        <div class="song-list" id="songList"></div>
+        
+        <h2>Top Internet Radio Stations</h2>
+        <div class="radio-station-list" id="radioStationList"></div>
+        
+        <div class="radio-player" id="radioPlayer">
+            <h3>Now Playing</h3>
+            <audio id="radioAudio" controls>
+                <source id="radioSource" src="" type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
         </div>
     </div>
 
@@ -93,6 +106,9 @@
 
         const artistList = document.getElementById('artistList');
         const songList = document.getElementById('songList');
+        const radioStationList = document.getElementById('radioStationList');
+        const radioAudio = document.getElementById('radioAudio');
+        const radioSource = document.getElementById('radioSource');
 
         async function displayArtists() {
             const querySnapshot = await getDocs(collection(firestore, 'songs'));
@@ -113,7 +129,7 @@
         }
 
         async function displaySongsByArtist(artist) {
-            songList.innerHTML = `<h2>Songs by ${artist}</h2>`; // Clear existing songs
+            songList.innerHTML = `<h2>Songs by ${artist}</h2>`;
             const querySnapshot = await getDocs(collection(firestore, 'songs'));
 
             querySnapshot.forEach((doc) => {
@@ -146,8 +162,35 @@
             });
         }
 
-        // Load artists on page load
-        window.onload = displayArtists;
+        function displayRadioStations() {
+            const stations = [
+                { name: "BBC Radio 1", url: "http://stream.live.vc.bbcmedia.co.uk/bbc_radio_one" },
+                { name: "NPR", url: "http://streams.npr.org/live/npr:7111" },
+                { name: "KEXP", url: "http://live-hls.kexp.org/kexp/playlist.m3u8" },
+                { name: "Jazz24", url: "http://jazz24.org/listen" },
+                { name: "Radio Paradise", url: "http://stream.radioparadise.com/aac-320" }
+            ];
+
+            stations.forEach(station => {
+                const stationItem = document.createElement('div');
+                stationItem.className = 'radio-station-item';
+                stationItem.textContent = station.name;
+                stationItem.addEventListener('click', () => playRadio(station.url));
+                radioStationList.appendChild(stationItem);
+            });
+        }
+
+        function playRadio(url) {
+            radioSource.src = url;
+            radioAudio.load();
+            radioAudio.play();
+        }
+
+        // Load artists and radio stations on page load
+        window.onload = () => {
+            displayArtists();
+            displayRadioStations();
+        };
     </script>
 </body>
 </html>
