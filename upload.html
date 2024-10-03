@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +8,11 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-    
 </head>
 <body>
     <h1>Upload Your Song</h1>
     <form id="uploadForm">
+        <input type="text" id="artistName" placeholder="Artist Name" required>
         <input type="text" id="songName" placeholder="Song Name" required>
         <textarea id="songDetails" placeholder="Song Details" required></textarea>
         <input type="file" id="audioFile" accept="audio/*" required>
@@ -20,7 +21,6 @@
     </form>
 
     <script>
-        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
             authDomain: "prosper-a9810.firebaseapp.com",
@@ -37,6 +37,7 @@
 
         document.getElementById('uploadForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const artistName = document.getElementById('artistName').value;
             const songName = document.getElementById('songName').value;
             const songDetails = document.getElementById('songDetails').value;
             const audioFile = document.getElementById('audioFile').files[0];
@@ -52,6 +53,7 @@
             const coverUrl = await coverRef.getDownloadURL();
 
             await db.collection('songs').add({
+                artist: artistName,
                 name: songName,
                 details: songDetails,
                 audioUrl: audioUrl,
@@ -59,7 +61,7 @@
             });
 
             alert('Song uploaded successfully!');
-            document.getElementById('uploadForm').reset();
+            window.location.href = 'artists.html'; // Redirect to artist list
         });
     </script>
 </body>
