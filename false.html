@@ -204,14 +204,24 @@
         artists.forEach(artist => {
             const artistItem = document.createElement('div');
             artistItem.className = 'artist-item';
-            artistItem.innerHTML = `<img src="${getArtistImage(artist)}" alt="${artist}" title="${artist}">`;
+            const artistImage = getArtistImage(artist);
+            artistItem.innerHTML = `<img src="${artistImage}" alt="${artist}" title="${artist}">`;
             artistItem.addEventListener('click', () => displaySongsByArtist(artist));
             popularArtistsContainer.appendChild(artistItem);
         });
     }
 
     function getArtistImage(artist) {
-        return `img/${artist.replace(/\s+/g, '_').toLowerCase()}.jpg`; // Adjust path accordingly
+        const imagePath = `img/${artist.replace(/\s+/g, '_').toLowerCase()}.jpg`; // Adjust path accordingly
+        const img = new Image();
+        img.src = imagePath;
+
+        img.onerror = () => {
+            // Placeholder image if the artist image doesn't exist
+            img.src = 'img/placeholder.jpg'; // Replace with your placeholder image path
+        };
+
+        return img.src;
     }
 
     async function displaySongsByArtist(artist) {
@@ -225,7 +235,7 @@
             }
         });
 
-        currentSongIndex = -1; // Reset index
+        // Update the left sidebar with the fetched songs
         updateSongList();
     }
 
