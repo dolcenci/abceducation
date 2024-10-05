@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -106,7 +106,6 @@
             outline: none;
             height: 45px; /* Height for the audio player */
         }
-        /* Styling for the audio controls */
         audio::-webkit-media-controls {
             background-color: #1db954; /* Spotify green */
             border-radius: 5px;
@@ -184,19 +183,14 @@
 
         async function displayArtists() {
             const querySnapshot = await getDocs(collection(firestore, 'songs'));
-            const artists = new Set();
 
             querySnapshot.forEach((doc) => {
                 const songData = doc.data();
-                artists.add(songData.artist);
                 songsData.push(songData); // Store song data
-            });
-
-            artists.forEach(artist => {
                 const artistItem = document.createElement('div');
                 artistItem.className = 'artist-item';
-                artistItem.textContent = artist;
-                artistItem.addEventListener('click', () => displaySongsByArtist(artist));
+                artistItem.textContent = songData.artist;
+                artistItem.addEventListener('click', () => displaySongsByArtist(songData.artist));
                 artistList.appendChild(artistItem);
             });
         }
@@ -248,7 +242,10 @@
                     const suggestionItem = document.createElement('div');
                     suggestionItem.className = 'suggestion-item';
                     suggestionItem.textContent = `${song.artist} - ${song.title}`;
-                    suggestionItem.addEventListener('click', () => playSong(song.audioURL));
+                    suggestionItem.addEventListener('click', () => {
+                        playSong(song.audioURL);
+                        suggestionsList.style.display = 'none'; // Hide suggestions after selection
+                    });
                     suggestionsList.appendChild(suggestionItem);
                 });
             } else {
@@ -260,7 +257,6 @@
             radioSource.src = url;
             radioAudio.load();
             radioAudio.play();
-            suggestionsList.style.display = 'none'; // Hide suggestions after selection
         }
 
         function displayRadioStations() {
