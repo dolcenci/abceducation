@@ -63,8 +63,8 @@
         <h1>Playlist</h1>
         <div class="playlist">
             <h4 class="active"><span></span><i class="bi bi-music-note-beamed"></i> Playlist</h4>
-            <h4 ><span></span><i class="bi bi-music-note-beamed"></i> Last Listening</h4>
-            <h4 ><span></span><i class="bi bi-music-note-beamed"></i> Recommended</h4>
+            <h4><span></span><i class="bi bi-music-note-beamed"></i> Last Listening</h4>
+            <h4><span></span><i class="bi bi-music-note-beamed"></i> Recommended</h4>
         </div>
         <div class="menu_song">
             <!-- Placeholder for dynamically loaded songs -->
@@ -76,7 +76,7 @@
             <ul>
                 <li>Discover <span></span></li>
                 <li>MY LIBRARY</li>
-                <li> <a href="podcasts/podcasts.html">Podcasts</a></li>
+                <li><a href="podcasts/podcasts.html">Podcasts</a></li>
                 <li><a href="podcasts/podcasts.html">Radio</a></li>
             </ul>
             <div class="search">
@@ -140,11 +140,6 @@
             <i class="bi bi-skip-end-fill" id="next"></i>
         </div>
         <span id="currentStart">0:00</span>
-        <div class="bar">
-            <input type="range" id="seek" min="0" value="0" max="100">
-            <div class="bar2" id="bar2"></div>
-            <div class="dot"></div>
-        </div>
         <span id="currentEnd">0:00</span>
 
         <div class="vol">
@@ -165,7 +160,7 @@
     </div>
 </div>
 
-<audio id="audio" src="" preload="metadata"></audio>
+<audio id="audio" preload="metadata"></audio>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -258,29 +253,30 @@
         const song = songs[currentSongIndex];
         audioElement.src = song.audioURL; // Update the audio source
         audioElement.play();
-        playPauseButton.classList.remove('bi-play-fill');
-        playPauseButton.classList.add('bi-pause-fill');
+        updatePlayPauseButton();
+    }
+
+    function updatePlayPauseButton() {
+        if (audioElement.paused) {
+            playPauseButton.classList.remove('bi-pause-fill');
+            playPauseButton.classList.add('bi-play-fill');
+        } else {
+            playPauseButton.classList.remove('bi-play-fill');
+            playPauseButton.classList.add('bi-pause-fill');
+        }
     }
 
     playPauseButton.addEventListener('click', () => {
         if (audioElement.paused) {
             audioElement.play();
-            playPauseButton.classList.remove('bi-play-fill');
-            playPauseButton.classList.add('bi-pause-fill');
         } else {
             audioElement.pause();
-            playPauseButton.classList.remove('bi-pause-fill');
-            playPauseButton.classList.add('bi-play-fill');
         }
+        updatePlayPauseButton();
     });
 
-    document.getElementById('nextSong').addEventListener('click', () => {
+    audioElement.addEventListener('ended', () => {
         currentSongIndex = (currentSongIndex + 1) % songs.length;
-        playSong(currentSongIndex);
-    });
-
-    document.getElementById('prevSong').addEventListener('click', () => {
-        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
         playSong(currentSongIndex);
     });
 
@@ -293,5 +289,4 @@
     window.onload = fetchArtists;
 </script>
 </body>
-
 </html>
