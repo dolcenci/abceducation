@@ -90,29 +90,27 @@
 
     async function fetchArtists() {
         const querySnapshot = await getDocs(collection(firestore, 'songs'));
-        const artists = new Set();
+        const artists = new Map();
 
         querySnapshot.forEach((doc) => {
             const songData = doc.data();
-            artists.add(songData.artist);
+            if (!artists.has(songData.artist)) {
+                artists.set(songData.artist, songData);
+            }
         });
 
-        displayArtists(Array.from(artists));
+        displayArtists(Array.from(artists.entries()));
     }
 
     function displayArtists(artists) {
         popularArtistsContainer.innerHTML = ''; // Clear previous artists
-        artists.forEach(artist => {
+        artists.forEach(([artist, song]) => {
             const artistItem = document.createElement('div');
             artistItem.className = 'artist-item';
-            artistItem.innerHTML = `<img src="${getArtistImage(artist)}" alt="${artist}" title="${artist}">`;
+            artistItem.innerHTML = `<img src="${song.coverURL}" alt="${artist}" title="${artist}">`;
             artistItem.addEventListener('click', () => displaySongsByArtist(artist));
             popularArtistsContainer.appendChild(artistItem);
         });
-    }
-
-    function getArtistImage(artist) {
-        return `img/${artist.replace(/\s+/g, '_').toLowerCase()}.jpg`; // Adjust path accordingly
     }
 
     async function displaySongsByArtist(artist) {
