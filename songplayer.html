@@ -7,16 +7,23 @@
     <style>
         body {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: flex-start;
-            flex-direction: column;
             min-height: 100vh;
             margin: 0;
-            background-color: #f3f7f9;
+            background-color: #131312; /* Updated background color */
             font-family: Arial, sans-serif;
         }
+        .sidebar {
+            width: 25%; /* Sidebar width */
+            height: 80%; /* Sidebar height */
+            background-color: #111727; /* Sidebar background color */
+            color: #fff; /* Sidebar font color */
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+        }
         .container {
-            width: 80%;
+            width: 75%; /* Adjusted container width */
             max-width: 800px;
             background-color: #ffffff;
             padding: 20px;
@@ -69,6 +76,10 @@
     </style>
 </head>
 <body>
+    <div class="sidebar">
+        <h2>Sidebar</h2>
+        <p>Navigation or other content can go here.</p>
+    </div>
     <div class="container">
         <h1>Artists</h1>
         <div class="artist-list" id="artistList"></div>
