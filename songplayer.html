@@ -179,18 +179,23 @@
         const searchInput = document.getElementById('searchInput');
         const suggestionsList = document.getElementById('suggestionsList');
 
-        let songsData = []; // Store songs data for searching
+        const songsData = []; // Store songs data for searching
 
-        async function loadSongsData() {
+        async function displayArtists() {
             const querySnapshot = await getDocs(collection(firestore, 'songs'));
+            const artists = new Set();
 
             querySnapshot.forEach((doc) => {
                 const songData = doc.data();
+                artists.add(songData.artist);
                 songsData.push(songData); // Store song data
+            });
+
+            artists.forEach(artist => {
                 const artistItem = document.createElement('div');
                 artistItem.className = 'artist-item';
-                artistItem.textContent = songData.artist;
-                artistItem.addEventListener('click', () => displaySongsByArtist(songData.artist));
+                artistItem.textContent = artist;
+                artistItem.addEventListener('click', () => displaySongsByArtist(artist));
                 artistList.appendChild(artistItem);
             });
         }
@@ -284,8 +289,8 @@
         }
 
         // Load artists and radio stations on page load
-        window.onload = async () => {
-            await loadSongsData();
+        window.onload = () => {
+            displayArtists();
             displayRadioStations();
         };
 
