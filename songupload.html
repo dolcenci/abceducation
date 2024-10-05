@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,13 +37,6 @@
             margin: 10px 0;
             width: 100%;
         }
-        .song-list {
-            margin-top: 20px;
-        }
-        audio {
-            width: 100%;
-            margin-bottom: 10px;
-        }
         .upload-button {
             background-color: #007bff;
             color: #ffffff;
@@ -56,27 +49,8 @@
         .upload-button:hover {
             background-color: #0056b3;
         }
-        .song-item {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .song-cover {
-            width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        .download-linkpurple {
-            display: block;
-            padding: 10px 15px;
-            background-color: #9b59b6;
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            cursor: pointer;
+        .song-list {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -90,9 +64,8 @@
             <input type="file" id="audioUpload" accept="audio/*" required>
             <input type="file" id="coverUpload" accept="image/*" required>
             <button class="upload-button" id="uploadButton">Upload Song</button>
-            <li><a class="download-linkpurple" href="songplayer.html" >music player</a></li>
         </div>
-         
+
         <div class="song-list" id="songList">
             <h2>Uploaded Songs</h2>
             <!-- Uploaded songs will be displayed here -->
@@ -104,7 +77,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
         import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
- 
+
         const firebaseConfig = {
             apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
             authDomain: "prosper-a9810.firebaseapp.com",
@@ -151,7 +124,10 @@
                     description: description.value,
                     audioURL: audioURL,
                     coverURL: coverURL,
-                    createdAt: new Date()
+                    createdAt: new Date(),
+                    plays: 0, // Initialize plays
+                    hearts: 0, // Initialize hearts
+                    isHearted: false // Initialize hearted status
                 });
 
                 // Reset input fields
@@ -178,10 +154,6 @@
                 coverImage.src = songData.coverURL;
                 coverImage.className = 'song-cover';
 
-                const audioElement = document.createElement('audio');
-                audioElement.src = songData.audioURL;
-                audioElement.controls = true;
-
                 const titleElement = document.createElement('h3');
                 titleElement.textContent = songData.title;
 
@@ -191,12 +163,32 @@
                 const descriptionElement = document.createElement('p');
                 descriptionElement.textContent = songData.description;
 
+                const playsElement = document.createElement('p');
+                playsElement.textContent = `Plays: ${songData.plays}`;
+
+                const heartsElement = document.createElement('p');
+                heartsElement.textContent = `Hearts: ${songData.hearts}`;
+
+                const heartButton = document.createElement('button');
+                heartButton.textContent = songData.isHearted ? '❤️' : '🤍';
+                heartButton.onclick = async () => {
+                    songData.isHearted = !songData.isHearted;
+                    songData.hearts += songData.isHearted ? 1 : -1;
+
+                    // Update song document in Firestore
+                    await updateDoc(doc.ref, { hearts: songData.hearts, isHearted: songData.isHearted });
+                    heartsElement.textContent = `Hearts: ${songData.hearts}`;
+                    heartButton.textContent = songData.isHearted ? '❤️' : '🤍';
+                };
+
                 songItem.appendChild(coverImage);
                 songItem.appendChild(titleElement);
                 songItem.appendChild(artistElement);
                 songItem.appendChild(descriptionElement);
-                songItem.appendChild(audioElement);
-                
+                songItem.appendChild(playsElement);
+                songItem.appendChild(heartsElement);
+                songItem.appendChild(heartButton);
+
                 songList.appendChild(songItem);
             });
         }
