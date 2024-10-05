@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,13 +34,57 @@
         h1, h2, h3 {
             color: white; /* Heading color */
         }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #1e1e2f; /* Navigation background color */
+            border-radius: 8px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .search-bar {
+            flex: 1;
+            display: flex;
+            position: relative;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+        }
+        .suggestions {
+            position: absolute;
+            background-color: #1e1e2f; /* Suggestions background */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 10;
+            max-height: 150px;
+            overflow-y: auto;
+            width: 100%;
+            display: none; /* Hidden by default */
+        }
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+            color: white; /* Suggestions text color */
+        }
+        .suggestion-item:hover {
+            background-color: #333; /* Suggestions hover color */
+        }
         .artist-list, .radio-station-list, .song-list, .radio-player {
             background-color: #111727; /* Section background color */
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
         }
-        .artist-item, .radio-station-item {
+        .artist-item, .radio-station-item, .song-item {
             cursor: pointer;
             margin: 5px 0;
             padding: 10px;
@@ -49,8 +93,9 @@
             transition: background-color 0.3s;
             color: white; /* Text color for items */
         }
-        .artist-item:hover, .radio-station-item:hover {
+        .artist-item:hover, .radio-station-item:hover, .song-item:hover {
             background-color: #e0e0e0;
+            color: black; /* Change text color on hover */
         }
         audio {
             width: 100%;
@@ -81,6 +126,18 @@
         <p>Navigation or other content can go here.</p>
     </div>
     <div class="container">
+        <div class="nav">
+            <div>
+                <a href="#">Home</a>
+                <a href="#">Podcasts</a>
+                <a href="#">Internet Radio</a>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search artists or songs..." />
+                <div class="suggestions" id="suggestionsList"></div>
+            </div>
+        </div>
+        
         <h1>Artists</h1>
         <div class="artist-list" id="artistList"></div>
         <div class="song-list" id="songList"></div>
@@ -120,6 +177,10 @@
         const radioStationList = document.getElementById('radioStationList');
         const radioAudio = document.getElementById('radioAudio');
         const radioSource = document.getElementById('radioSource');
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsList = document.getElementById('suggestionsList');
+
+        const songsData = []; // Store songs data for searching
 
         async function displayArtists() {
             const querySnapshot = await getDocs(collection(firestore, 'songs'));
@@ -128,6 +189,7 @@
             querySnapshot.forEach((doc) => {
                 const songData = doc.data();
                 artists.add(songData.artist);
+                songsData.push(songData); // Store song data
             });
 
             artists.forEach(artist => {
@@ -173,6 +235,34 @@
             });
         }
 
+        function displaySuggestions(query) {
+            suggestionsList.innerHTML = '';
+            const filteredSongs = songsData.filter(song => 
+                song.title.toLowerCase().includes(query.toLowerCase()) ||
+                song.artist.toLowerCase().includes(query.toLowerCase())
+            );
+
+            if (filteredSongs.length > 0) {
+                suggestionsList.style.display = 'block';
+                filteredSongs.forEach(song => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'suggestion-item';
+                    suggestionItem.textContent = `${song.artist} - ${song.title}`;
+                    suggestionItem.addEventListener('click', () => playSong(song.audioURL));
+                    suggestionsList.appendChild(suggestionItem);
+                });
+            } else {
+                suggestionsList.style.display = 'none';
+            }
+        }
+
+        function playSong(url) {
+            radioSource.src = url;
+            radioAudio.load();
+            radioAudio.play();
+            suggestionsList.style.display = 'none'; // Hide suggestions after selection
+        }
+
         function displayRadioStations() {
             const stations = [
                 { name: "Radio Paradise", url: "http://stream.radioparadise.com/aac-320" },
@@ -202,6 +292,16 @@
             displayArtists();
             displayRadioStations();
         };
+
+        // Search functionality
+        searchInput.addEventListener('input', (event) => {
+            const query = event.target.value;
+            if (query) {
+                displaySuggestions(query);
+            } else {
+                suggestionsList.style.display = 'none'; // Hide suggestions if input is empty
+            }
+        });
     </script>
 </body>
 </html>
