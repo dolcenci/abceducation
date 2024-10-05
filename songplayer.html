@@ -11,28 +11,28 @@
             align-items: flex-start;
             min-height: 100vh;
             margin: 0;
-            background-color: #111727; /* Page background color */
+            background-color: #111727;
             font-family: Arial, sans-serif;
-            color: white; /* Default text color for the body */
+            color: white;
         }
         .sidebar {
-            width: 25%; /* Sidebar width */
-            height: 80%; /* Sidebar height */
-            background-color: #111727; /* Sidebar background color */
-            color: #fff; /* Sidebar font color */
+            width: 25%;
+            height: 80%;
+            background-color: #111727;
+            color: #fff;
             padding: 20px;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
         }
         .container {
-            width: 75%; /* Adjusted container width */
+            width: 75%;
             max-width: 800px;
-            background-color: #111727; /* Container background color */
+            background-color: #111727;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
         h1, h2, h3 {
-            color: white; /* Heading color */
+            color: white;
         }
         .nav {
             display: flex;
@@ -40,7 +40,7 @@
             align-items: center;
             margin-bottom: 20px;
             padding: 10px;
-            background-color: #1e1e2f; /* Navigation background color */
+            background-color: #1e1e2f;
             border-radius: 8px;
         }
         .nav a {
@@ -61,25 +61,25 @@
         }
         .suggestions {
             position: absolute;
-            background-color: #1e1e2f; /* Suggestions background */
+            background-color: #1e1e2f;
             border: 1px solid #ccc;
             border-radius: 5px;
             z-index: 10;
             max-height: 150px;
             overflow-y: auto;
             width: 100%;
-            display: none; /* Hidden by default */
+            display: none;
         }
         .suggestion-item {
             padding: 10px;
             cursor: pointer;
-            color: white; /* Suggestions text color */
+            color: white;
         }
         .suggestion-item:hover {
-            background-color: #333; /* Suggestions hover color */
+            background-color: #333;
         }
         .artist-list, .radio-station-list, .song-list, .radio-player {
-            background-color: #111727; /* Section background color */
+            background-color: #111727;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -91,31 +91,31 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             transition: background-color 0.3s;
-            color: white; /* Text color for items */
+            color: white;
         }
         .artist-item:hover, .radio-station-item:hover, .song-item:hover {
             background-color: #e0e0e0;
-            color: black; /* Change text color on hover */
+            color: black;
         }
         audio {
             width: 100%;
             margin-bottom: 10px;
             border-radius: 5px;
-            background-color: #f3f3f3; /* Background for audio player */
+            background-color: #f3f3f3;
             border: none;
             outline: none;
-            height: 45px; /* Height for the audio player */
+            height: 45px;
         }
         audio::-webkit-media-controls {
-            background-color: #1db954; /* Spotify green */
+            background-color: #1db954;
             border-radius: 5px;
         }
         audio::-webkit-media-controls-panel {
-            background-color: #1db954; /* Spotify green */
+            background-color: #1db954;
         }
         audio::-webkit-media-controls-play-button,
         audio::-webkit-media-controls-volume-slider {
-            background-color: #1db954; /* Spotify green */
+            background-color: #1db954;
         }
     </style>
 </head>
@@ -179,9 +179,9 @@
         const searchInput = document.getElementById('searchInput');
         const suggestionsList = document.getElementById('suggestionsList');
 
-        const songsData = []; // Store songs data for searching
+        let songsData = []; // Store songs data for searching
 
-        async function displayArtists() {
+        async function loadSongsData() {
             const querySnapshot = await getDocs(collection(firestore, 'songs'));
 
             querySnapshot.forEach((doc) => {
@@ -284,8 +284,8 @@
         }
 
         // Load artists and radio stations on page load
-        window.onload = () => {
-            displayArtists();
+        window.onload = async () => {
+            await loadSongsData();
             displayRadioStations();
         };
 
