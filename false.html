@@ -21,6 +21,39 @@
         .popular_artists img:hover {
             transform: scale(1.1);
         }
+
+        /* Custom audio player styles */
+        .custom-player {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-player button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 5px;
+            background: #ddd;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .progress {
+            height: 100%;
+            background: #007bff;
+            width: 0;
+        }
     </style>
 </head>
 
@@ -122,14 +155,18 @@
         </div>
     </div>
 </header>
-    
 
-<audio id="master_audio" controls style="display:none;">
-    <source id="audio_source" src="" type="audio/mpeg">
-    Your browser does not support the audio tag.
-</audio>
+<div class="custom-player">
+    <button id="prevSong" class="bi bi-skip-start-fill"></button>
+    <button id="playPause" class="bi bi-play-fill"></button>
+    <button id="nextSong" class="bi bi-skip-end-fill"></button>
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
+</div>
 
-<!-- Import Firebase SDKs -->
+<audio id="audio" src="" preload="metadata"></audio>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -148,8 +185,12 @@
     const firestore = getFirestore(app);
 
     const popularArtistsContainer = document.getElementById('popularArtists');
-    const masterPlayButton = document.getElementById('masterPlay');
-    const audioElement = document.getElementById('master_audio');
+    const audioElement = document.getElementById('audio');
+    const playPauseButton = document.getElementById('playPause');
+    const progress = document.getElementById('progress');
+
+    let currentSongIndex = -1;
+    let songs = [];
 
     async function fetchArtists() {
         const querySnapshot = await getDocs(collection(firestore, 'songs'));
@@ -175,13 +216,12 @@
     }
 
     function getArtistImage(artist) {
-        // Replace with actual logic to get the image URL based on the artist's name
         return `img/${artist.replace(/\s+/g, '_').toLowerCase()}.jpg`; // Adjust path accordingly
     }
 
     async function displaySongsByArtist(artist) {
         const querySnapshot = await getDocs(collection(firestore, 'songs'));
-        const songs = [];
+        songs = [];
 
         querySnapshot.forEach((doc) => {
             const songData = doc.data();
@@ -190,11 +230,11 @@
             }
         });
 
-        // Update the left sidebar with the fetched songs
-        updateSongList(songs);
+        currentSongIndex = -1; // Reset index
+        updateSongList();
     }
 
-    function updateSongList(songs) {
+    function updateSongList() {
         const songListContainer = document.querySelector('.menu_song');
         songListContainer.innerHTML = ''; // Clear existing songs
         songs.forEach((song, index) => {
@@ -207,21 +247,51 @@
                     ${song.title}
                     <div class="subtitle">${song.artist}</div>
                 </h5>
-                <i class="bi playListPlay bi-play-circle-fill" onclick="playSong('${song.audioURL}')"></i>
+                <i class="bi playListPlay bi-play-circle-fill" onclick="playSong(${index})"></i>
             `;
             songListContainer.appendChild(songItem);
         });
     }
 
-    function playSong(url) {
-        audioElement.src = url; // Update the master audio source
-        audioElement.play(); // Play the audio
+    window.playSong = function(index) {
+        currentSongIndex = index;
+        const song = songs[currentSongIndex];
+        audioElement.src = song.audioURL; // Update the audio source
+        audioElement.play();
+        playPauseButton.classList.remove('bi-play-fill');
+        playPauseButton.classList.add('bi-pause-fill');
     }
+
+    playPauseButton.addEventListener('click', () => {
+        if (audioElement.paused) {
+            audioElement.play();
+            playPauseButton.classList.remove('bi-play-fill');
+            playPauseButton.classList.add('bi-pause-fill');
+        } else {
+            audioElement.pause();
+            playPauseButton.classList.remove('bi-pause-fill');
+            playPauseButton.classList.add('bi-play-fill');
+        }
+    });
+
+    document.getElementById('nextSong').addEventListener('click', () => {
+        currentSongIndex = (currentSongIndex + 1) % songs.length;
+        playSong(currentSongIndex);
+    });
+
+    document.getElementById('prevSong').addEventListener('click', () => {
+        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+        playSong(currentSongIndex);
+    });
+
+    audioElement.addEventListener('timeupdate', () => {
+        const progressPercent = (audioElement.currentTime / audioElement.duration) * 100;
+        progress.style.width = `${progressPercent}%`;
+    });
 
     // Fetch artists on page load
     window.onload = fetchArtists;
 </script>
-    <script src="app.js"></script>
 </body>
 
 </html>
