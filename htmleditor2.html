@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML/CSS Code Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #000;
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            height: 70vh;
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .info {
+            width: 30%;
+            padding: 20px;
+            background-color: #1e1e2f;
+            overflow-y: auto;
+        }
+        .editor, .output {
+            width: 35%;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+        .editor {
+            background-color: #1e1e2f;
+            color: #f8f8f2;
+        }
+        .output {
+            background-color: #ffffff;
+        }
+        button {
+            margin-top: 10px;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        .feedback {
+            margin-top: 10px;
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML/CSS Code Editor</h1>
+    
+    <div class="container">
+        <!-- User Input Section -->
+        <div class="info">
+            <h2>Describe Your Website</h2>
+            <textarea id="siteDescription" placeholder="Describe the website you'd like to create..." rows="5" style="width: 100%; padding: 10px; border-radius: 5px;"></textarea>
+            <button id="generateCode" style="margin-top: 10px; width: 100%;">Generate Code</button>
+        </div>
+
+        <!-- Code Editor Section -->
+        <div class="editor" id="codeEditor"></div>
+
+        <!-- Output Section -->
+        <div class="output">
+            <iframe id="outputFrame"></iframe>
+        </div>
+    </div>
+    
+    <button id="runCode">Run Code</button>
+    <div class="feedback" id="feedback"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/css/css.min.js"></script>
+
+    <script>
+        const editor = CodeMirror(document.getElementById("codeEditor"), {
+            mode: "text/html",
+            lineNumbers: true,
+            theme: "default",
+            lineWrapping: true,
+            value: "<!DOCTYPE html>\n<html>\n<head>\n<style>\n/* Add your CSS here */\n.container {\n  display: flex;\n  justify-content: space-between;\n}\n.item {\n  flex: 1;\n  margin: 10px;\n}\n</style>\n</head>\n<body>\n\n<div class='container'>\n    <div class='item'>Item 1</div>\n    <div class='item'>Item 2</div>\n    <div class='item'>Item 3</div>\n</div>\n\n</body>\n</html>",
+        });
+
+        // Generate code based on user description
+        document.getElementById('generateCode').addEventListener('click', () => {
+            const description = document.getElementById('siteDescription').value;
+
+            if (description.trim()) {
+                // Simulate a call to OpenAI API
+                fetch('https://api.openai.com/v1/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': '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', // Replace with your OpenAI API key
+                    },
+                    body: JSON.stringify({
+                        model: 'text-davinci-003', // Or 'gpt-4' if you're using GPT-4
+                        prompt: `Generate HTML and CSS code for a website based on the following description: ${description}`,
+                        max_tokens: 1000,
+                        temperature: 0.7,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.choices && data.choices[0] && data.choices[0].text) {
+                        // Populate the editor with the generated code
+                        editor.setValue(data.choices[0].text.trim());
+                        document.getElementById('feedback').textContent = 'Website generated successfully!';
+                        document.getElementById('feedback').style.color = '#28a745'; // Green for success
+                    } else {
+                        document.getElementById('feedback').textContent = 'Failed to generate code.';
+                        document.getElementById('feedback').style.color = '#dc3545'; // Red for error
+                    }
+                })
+                .catch(error => {
+                    console.error('Error generating code:', error);
+                    document.getElementById('feedback').textContent = 'Error generating code. Please try again later.';
+                    document.getElementById('feedback').style.color = '#dc3545'; // Red for error
+                });
+            } else {
+                document.getElementById('feedback').textContent = 'Please describe the website you want to create.';
+                document.getElementById('feedback').style.color = '#dc3545'; // Red for error
+            }
+        });
+
+        // Run the code in the editor
+        document.getElementById('runCode').addEventListener('click', () => {
+            const code = editor.getValue();
+            const outputFrame = document.getElementById('outputFrame');
+            const output = outputFrame.contentWindow.document;
+
+            // Clear previous content
+            output.open();
+            output.write(code);
+            output.close();
+        });
+    </script>
+</body>
+</html>
