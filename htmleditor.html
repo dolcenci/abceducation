@@ -85,84 +85,43 @@
     </style>
 </head>
 <body>
-    <h1>HTML/CSS Code Editor</h1>
+
+<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
     
-    <div class="container">
-        <!-- Information Section -->
-        <div class="info">
-            <h2>CSS Flexbox</h2>
-            <h3>Overview</h3>
-            <p>Flexbox is a layout model that allows you to design a complex layout structure with a more efficient and predictable way to arrange items in a container.</p>
-            
-            <h3>Code Example</h3>
-            <pre><code>/* Flex container */
-.container {
-    display: flex;
-    justify-content: space-between; /* Aligns items with space in between */
-}
 
-/* Flex items */
-.item {
-    flex: 1; /* Each item takes equal space */
-    margin: 10px; /* Space around items */
-}
-</code></pre>
-
-            <h3>Instructions</h3>
-            <ol>
-                <li>Change the class name of the first `<div>` item from `item` to `box`.</li>
-                <li>Edit the `margin` property of the `.item` class to `5px`.</li>
-                <li>Change the `justify-content` property of the `.container` class to `center`.</li>
-                <li>Experiment with different background colors for the `.item` class.</li>
-            </ol>
-        </div>
-
-        <!-- Code Editor Section -->
-        <div class="editor" id="codeEditor"></div>
-
-        <!-- Output Section -->
-        <div class="output">
-            <iframe id="outputFrame"></iframe>
-        </div>
-    </div>
-    
-    <button id="runCode">Run Code</button>
-    <div class="feedback" id="feedback"></div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/xml/xml.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/css/css.min.js"></script>
+    
 
     <script>
-        const editor = CodeMirror(document.getElementById("codeEditor"), {
-            mode: "text/html",
-            lineNumbers: true,
-            theme: "default",
-            lineWrapping: true,
-            value: "<!DOCTYPE html>\n<html>\n<head>\n<style>\n/* Add your CSS here */\n.container {\n  display: flex;\n  justify-content: space-between;\n}\n.item {\n  flex: 1;\n  margin: 10px;\n}\n</style>\n</head>\n<body>\n\n<div class='container'>\n    <div class='item'>Item 1</div>\n    <div class='item'>Item 2</div>\n    <div class='item'>Item 3</div>\n</div>\n\n</body>\n</html>",
-        });
 
-        document.getElementById('runCode').addEventListener('click', () => {
-            const code = editor.getValue();
-            const outputFrame = document.getElementById('outputFrame');
-            const output = outputFrame.contentWindow.document;
 
-            // Clear previous content
-            output.open();
-            output.write(code);
-            output.close();
 
-            // Test the code against expected results
-            const feedback = document.getElementById('feedback');
-            if (code.includes("class='container'") && (code.match(/class='item'/g || []).length === 2) && code.includes("class='box'")) {
-                feedback.textContent = "Great job! Your code is set up correctly.";
-                feedback.style.color = "#28a745"; // Green for success
-            } else {
-                feedback.textContent = "Please make sure you have a container with class 'container', two items with class 'item', and the first item should have class 'box'.";
-                feedback.style.color = "#dc3545"; // Red for error
-            }
-        });
+        google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['sined-up', 'Hours per Day'],
+          ['enrolled',     11],
+          ['payed',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
+
+        var options = {
+          title: 'students pie cart',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+        
     </script>
 </body>
 </html>
