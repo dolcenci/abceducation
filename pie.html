@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML/CSS Code Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            height: 70vh;
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .info {
+            width: 30%; /* Information section width */
+            padding: 20px;
+            background-color: #1e1e2f; /* Dark background for info */
+            overflow-y: auto; /* Allow scrolling */
+        }
+        .editor, .output {
+            width: 35%; /* Editor and output section width */
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+        .editor {
+            background-color: #1e1e2f; /* Dark blue background */
+            color: #f8f8f2; /* Light text color */
+        }
+        .output {
+            background-color: #ffffff; /* White background for output */
+        }
+        button {
+            margin-top: 10px;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        .feedback {
+            margin-top: 10px;
+            color: #ffcc00; /* Yellow color for feedback */
+        }
+        @media (max-width: 800px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+            .info, .editor, .output {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+    
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/css/css.min.js"></script>
+    
+
+    <script>
+
+
+
+        google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['sined-up', 'Hours per Day'],
+          ['enrolled',     11],
+          ['payed',      2],
+          ['Commute',  2],
+          ['Watch TV', 19],
+          ['Sleep',    7]
+        ]);
+
+        var options = {
+          title: 'students pie cart',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+        
+    </script>
+</body>
+</html>
