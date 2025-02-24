@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            background-color: #1e1e2f;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #ffcc00;
+            font-size: 28px;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            background-color: #2c2c3e;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #444;
+            font-size: 18px;
+        }
+        th {
+            background-color: #4444aa;
+            color: #ffffff;
+        }
+        td:nth-child(1) { color: #ff6666; }
+        td:nth-child(2) { color: #66ccff; }
+        td:nth-child(3) { color: #99ff99; }
+        td:nth-child(4) { color: #ffcc00; }
+        td:nth-child(5) { color: #ff99ff; }
+    </style>
+</head>
+<body>
+    <h1>User Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Date of Birth</th>
+                <th>Bio</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+            <!-- User data will be dynamically inserted here -->
+        </tbody>
+    </table>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
+            authDomain: "prosper-a9810.firebaseapp.com",
+            projectId: "prosper-a9810",
+            storageBucket: "prosper-a9810.appspot.com",
+            messagingSenderId: "1040350127188",
+            appId: "1:1040350127188:web:da8987386085d778eaf9cl1",
+            measurementId: "G-6G8BMD6S3G"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const firestore = getFirestore(app);
+
+        async function fetchUsers() {
+            const querySnapshot = await getDocs(collection(firestore, "users"));
+            const userTableBody = document.getElementById("userTableBody");
+            userTableBody.innerHTML = "";
+
+            querySnapshot.forEach((doc) => {
+                const user = doc.data();
+                const row = `<tr>
+                                <td>${user.name}</td>
+                                <td>${user.email}</td>
+                                <td>${user.address}</td>
+                                <td>${user.dob}</td>
+                                <td>${user.bio}</td>
+                            </tr>`;
+                userTableBody.innerHTML += row;
+            });
+        }
+        fetchUsers();
+    </script>
+</body>
+</html>
