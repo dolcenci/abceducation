@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IIEMSA Outlook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --outlook-blue: #0078D4;
+            --outlook-hover: #E5F1FB;
+            --outlook-border: #E0E0E0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background: #f5f5f5;
+        }
+
+        /* Top Navigation Bar */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--outlook-border);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            z-index: 100;
+            gap: 15px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-button {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #444;
+        }
+
+        .nav-button:hover {
+            background: #f3f3f3;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-right: 15px;
+            border-right: 1px solid var(--outlook-border);
+        }
+
+        .logo-text {
+            font-weight: 600;
+            color: #444;
+            font-size: 15px;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            background: #f3f3f3;
+            border: none;
+            padding: 8px 15px 8px 35px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: auto;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: #ffffff;
+            border-right: 1px solid var(--outlook-border);
+            padding: 70px 0 15px 0;
+            margin-top: 48px;
+            height: calc(100vh - 48px);
+            overflow-y: auto;
+        }
+
+        .compose-btn {
+            background: var(--outlook-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: calc(100% - 32px);
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+
+        .compose-btn:hover {
+            background: #006cbd;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .folder-section {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--outlook-border);
+        }
+
+        .folder-header {
+            padding: 8px 16px;
+            font-weight: 600;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .folder-item {
+            padding: 8px 16px 8px 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #444;
+            position: relative;
+        }
+
+        .folder-item:hover {
+            background: var(--outlook-hover);
+        }
+
+        .folder-count {
+            margin-left: auto;
+            color: #666;
+            font-weight: 400;
+            font-size: 13px;
+        }
+
+        .folder-item.active {
+            background: var(--outlook-hover);
+            font-weight: 600;
+            color: var(--outlook-blue);
+        }
+
+        /* Email List */
+        .email-list {
+            flex: 1;
+            max-width: 720px;
+            background: white;
+            border-right: 1px solid var(--outlook-border);
+            margin-top: 48px;
+            height: calc(100vh - 48px);
+            overflow-y: auto;
+        }
+
+        .email-list-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--outlook-border);
+            background: #fafafa;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .email-list-header-item {
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .email-list-header-item:hover {
+            background: #f0f0f0;
+        }
+
+        .email-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--outlook-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            font-size: 14px;
+        }
+
+        .email-item.unread {
+            background: #fcfcfc;
+            font-weight: 600;
+        }
+
+        .email-item.selected {
+            background: var(--outlook-hover);
+        }
+
+        .email-item:hover {
+            background: var(--outlook-hover);
+        }
+
+        .email-checkbox {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+
+        .email-star {
+            color: #d4d4d4;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+
+        .email-star.active {
+            color: #ffb700;
+        }
+
+        .email-sender {
+            width: 180px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .email-subject {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .email-preview {
+            color: #666;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 400px;
+            font-weight: 400;
+        }
+
+        .email-time {
+            margin-left: auto;
+            color: #666;
+            padding-left: 15px;
+            white-space: nowrap;
+            font-size: 13px;
+        }
+
+        /* Reading Pane */
+        .reading-pane {
+            flex: 2;
+            background: #ffffff;
+            padding: 70px 32px 30px 32px;
+            margin-top: 48px;
+            height: calc(100vh - 48px);
+            overflow-y: auto;
+            border-left: 1px solid var(--outlook-border);
+        }
+
+        .email-header {
+            background: white;
+            padding: 16px 0;
+        }
+
+        .email-title {
+            font-size: 22px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .email-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .sender-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--outlook-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .email-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            border: 1px solid var(--outlook-border);
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: white;
+            color: #444;
+            font-size: 13px;
+        }
+
+        .action-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .email-body {
+            line-height: 1.6;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .attachment {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            border: 1px solid var(--outlook-border);
+            border-radius: 4px;
+            margin-top: 20px;
+            width: fit-content;
+        }
+
+        .category-tag {
+            background: #e8f4fc;
+            color: var(--outlook-blue);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="nav-buttons">
+            <button class="nav-button">
+                <i class="fas fa-bars"></i>
+            </button>
+            <button class="nav-button">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="nav-button">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="logo">
+            <img src="https://img.icons8.com/color/48/000000/outlook.png" alt="IIEMSA Mail" style="height: 28px;">
+            <span class="logo-text">IIEMSA Mail</span>
+        </div>
+
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-bar" placeholder="Search mail">
+        </div>
+
+        <div class="user-menu">
+            <button class="nav-button">
+                <i class="fas fa-question-circle"></i>
+            </button>
+            <button class="nav-button">
+                <i class="fas fa-gear"></i>
+            </button>
+            <i class="fas fa-user-circle" style="font-size: 32px; color: #666; cursor: pointer;"></i>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <button class="compose-btn">
+            <i class="fas fa-plus"></i>
+            New message
+        </button>
+        
+        <div class="folder-section">
+            <div class="folder-header">
+                <span>Favorites</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="folder-item active">
+                <i class="fas fa-inbox"></i>
+                Inbox
+                <span class="folder-count">10</span>
+            </div>
+        </div>
+
+        <div class="folder-section">
+            <div class="folder-header">
+                <span>Folders</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="folder-item">
+                <i class="fas fa-paper-plane"></i>
+                Sent Items
+            </div>
+            <div class="folder-item">
+                <i class="fas fa-file"></i>
+                Drafts
+                <span class="folder-count">2</span>
+            </div>
+            <div class="folder-item">
+                <i class="fas fa-trash"></i>
+                Deleted Items
+            </div>
+        </div>
+    </div>
+
+    <div class="email-list" id="emailList">
+        <div class="email-list-header">
+            <div class="email-list-header-item" style="width: 180px;">
+                <i class="fas fa-sort"></i>
+                From
+            </div>
+            <div class="email-list-header-item" style="flex: 1;">
+                <i class="fas fa-sort"></i>
+                Subject
+            </div>
+            <div class="email-list-header-item">
+                <i class="fas fa-sort"></i>
+                Received
+            </div>
+        </div>
+        <!-- Email items will be inserted here by JavaScript -->
+    </div>
+
+    <div class="reading-pane" id="readingPane">
+        <div class="email-header" id="emailContent">
+            <div class="email-title">Select an email to read</div>
+            <div class="email-body">Click on any message in your inbox to view it here</div>
+        </div>
+    </div>
+
+    <script>
+        const emails = [
+            {sender: "IIEMSA Registrar", subject: "Final Exam Schedule", preview: "Spring 2024 exam schedule now available...", time: "10:15 AM", read: false, category: "Academic"},
+            {sender: "Prof. Wilson", subject: "Research Paper Feedback", preview: "Your paper has been reviewed...", time: "9:30 AM", read: true, category: "Courses"},
+            {sender: "Campus Security", subject: "ID Card Renewal", preview: "Renew your student ID before expiration...", time: "Yesterday", read: true, category: "Administrative"},
+            {sender: "Library Services", subject: "Book Reservation", preview: "Your reserved book is available...", time: "Feb 1", read: true, category: "Library"},
+            {sender: "Student Union", subject: "Election Results", preview: "Student Union election results...", time: "Jan 31", read: true, category: "Announcement"},
+            {sender: "IT Department", subject: "System Maintenance", preview: "Planned maintenance this weekend...", time: "Jan 30", read: true, category: "IT"},
+            {sender: "Dr. Roberts", subject: "Office Hours Change", preview: "Updated office hours for Spring...", time: "Jan 29", read: true, category: "Faculty"},
+            {sender: "Financial Aid", subject: "Scholarship Deadline", preview: "Submit applications by Friday...", time: "Jan 28", read: true, category: "Financial"},
+            {sender: "Sports Center", subject: "Gym Closure", preview: "Renovations schedule update...", time: "Jan 27", read: true, category: "Facilities"},
+            {sender: "Alumni Office", subject: "Networking Event", preview: "Annual alumni conference...", time: "Jan 26", read: true, category: "Events"}
+        ];
+
+        const emailList = document.getElementById('emailList');
+        let selectedEmail = null;
+
+        emails.forEach((email, index) => {
+            const emailItem = document.createElement('div');
+            emailItem.className = `email-item ${!email.read ? 'unread' : ''}`;
+            emailItem.innerHTML = `
+                <input type="checkbox" class="email-checkbox">
+                <i class="far fa-star email-star"></i>
+                <div class="email-sender">${email.sender}</div>
+                <div class="email-subject">
+                    ${email.subject}
+                    <div class="email-preview">${email.preview}</div>
+                    <span class="category-tag">${email.category}</span>
+                </div>
+                <div class="email-time">${email.time}</div>
+                <div class="email-actions" style="display: none;">
+                    <i class="fas fa-archive"></i>
+                    <i class="fas fa-trash"></i>
+                </div>
+            `;
+
+            // Star toggle functionality
+            emailItem.querySelector('.email-star').addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.target.classList.toggle('active');
+                e.target.classList.toggle('far');
+                e.target.classList.toggle('fas');
+            });
+
+            // Email selection
+            emailItem.addEventListener('click', (e) => {
+                if(e.target.classList.contains('email-checkbox') || 
+                   e.target.classList.contains('email-star')) return;
+                
+                if(selectedEmail) selectedEmail.classList.remove('selected');
+                selectedEmail = emailItem;
+                emailItem.classList.add('selected');
+                showEmail(index);
+            });
+
+            emailList.appendChild(emailItem);
+        });
+
+        function showEmail(index) {
+            const email = emails[index];
+            document.getElementById('emailContent').innerHTML = `
+                <div class="email-title">${email.subject}</div>
+                <div class="email-meta">
+                    <div class="sender-avatar">${email.sender[0]}</div>
+                    <div>
+                        <div style="font-weight: 600;">${email.sender}</div>
+                        <div style="color: #666;">to me • ${email.time}</div>
+                    </div>
+                    <div class="email-actions">
+                        <button class="action-btn">
+                            <i class="fas fa-reply"></i>
+                            Reply
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-share"></i>
+                            Forward
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="email-body">
+                    <p>Dear Student,</p>
+                    <p style="margin-top: 15px;">${email.preview}</p>
+                    <p style="margin-top: 25px;">${Array(3).fill(`This is the official communication from IIEMSA University regarding ${email.subject.toLowerCase()}. Please ensure you review all details carefully and take appropriate action as needed.`).join('</p><p style="margin-top: 15px;">')}</p>
+                    <p style="margin-top: 25px;">
+                        Best regards,<br>
+                        <strong>${email.sender}</strong><br>
+                        ${email.category} Department<br>
+                        IIEMSA University
+                    </p>
+                    <div class="attachment">
+                        <i class="fas fa-paperclip"></i>
+                        <i class="fas fa-file-pdf"></i>
+                        ${email.subject.replace(/ /g, '_')}.pdf
+                    </div>
+                </div>
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--outlook-border); color: #666; font-size: 12px;">
+                    This message and any attachments are intended only for the use of the addressee and may contain information that is privileged and confidential. If you are not the intended recipient, any dissemination of this communication is strictly prohibited.
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
