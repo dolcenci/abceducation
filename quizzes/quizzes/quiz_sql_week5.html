@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5 SQL Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .quiz-container {
+            background: white;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+        }
+        .submit-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>SQL Joins Quiz</h2>
+        <form id="quizForm">
+            <div class="question">
+                1. Which SQL join returns only matching rows from both tables?
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="INNER JOIN"> INNER JOIN</label>
+                <label><input type="radio" name="q1" value="LEFT JOIN"> LEFT JOIN</label>
+                <label><input type="radio" name="q1" value="RIGHT JOIN"> RIGHT JOIN</label>
+                <label><input type="radio" name="q1" value="FULL JOIN"> FULL JOIN</label>
+            </div>
+            
+            <div class="question">
+                2. What does a LEFT JOIN return?
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="Only matched rows"> Only matched rows</label>
+                <label><input type="radio" name="q2" value="All rows from left table and matched rows from right table"> All rows from left table and matched rows from right table</label>
+                <label><input type="radio" name="q2" value="All rows from right table"> All rows from right table</label>
+                <label><input type="radio" name="q2" value="All possible combinations"> All possible combinations</label>
+            </div>
+            
+            <div class="question">
+                3. What kind of join would you use to find employees and their managers within the same table?
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="CROSS JOIN"> CROSS JOIN</label>
+                <label><input type="radio" name="q3" value="Self-Join"> Self-Join</label>
+                <label><input type="radio" name="q3" value="FULL JOIN"> FULL JOIN</label>
+                <label><input type="radio" name="q3" value="RIGHT JOIN"> RIGHT JOIN</label>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
