@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Data Manipulation Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>SQL Data Manipulation Quiz</h1>
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Week 1: SQL Basics</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge of fundamental SQL concepts.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">Which SQL command is used to create a new table?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="CREATE TABLE">CREATE TABLE</option>
+                            <option value="INSERT INTO">INSERT INTO</option>
+                            <option value="ALTER TABLE">ALTER TABLE</option>
+                            <option value="DROP TABLE">DROP TABLE</option>
+                        </select>
+                        <p class="answer">Correct Answer: CREATE TABLE</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which data type is used to store text in SQL?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="INT">INT</option>
+                            <option value="VARCHAR">VARCHAR</option>
+                            <option value="DATE">DATE</option>
+                            <option value="DECIMAL">DECIMAL</option>
+                        </select>
+                        <p class="answer">Correct Answer: VARCHAR</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which SQL statement is used to retrieve data from a database?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="INSERT">INSERT</option>
+                            <option value="UPDATE">UPDATE</option>
+                            <option value="SELECT">SELECT</option>
+                            <option value="DELETE">DELETE</option>
+                        </select>
+                        <p class="answer">Correct Answer: SELECT</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which clause is used to filter records in a SQL query?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="ORDER BY">ORDER BY</option>
+                            <option value="WHERE">WHERE</option>
+                            <option value="GROUP BY">GROUP BY</option>
+                            <option value="HAVING">HAVING</option>
+                        </select>
+                        <p class="answer">Correct Answer: WHERE</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which SQL command is used to delete records from a table?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="DROP">DROP</option>
+                            <option value="DELETE">DELETE</option>
+                            <option value="REMOVE">REMOVE</option>
+                            <option value="ERASE">ERASE</option>
+                        </select>
+                        <p class="answer">Correct Answer: DELETE</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='viewerfinw2.html';">Next</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='quiz_fin_week6.html';">Week 2 Quizzes</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'CREATE TABLE',
+                q2: 'VARCHAR',
+                q3: 'SELECT',
+                q4: 'WHERE',
+                q5: 'DELETE',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers.hasOwnProperty(question) && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = `<p>Your score: ${score}/5</p>`;
+            
+            // Show correct answers
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+
+</html>
