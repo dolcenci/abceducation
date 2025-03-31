@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4 Quiz: Arrays and ArrayLists in Java</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .quiz-container { max-width: 600px; margin: auto; }
+        .question { margin-bottom: 15px; }
+        .result { display: none; margin-top: 20px; padding: 10px; background: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Week 4 Quiz: Arrays and ArrayLists in Java</h2>
+        
+        <form id="quizForm">
+            <div class="question">
+                <p>1. What is the default value of an uninitialized integer array element in Java?</p>
+                <input type="radio" name="q1" value="0"> 0<br>
+                <input type="radio" name="q1" value="null"> null<br>
+                <input type="radio" name="q1" value="false"> false<br>
+            </div>
+
+            <div class="question">
+                <p>2. How do you get the length of an array in Java?</p>
+                <input type="radio" name="q2" value="array.length"> array.length<br>
+                <input type="radio" name="q2" value="array.size()"> array.size()<br>
+                <input type="radio" name="q2" value="array.length()"> array.length()<br>
+            </div>
+
+            <div class="question">
+                <p>3. What is a key difference between an Array and an ArrayList?</p>
+                <input type="radio" name="q3" value="Array has dynamic size"> Array has dynamic size<br>
+                <input type="radio" name="q3" value="ArrayList has dynamic size"> ArrayList has dynamic size<br>
+                <input type="radio" name="q3" value="They are identical"> They are identical<br>
+            </div>
+
+            <button type="button" onclick="checkAnswers()">Submit</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            const answers = {
+                q1: "0",
+                q2: "array.length",
+                q3: "ArrayList has dynamic size"
+            };
+            
+            let score = 0;
+            let total = Object.keys(answers).length;
+            let feedback = "<h3>Quiz Results</h3>";
+            
+            for (let key in answers) {
+                let selected = document.querySelector(`input[name="${key}"]:checked`);
+                if (selected) {
+                    if (selected.value === answers[key]) {
+                        score++;
+                    } else {
+                        feedback += `<p><b>Question ${key.slice(1)}:</b> Correct answer is ${answers[key]}</p>`;
+                    }
+                } else {
+                    feedback += `<p><b>Question ${key.slice(1)}:</b> You did not select an answer.</p>`;
+                }
+            }
+            
+            feedback = `<p><strong>Your Score:</strong> ${score} / ${total}</p>` + feedback;
+            document.getElementById("result").innerHTML = feedback;
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+</body>
+</html>
