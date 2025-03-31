@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4 SQL Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .quiz-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        .question {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Week 4 SQL Quiz</h2>
+        
+        <form id="quizForm">
+            <div class="question">1. What is the purpose of a primary key in a table?</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="a"> To allow duplicate records</label>
+                <label><input type="radio" name="q1" value="b"> To uniquely identify each record</label>
+                <label><input type="radio" name="q1" value="c"> To reference another table</label>
+                <label><input type="radio" name="q1" value="d"> To delete records</label>
+            </div>
+            
+            <div class="question">2. Which SQL keyword is used to combine data from multiple tables?</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="a"> COMBINE</label>
+                <label><input type="radio" name="q2" value="b"> LINK</label>
+                <label><input type="radio" name="q2" value="c"> JOIN</label>
+                <label><input type="radio" name="q2" value="d"> MERGE</label>
+            </div>
+            
+            <div class="question">3. What is a foreign key used for?</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="a"> To store only unique values</label>
+                <label><input type="radio" name="q3" value="b"> To reference a primary key in another table</label>
+                <label><input type="radio" name="q3" value="c"> To automatically delete records</label>
+                <label><input type="radio" name="q3" value="d"> To group records</label>
+            </div>
+            
+            <div class="question">4. What happens when ON DELETE CASCADE is set on a foreign key?</div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="a"> The referenced record remains</label>
+                <label><input type="radio" name="q4" value="b"> The foreign key is ignored</label>
+                <label><input type="radio" name="q4" value="c"> Related records are deleted automatically</label>
+                <label><input type="radio" name="q4" value="d"> The database crashes</label>
+            </div>
+            
+            <div class="question">5. Which SQL query retrieves all customers who have placed an order?</div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="a"> SELECT * FROM customers;</label>
+                <label><input type="radio" name="q5" value="b"> SELECT name FROM customers WHERE EXISTS (SELECT customer_id FROM orders WHERE orders.customer_id = customers.customer_id);</label>
+                <label><input type="radio" name="q5" value="c"> DELETE FROM customers WHERE customer_id IN (SELECT customer_id FROM orders);</label>
+                <label><input type="radio" name="q5" value="d"> ALTER TABLE customers;</label>
+            </div>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
