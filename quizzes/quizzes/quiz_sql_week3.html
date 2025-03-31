@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3 SQL Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .quiz-container {
+            width: 50%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        h2 {
+            color: #333;
+        }
+        .question {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .options {
+            text-align: left;
+        }
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>SQL Week 3 Quiz</h2>
+        <form>
+            <div class="question">
+                <p>1. What is a function in SQL?</p>
+                <div class="options">
+                    <input type="radio" name="q1" value="a"> A reusable block of SQL statements that return a value.<br>
+                    <input type="radio" name="q1" value="b"> A way to store data permanently.<br>
+                    <input type="radio" name="q1" value="c"> A command to delete a database.<br>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>2. What keyword is used to define a function in SQL?</p>
+                <div class="options">
+                    <input type="radio" name="q2" value="a"> CREATE FUNCTION<br>
+                    <input type="radio" name="q2" value="b"> DECLARE FUNCTION<br>
+                    <input type="radio" name="q2" value="c"> FUNCTION ADD<br>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>3. What does a SQL function typically return?</p>
+                <div class="options">
+                    <input type="radio" name="q3" value="a"> A table<br>
+                    <input type="radio" name="q3" value="b"> A single value<br>
+                    <input type="radio" name="q3" value="c"> A stored procedure<br>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>4. Which SQL function can be used to find the highest value in a column?</p>
+                <div class="options">
+                    <input type="radio" name="q4" value="a"> MAX()<br>
+                    <input type="radio" name="q4" value="b"> COUNT()<br>
+                    <input type="radio" name="q4" value="c"> SUM()<br>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>5. What is the difference between a stored procedure and a function in SQL?</p>
+                <div class="options">
+                    <input type="radio" name="q5" value="a"> Functions must return a value, stored procedures do not have to.<br>
+                    <input type="radio" name="q5" value="b"> There is no difference.<br>
+                    <input type="radio" name="q5" value="c"> Stored procedures are only for SELECT queries.<br>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
