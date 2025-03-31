@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Week 3: Conditionals and Logic Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .quiz-container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin: 20px 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+        .option {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .option:hover {
+            background-color: #dcdcdc;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2>PHP Week 3: Conditionals and Logic Quiz</h2>
+    <form id="quizForm">
+        <!-- Question 1 -->
+        <div class="question">
+            <p>1. What is the result of the following comparison: 5 == "5"?</p>
+            <div class="options">
+                <div class="option"><input type="radio" name="q1" value="A"> A) true</div>
+                <div class="option"><input type="radio" name="q1" value="B"> B) false</div>
+                <div class="option"><input type="radio" name="q1" value="C"> C) error</div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <p>2. What will be displayed if $age = 20, and the following condition is checked: if ($age >= 18)?</p>
+            <div class="options">
+                <div class="option"><input type="radio" name="q2" value="A"> A) "You are an adult!"</div>
+                <div class="option"><input type="radio" name="q2" value="B"> B) "You are a minor!"</div>
+                <div class="option"><input type="radio" name="q2" value="C"> C) "You are an elder!"</div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <p>3. Which operator would you use to check if two values are not identical, including their types?</p>
+            <div class="options">
+                <div class="option"><input type="radio" name="q3" value="A"> A) !=</div>
+                <div class="option"><input type="radio" name="q3" value="B"> B) !==</div>
+                <div class="option"><input type="radio" name="q3" value="C"> C) ==</div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <p>4. What does the following PHP ternary operator do? $message = ($age >= 18) ? "Adult" : "Minor";</p>
+            <div class="options">
+                <div class="option"><input type="radio" name="q4" value="A"> A) Sets $message to "Adult" if $age is 18 or more, otherwise to "Minor".</div>
+                <div class="option"><input type="radio" name="q4" value="B"> B) Checks if $age is exactly 18, otherwise sets $message to "Minor".</div>
+                <div class="option"><input type="radio" name="q4" value="C"> C) Always sets $message to "Adult".</div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+            <p>5. What does the PHP null coalescing operator (??) do?</p>
+            <div class="options">
+                <div class="option"><input type="radio" name="q5" value="A"> A) Checks if a variable is null, and if it is, assigns a default value.</div>
+                <div class="option"><input type="radio" name="q5" value="B"> B) Checks if a variable is undefined and then assigns a value.</div>
+                <div class="option"><input type="radio" name="q5" value="C"> C) Always assigns a value regardless of the variable's state.</div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="button" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+    </form>
+</div>
+
+<script>
+    function submitQuiz() {
+        var score = 0;
+        var totalQuestions = 5;
+        var answers = {
+            q1: "A",
+            q2: "A",
+            q3: "B",
+            q4: "A",
+            q5: "A"
+        };
+
+        for (var i = 1; i <= totalQuestions; i++) {
+            var selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (selected && selected.value === answers[`q${i}`]) {
+                score++;
+            }
+        }
+
+        alert(`You scored ${score} out of ${totalQuestions}`);
+    }
+</script>
+
+</body>
+</html>
