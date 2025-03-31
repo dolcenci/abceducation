@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Functions Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .quiz-container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .quiz-container h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>PHP Functions Quiz</h1>
+
+    <form id="quizForm">
+        <!-- Question 1 -->
+        <div class="question">
+            <p>1. What is the purpose of functions in PHP?</p>
+            <div class="options">
+                <label><input type="radio" name="q1" value="a"> Reduce redundancy, improve readability, simplify debugging</label>
+                <label><input type="radio" name="q1" value="b"> Increase redundancy</label>
+                <label><input type="radio" name="q1" value="c"> Only improve readability</label>
+                <label><input type="radio" name="q1" value="d"> None of the above</label>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <p>2. How do you define a function in PHP?</p>
+            <div class="options">
+                <label><input type="radio" name="q2" value="a"> function functionName {}</label>
+                <label><input type="radio" name="q2" value="b"> function functionName(parameters) {}</label>
+                <label><input type="radio" name="q2" value="c"> def functionName(parameters) {}</label>
+                <label><input type="radio" name="q2" value="d"> func functionName(parameters) {}</label>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <p>3. What is a default parameter in PHP functions?</p>
+            <div class="options">
+                <label><input type="radio" name="q3" value="a"> A parameter that cannot be changed</label>
+                <label><input type="radio" name="q3" value="b"> A parameter with a default value if no argument is passed</label>
+                <label><input type="radio" name="q3" value="c"> A variable inside the function</label>
+                <label><input type="radio" name="q3" value="d"> None of the above</label>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <p>4. What does the 'global' keyword do in a PHP function?</p>
+            <div class="options">
+                <label><input type="radio" name="q4" value="a"> It makes a variable local to the function</label>
+                <label><input type="radio" name="q4" value="b"> It makes a variable global inside the function</label>
+                <label><input type="radio" name="q4" value="c"> It creates a new global variable</label>
+                <label><input type="radio" name="q4" value="d"> None of the above</label>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+            <p>5. What is a static variable in PHP?</p>
+            <div class="options">
+                <label><input type="radio" name="q5" value="a"> A variable that is defined only inside the function</label>
+                <label><input type="radio" name="q5" value="b"> A variable that retains its value between function calls</label>
+                <label><input type="radio" name="q5" value="c"> A variable that can be accessed globally</label>
+                <label><input type="radio" name="q5" value="d"> None of the above</label>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question">
+            <p>6. What does the PHP function 'strlen()' do?</p>
+            <div class="options">
+                <label><input type="radio" name="q6" value="a"> Replace text in a string</label>
+                <label><input type="radio" name="q6" value="b"> Split string into array</label>
+                <label><input type="radio" name="q6" value="c"> Get string length</label>
+                <label><input type="radio" name="q6" value="d"> Join array into string</label>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question">
+            <p>7. Which function is used to merge two arrays in PHP?</p>
+            <div class="options">
+                <label><input type="radio" name="q7" value="a"> count()</label>
+                <label><input type="radio" name="q7" value="b"> array_merge()</label>
+                <label><input type="radio" name="q7" value="c"> array_push()</label>
+                <label><input type="radio" name="q7" value="d"> implode()</label>
+            </div>
+        </div>
+
+        <button type="button" onclick="submitQuiz()">Submit</button>
+    </form>
+</div>
+
+<script>
+    function submitQuiz() {
+        let score = 0;
+        let totalQuestions = 7;
+        let answers = {
+            q1: "a",
+            q2: "b",
+            q3: "b",
+            q4: "b",
+            q5: "b",
+            q6: "c",
+            q7: "b"
+        };
+
+        for (let i = 1; i <= totalQuestions; i++) {
+            let selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+            if (selectedOption && selectedOption.value === answers[`q${i}`]) {
+                score++;
+            }
+        }
+
+        alert(`Your score is ${score} out of ${totalQuestions}`);
+    }
+</script>
+
+</body>
+</html>
