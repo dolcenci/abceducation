@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3: Python Functions Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-blue: #2962ff;
+            --accent-teal: #00bfa5;
+        }
+        
+        body {
+            background-color: #f5fcff;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        .hero-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            color: white;
+            padding: 2rem;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .quiz-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .quiz-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .question-block {
+            background: white;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-blue);
+            position: relative;
+        }
+        
+        .code-snippet {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .answer-feedback {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .correct-feedback {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+        }
+        
+        .incorrect-feedback {
+            background: #ffebee;
+            border: 2px solid #ff5252;
+        }
+        
+        .badge-icon {
+            background: var(--primary-blue);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: -15px;
+            top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="hero-header text-center">
+            <h1><i class="bi bi-code-square"></i> Week 3: Python Functions Quiz</h1>
+            <p class="lead">Test your understanding of function concepts</p>
+        </header>
+
+        <div class="quiz-card">
+            <div class="card-body">
+                <form id="quizForm">
+                    <!-- Question 1 -->
+                    <div class="question-block">
+                        <div class="badge-icon">1</div>
+                        <label class="form-label fw-bold">What's the correct way to define a function with parameters?</label>
+                        <div class="code-snippet">
+                            A) function greet(name):<br>
+                            B) def greet(name):<br>
+                            C) def greet name:<br>
+                        </div>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select answer</option>
+                            <option value="A">Option A</option>
+                            <option value="B">Option B</option>
+                            <option value="C">Option C</option>
+                        </select>
+                        <div class="answer-feedback correct-feedback">✓ Correct! The 'def' keyword is used for function definitions</div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="question-block">
+                        <div class="badge-icon">2</div>
+                        <label class="form-label fw-bold">What does this function return?</label>
+                        <div class="code-snippet">
+                            def add(a, b):<br>
+                                print(a + b)
+                        </div>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select answer</option>
+                            <option value="None">None</option>
+                            <option value="Sum">The sum of a and b</option>
+                            <option value="Error">Syntax Error</option>
+                        </select>
+                        <div class="answer-feedback correct-feedback">✓ Correct! Without return statement, functions return None</div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="question-block">
+                        <div class="badge-icon">3</div>
+                        <label class="form-label fw-bold">Which is a valid lambda function?</label>
+                        <div class="code-snippet">
+                            A) lambda x: return x**2<br>
+                            B) lambda x: x**2<br>
+                            C) def lambda(x): x**2<br>
+                        </div>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select answer</option>
+                            <option value="A">Option A</option>
+                            <option value="B">Option B</option>
+                            <option value="C">Option C</option>
+                        </select>
+                        <div class="answer-feedback correct-feedback">✓ Correct! Lambda functions use expression syntax</div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="question-block">
+                        <div class="badge-icon">4</div>
+                        <label class="form-label fw-bold">How to fix this mutable default argument issue?</label>
+                        <div class="code-snippet">
+                            def add_item(item, items=[]):<br>
+                                items.append(item)<br>
+                                return items
+                        </div>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select answer</option>
+                            <option value="None">Use items=None</option>
+                            <option value="Tuple">Change to tuple</option>
+                            <option value="Global">Declare global items</option>
+                        </select>
+                        <div class="answer-feedback correct-feedback">✓ Correct! Using None avoids shared mutable defaults</div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="question-block">
+                        <div class="badge-icon">5</div>
+                        <label class="form-label fw-bold">What does *args represent in a function?</label>
+                        <div class="code-snippet">
+                            def func(*args, **kwargs):<br>
+                                # Function body
+                        </div>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select answer</option>
+                            <option value="tuple">Tuple of positional arguments</option>
+                            <option value="dict">Dictionary of keyword arguments</option>
+                            <option value="list">List of arguments</option>
+                        </select>
+                        <div class="answer-feedback correct-feedback">✓ Correct! *args collects positional arguments as tuple</div>
+                    </div>
+
+                    <div class="d-grid gap-3 mt-4">
+                        <button type="submit" class="btn btn-lg btn-primary">
+                            <i class="bi bi-rocket"></i> Submit Answers
+                        </button>
+                        <a href="week3_content.html" class="btn btn-outline-primary">
+                            <i class="bi bi-arrow-counterclockwise"></i> Review Functions
+                        </a>
+                    </div>
+                </form>
+
+                <div id="quizResult" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const correctAnswers = {
+                q1: 'B',
+                q2: 'None',
+                q3: 'B',
+                q4: 'None',
+                q5: 'tuple'
+            };
+
+            let score = 0;
+            const feedbackElements = document.querySelectorAll('.answer-feedback');
+
+            // Reset previous feedback
+            feedbackElements.forEach(fb => {
+                fb.style.display = 'none';
+                fb.classList.remove('incorrect-feedback');
+            });
+
+            // Validate answers
+            for (const [question, correct] of Object.entries(correctAnswers)) {
+                const selected = this.elements[question].value;
+                const feedback = this.elements[question].closest('.question-block').querySelector('.answer-feedback');
+
+                if (selected === correct) {
+                    score++;
+                    feedback.classList.add('correct-feedback');
+                } else {
+                    feedback.classList.add('incorrect-feedback');
+                }
+                feedback.style.display = 'block';
+            }
+
+            // Display results
+            const resultHTML = `
+                <div class="alert ${score === 5 ? 'alert-success' : 'alert-warning'}">
+                    <h4 class="alert-heading">
+                        ${score === 5 ? '🎉 Function Master!' : '💡 Keep Practicing!'}
+                    </h4>
+                    <p>Score: ${score}/5</p>
+                    <div class="progress">
+                        <div class="progress-bar" 
+                            style="width: ${(score/5)*100}%;"
+                            role="progressbar" 
+                            aria-valuenow="${score}" 
+                            aria-valuemin="0" 
+                            aria-valuemax="5">
+                        </div>
+                    </div>
+                    <hr>
+                    <p class="mb-0">${score === 5 ? 
+                        'Ready for data structures in Week 4!' : 
+                        'Review function concepts and try again!'}</p>
+                </div>
+            `;
+
+            document.getElementById('quizResult').innerHTML = resultHTML;
+        });
+    </script>
+</body>
+</html>
