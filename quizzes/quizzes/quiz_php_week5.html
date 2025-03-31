@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP and HTML Integration Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .question label {
+            font-size: 18px;
+            display: block;
+            margin: 10px 0;
+        }
+        .options {
+            margin-bottom: 15px;
+        }
+        .options input {
+            margin-right: 10px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>PHP and HTML Integration Quiz</h1>
+    <form action="process_quiz.php" method="POST">
+        <!-- Question 1 -->
+        <div class="question">
+            <label for="q1">1. What does PHP stand for?</label>
+            <div class="options">
+                <input type="radio" id="q1a" name="q1" value="Personal Home Page">
+                <label for="q1a">Personal Home Page</label><br>
+                <input type="radio" id="q1b" name="q1" value="Hypertext Preprocessor">
+                <label for="q1b">Hypertext Preprocessor</label><br>
+                <input type="radio" id="q1c" name="q1" value="Private Hypertext Page">
+                <label for="q1c">Private Hypertext Page</label>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <label for="q2">2. Which PHP function is used to validate an email address?</label>
+            <div class="options">
+                <input type="radio" id="q2a" name="q2" value="email_validate()">
+                <label for="q2a">email_validate()</label><br>
+                <input type="radio" id="q2b" name="q2" value="filter_var()">
+                <label for="q2b">filter_var()</label><br>
+                <input type="radio" id="q2c" name="q2" value="is_email()">
+                <label for="q2c">is_email()</label>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <label for="q3">3. How do you prevent XSS attacks when displaying user input in PHP?</label>
+            <div class="options">
+                <input type="radio" id="q3a" name="q3" value="echo $_GET['user_input']">
+                <label for="q3a">echo $_GET['user_input']</label><br>
+                <input type="radio" id="q3b" name="q3" value="htmlspecialchars($_GET['user_input'])">
+                <label for="q3b">htmlspecialchars($_GET['user_input'])</label><br>
+                <input type="radio" id="q3c" name="q3" value="strip_tags($_GET['user_input'])">
+                <label for="q3c">strip_tags($_GET['user_input'])</label>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <label for="q4">4. What PHP function is used to sanitize email input?</label>
+            <div class="options">
+                <input type="radio" id="q4a" name="q4" value="sanitize_email()">
+                <label for="q4a">sanitize_email()</label><br>
+                <input type="radio" id="q4b" name="q4" value="filter_input()">
+                <label for="q4b">filter_input()</label><br>
+                <input type="radio" id="q4c" name="q4" value="htmlspecialchars()">
+                <label for="q4c">htmlspecialchars()</label>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+            <label for="q5">5. What is the primary function of the PHP 'include' or 'require' functions?</label>
+            <div class="options">
+                <input type="radio" id="q5a" name="q5" value="To include external CSS stylesheets">
+                <label for="q5a">To include external CSS stylesheets</label><br>
+                <input type="radio" id="q5b" name="q5" value="To insert dynamic content into HTML pages">
+                <label for="q5b">To insert dynamic content into HTML pages</label><br>
+                <input type="radio" id="q5c" name="q5" value="To reuse code across pages by including header or footer files">
+                <label for="q5c">To reuse code across pages by including header or footer files</label>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn">Submit Quiz</button>
+    </form>
+</div>
+
+</body>
+</html>
