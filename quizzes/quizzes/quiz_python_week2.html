@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 2: Python Control Flow Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary-blue: #2962ff;
+            --secondary-blue: #448aff;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            border-radius: 8px 8px 0 0 !important;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-family: 'Fira Code', monospace;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .quiz-question {
+            border-left: 4px solid var(--primary-blue);
+            padding-left: 15px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-question:hover {
+            background-color: #f3f8ff;
+            transform: translateX(5px);
+        }
+        
+        .correct-answer {
+            color: #4caf50;
+            font-weight: bold;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: #e8f5e9;
+        }
+        
+        .incorrect-highlight {
+            background-color: #ffebee;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .progress-bar {
+            background-color: var(--primary-blue) !important;
+        }
+        
+        .question-number {
+            font-size: 0.9em;
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4 text-center text-primary">Week 2: Python Control Flow Quiz</h1>
+
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h3 class="mb-0">🧩 Control Flow Challenge</h3>
+                <small>Test your understanding of Python conditionals</small>
+            </div>
+            
+            <div class="card-body">
+                <form id="quizForm">
+                    <!-- Question 1 -->
+                    <div class="quiz-question">
+                        <div class="question-number">Question 1/5</div>
+                        <label class="form-label fw-bold">What is the correct syntax for an if-elif-else structure?</label>
+                        <div class="code-block">
+                            A) if condition: ... else if: ... else: <br>
+                            B) if condition: ... elif condition: ... else: <br>
+                            C) if condition: ... elsif condition: ... else: <br>
+                        </div>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Choose answer</option>
+                            <option value="A">Option A</option>
+                            <option value="B">Option B</option>
+                            <option value="C">Option C</option>
+                        </select>
+                        <div class="answer correct-answer mt-2">Correct Answer: B</div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="quiz-question">
+                        <div class="question-number">Question 2/5</div>
+                        <label class="form-label fw-bold">What does this code output?</label>
+                        <div class="code-block">
+                            x = 5<br>
+                            print("Even" if x % 2 == 0 else "Odd")
+                        </div>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Choose answer</option>
+                            <option value="Even">Even</option>
+                            <option value="Odd">Odd</option>
+                            <option value="Error">Syntax Error</option>
+                        </select>
+                        <div class="answer correct-answer mt-2">Correct Answer: Odd</div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="quiz-question">
+                        <div class="question-number">Question 3/5</div>
+                        <label class="form-label fw-bold">Which operator has highest precedence?</label>
+                        <div class="code-block">
+                            a) and<br>
+                            b) or<br>
+                            c) not<br>
+                        </div>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Choose answer</option>
+                            <option value="and">and</option>
+                            <option value="or">or</option>
+                            <option value="not">not</option>
+                        </select>
+                        <div class="answer correct-answer mt-2">Correct Answer: not</div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="quiz-question">
+                        <div class="question-number">Question 4/5</div>
+                        <label class="form-label fw-bold">What's wrong with this code?</label>
+                        <div class="code-block">
+                            if temperature > 30<br>
+                                print("Hot day!")
+                        </div>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Choose answer</option>
+                            <option value="colon">Missing colon</option>
+                            <option value="indent">Incorrect indentation</option>
+                            <option value="paren">Missing parentheses</option>
+                        </select>
+                        <div class="answer correct-answer mt-2">Correct Answer: colon</div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="quiz-question">
+                        <div class="question-number">Question 5/5</div>
+                        <label class="form-label fw-bold">What's the final output of this nested conditional?</label>
+                        <div class="code-block">
+                            age = 20<br>
+                            if age > 18:<br>
+                                if age < 21:<br>
+                                    print("Teen adult")<br>
+                                else:<br>
+                                    print("Adult")<br>
+                            else:<br>
+                                print("Minor")
+                        </div>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Choose answer</option>
+                            <option value="Adult">Adult</option>
+                            <option value="Teen adult">Teen adult</option>
+                            <option value="Minor">Minor</option>
+                        </select>
+                        <div class="answer correct-answer mt-2">Correct Answer: Teen adult</div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-check-circle"></i> Submit Quiz
+                        </button>
+                        <a href="week2_content.html" class="btn btn-outline-primary">
+                            <i class="bi bi-book"></i> Review Week 2
+                        </a>
+                    </div>
+                </form>
+                
+                <div id="quizResult" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const correctAnswers = {
+                q1: 'B',
+                q2: 'Odd',
+                q3: 'not',
+                q4: 'colon',
+                q5: 'Teen adult'
+            };
+
+            let score = 0;
+            const answerElements = document.querySelectorAll('.answer');
+
+            // Reset styling
+            answerElements.forEach(answer => answer.style.display = 'none');
+            document.querySelectorAll('.incorrect-highlight').forEach(el => {
+                el.classList.remove('incorrect-highlight');
+            });
+
+            // Validate answers
+            for (const [question, correct] of Object.entries(correctAnswers)) {
+                const selected = this.elements[question].value;
+                const questionDiv = this.elements[question].closest('.quiz-question');
+
+                if (selected === correct) {
+                    score++;
+                    questionDiv.querySelector('.answer').style.display = 'block';
+                } else {
+                    questionDiv.classList.add('incorrect-highlight');
+                    questionDiv.querySelector('.answer').style.display = 'block';
+                }
+            }
+
+            // Display results
+            const resultHTML = `
+                <div class="card result-card ${score === 5 ? 'border-success' : 'border-warning'}">
+                    <div class="card-body">
+                        <h5 class="card-title ${score === 5 ? 'text-success' : 'text-warning'}">
+                            ${score === 5 ? '🎉 Perfect Score!' : '📝 Almost There!'}
+                        </h5>
+                        <div class="progress my-3">
+                            <div class="progress-bar" role="progressbar" 
+                                style="width: ${(score/5)*100}%" 
+                                aria-valuenow="${score}" 
+                                aria-valuemin="0" 
+                                aria-valuemax="5">
+                            </div>
+                        </div>
+                        <p class="mb-1">Score: ${score}/5 (${(score/5*100).toFixed(0)}%)</p>
+                        <small class="text-muted">${score === 5 ? 
+                            'Ready for functions in Week 3!' : 
+                            'Review conditionals and try again!'}</small>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('quizResult').innerHTML = resultHTML;
+        });
+    </script>
+</body>
+</html>
