@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Week 2 Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>SQL Week 2 Quiz</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. Which SQL clause is used to filter records based on a condition?</p>
+                <input type="radio" name="q1" value="a"> a) ORDER BY <br>
+                <input type="radio" name="q1" value="b"> b) WHERE <br>
+                <input type="radio" name="q1" value="c"> c) GROUP BY <br>
+                <input type="radio" name="q1" value="d"> d) HAVING <br>
+            </div>
+            <div class="question">
+                <p>2. What does the LIKE operator do in SQL?</p>
+                <input type="radio" name="q2" value="a"> a) Filters records based on an exact match <br>
+                <input type="radio" name="q2" value="b"> b) Matches patterns in text data <br>
+                <input type="radio" name="q2" value="c"> c) Sorts the results alphabetically <br>
+                <input type="radio" name="q2" value="d"> d) Joins two tables <br>
+            </div>
+            <div class="question">
+                <p>3. What will the following query return? <br> <code>SELECT * FROM customers WHERE email LIKE '%@gmail.com';</code></p>
+                <input type="radio" name="q3" value="a"> a) Customers with emails containing "gmail" anywhere in the address <br>
+                <input type="radio" name="q3" value="b"> b) Customers with emails ending in "@gmail.com" <br>
+                <input type="radio" name="q3" value="c"> c) Customers with emails exactly matching "@gmail.com" <br>
+                <input type="radio" name="q3" value="d"> d) An error <br>
+            </div>
+            <div class="question">
+                <p>4. What does the ORDER BY clause do?</p>
+                <input type="radio" name="q4" value="a"> a) Groups data together <br>
+                <input type="radio" name="q4" value="b"> b) Filters data based on conditions <br>
+                <input type="radio" name="q4" value="c"> c) Sorts the query results <br>
+                <input type="radio" name="q4" value="d"> d) Limits the number of results <br>
+            </div>
+            <div class="question">
+                <p>5. Which function extracts a portion of a string in SQL?</p>
+                <input type="radio" name="q5" value="a"> a) EXTRACT() <br>
+                <input type="radio" name="q5" value="b"> b) SUBSTRING() <br>
+                <input type="radio" name="q5" value="c"> c) CONCAT() <br>
+                <input type="radio" name="q5" value="d"> d) LOWER() <br>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
