@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Arrays and Loops Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .quiz-container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        .options {
+            margin-left: 20px;
+        }
+        .options input {
+            margin-right: 10px;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>PHP Arrays and Loops Quiz</h1>
+
+        <form action="submit.php" method="POST">
+
+            <!-- Question 1 -->
+            <div class="question">
+                <label>1. What is the correct syntax for creating an indexed array in PHP?</label>
+                <div class="options">
+                    <input type="radio" name="q1" value="a"> $colors = ["red", "green", "blue"];<br>
+                    <input type="radio" name="q1" value="b"> $colors = array("red", "green", "blue");<br>
+                    <input type="radio" name="q1" value="c"> $colors = ("red", "green", "blue");<br>
+                    <input type="radio" name="q1" value="d"> $colors = {red, green, blue};<br>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <label>2. Which PHP function is used to add an element to the end of an array?</label>
+                <div class="options">
+                    <input type="radio" name="q2" value="a"> array_push()<br>
+                    <input type="radio" name="q2" value="b"> array_pop()<br>
+                    <input type="radio" name="q2" value="c"> array_merge()<br>
+                    <input type="radio" name="q2" value="d"> array_add()<br>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <label>3. What is the output of this code?<br>
+                <code>$fruits = ["apple", "banana", "cherry"];<br> echo $fruits[1];</code>
+                </label>
+                <div class="options">
+                    <input type="radio" name="q3" value="a"> apple<br>
+                    <input type="radio" name="q3" value="b"> banana<br>
+                    <input type="radio" name="q3" value="c"> cherry<br>
+                    <input type="radio" name="q3" value="d"> Undefined<br>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <label>4. Which loop is best suited for iterating through an associative array?</label>
+                <div class="options">
+                    <input type="radio" name="q4" value="a"> for loop<br>
+                    <input type="radio" name="q4" value="b"> while loop<br>
+                    <input type="radio" name="q4" value="c"> do-while loop<br>
+                    <input type="radio" name="q4" value="d"> foreach loop<br>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <label>5. What is the correct syntax for a foreach loop with keys and values in PHP?</label>
+                <div class="options">
+                    <input type="radio" name="q5" value="a"> foreach($array as $key => $value) { }<br>
+                    <input type="radio" name="q5" value="b"> foreach($array[$key] as $value) { }<br>
+                    <input type="radio" name="q5" value="c"> foreach($key as $value) { }<br>
+                    <input type="radio" name="q5" value="d"> foreach($array as $key, $value) { }<br>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <label>6. How do you check if a value exists in an array?</label>
+                <div class="options">
+                    <input type="radio" name="q6" value="a"> in_array()<br>
+                    <input type="radio" name="q6" value="b"> array_search()<br>
+                    <input type="radio" name="q6" value="c"> isset()<br>
+                    <input type="radio" name="q6" value="d"> array_find()<br>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question">
+                <label>7. What will be the output of this nested loop? <br>
+                <code>
+                $matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];<br>
+                foreach($matrix as $row) {<br>
+                foreach($row as $num) {<br>
+                echo $num; }<br> 
+                echo "<br>"; }<br>
+                </code>
+                </label>
+                <div class="options">
+                    <input type="radio" name="q7" value="a"> 1 2 3 4 5 6 7 8 9<br>
+                    <input type="radio" name="q7" value="b"> 1 2 3<br>4 5 6<br>7 8 9<br>
+                    <input type="radio" name="q7" value="c"> 123 456 789<br>
+                    <input type="radio" name="q7" value="d"> Error<br>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Quiz</button>
+        </form>
+    </div>
+
+</body>
+</html>
