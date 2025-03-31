@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Week 1 Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question label {
+            font-size: 18px;
+            color: #555;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .question input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>PHP Week 1: Variables, Strings, and Numbers</h1>
+
+        <form id="quizForm">
+
+            <!-- Question 1 -->
+            <div class="question">
+                <label for="q1">What does PHP stand for?</label>
+                <input type="radio" name="q1" value="Hypertext Preprocessor"> Hypertext Preprocessor<br>
+                <input type="radio" name="q1" value="Personal Home Page"> Personal Home Page<br>
+                <input type="radio" name="q1" value="Preprocessor Hypertext Page"> Preprocessor Hypertext Page
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <label for="q2">Which of the following is the correct syntax to declare a PHP variable?</label>
+                <input type="radio" name="q2" value="$variable = 10;"> $variable = 10;<br>
+                <input type="radio" name="q2" value="variable = 10;"> variable = 10;<br>
+                <input type="radio" name="q2" value="var $variable = 10;"> var $variable = 10;
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <label for="q3">Which function is used to get the length of a string in PHP?</label>
+                <input type="radio" name="q3" value="strlen()"> strlen()<br>
+                <input type="radio" name="q3" value="str_len()"> str_len()<br>
+                <input type="radio" name="q3" value="length()"> length()
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <label for="q4">What is the result of 5 % 2 in PHP?</label>
+                <input type="radio" name="q4" value="1"> 1<br>
+                <input type="radio" name="q4" value="2"> 2<br>
+                <input type="radio" name="q4" value="0"> 0
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <label for="q5">How do you concatenate two strings in PHP?</label>
+                <input type="radio" name="q5" value="string1 + string2"> string1 + string2<br>
+                <input type="radio" name="q5" value="string1 . string2"> string1 . string2<br>
+                <input type="radio" name="q5" value="string1 & string2"> string1 & string2
+            </div>
+
+            <!-- Submit Button -->
+            <button type="button" onclick="submitQuiz()">Submit</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function submitQuiz() {
+            var form = document.getElementById("quizForm");
+            var result = document.getElementById("result");
+            var score = 0;
+
+            // Question 1
+            if (form.q1.value == "Hypertext Preprocessor") {
+                score++;
+            }
+
+            // Question 2
+            if (form.q2.value == "$variable = 10;") {
+                score++;
+            }
+
+            // Question 3
+            if (form.q3.value == "strlen()") {
+                score++;
+            }
+
+            // Question 4
+            if (form.q4.value == "1") {
+                score++;
+            }
+
+            // Question 5
+            if (form.q5.value == "string1 . string2") {
+                score++;
+            }
+
+            // Display Result
+            result.innerHTML = "You scored " + score + " out of 5.";
+        }
+    </script>
+
+</body>
+</html>
