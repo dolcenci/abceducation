@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Variables Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .answer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Java Variables Quiz</h1>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quiz: Introduction to Variables in Java</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Test your knowledge on Java variables.</p>
+                <form id="quizForm">
+                    <div class="mb-3">
+                        <label class="form-label">Which keyword is used to declare a constant variable in Java?</label>
+                        <select class="form-select" name="q1" required>
+                            <option value="">Select an option</option>
+                            <option value="final">final</option>
+                            <option value="const">const</option>
+                            <option value="static">static</option>
+                            <option value="immutable">immutable</option>
+                        </select>
+                        <p class="answer">Correct Answer: final</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which data type is used for storing decimal values?</label>
+                        <select class="form-select" name="q2" required>
+                            <option value="">Select an option</option>
+                            <option value="int">int</option>
+                            <option value="char">char</option>
+                            <option value="double">double</option>
+                            <option value="boolean">boolean</option>
+                        </select>
+                        <p class="answer">Correct Answer: double</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which of the following variable names is valid in Java?</label>
+                        <select class="form-select" name="q3" required>
+                            <option value="">Select an option</option>
+                            <option value="2ndValue">2ndValue</option>
+                            <option value="$balance">$balance</option>
+                            <option value="class">class</option>
+                            <option value="void">void</option>
+                        </select>
+                        <p class="answer">Correct Answer: $balance</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">What is the default value of an integer instance variable in Java?</label>
+                        <select class="form-select" name="q4" required>
+                            <option value="">Select an option</option>
+                            <option value="0">0</option>
+                            <option value="null">null</option>
+                            <option value="undefined">undefined</option>
+                            <option value="None">None</option>
+                        </select>
+                        <p class="answer">Correct Answer: 0</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Which of the following correctly declares and initializes a string variable?</label>
+                        <select class="form-select" name="q5" required>
+                            <option value="">Select an option</option>
+                            <option value="String name = 'John';">String name = 'John';</option>
+                            <option value="string name = \"John\";">string name = "John";</option>
+                            <option value="String name = \"John\";">String name = "John";</option>
+                            <option value="char name = \"John\";">char name = "John";</option>
+                        </select>
+                        <p class="answer">Correct Answer: String name = "John";</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='java_quiz_week2.html';">Next</button>
+                </form>
+                <div id="quizResult" class="quiz-result alert alert-info mt-3" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userAnswers = {
+                q1: this.q1.value,
+                q2: this.q2.value,
+                q3: this.q3.value,
+                q4: this.q4.value,
+                q5: this.q5.value,
+            };
+            const correctAnswers = {
+                q1: 'final',
+                q2: 'double',
+                q3: '$balance',
+                q4: '0',
+                q5: 'String name = "John";',
+            };
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `<p>Your score: <strong>${score}/5</strong></p>`;
+            document.querySelectorAll('.answer').forEach(answer => answer.style.display = 'block');
+        });
+    </script>
+</body>
+</html>
