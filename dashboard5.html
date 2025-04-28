@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #1e1e2f;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #ffcc00;
+            font-size: 28px;
+        }
+        .chart-container {
+            width: 400px;
+            margin: 20px auto;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            background-color: #2c2c3e;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #444;
+            font-size: 18px;
+        }
+        th {
+            background-color: #4444aa;
+            color: #ffffff;
+        }
+        td:nth-child(1) { color: #ff6666; }
+        td:nth-child(2) { color: #66ccff; }
+        td:nth-child(3) { color: #99ff99; }
+        td:nth-child(4) { color: #ffcc00; }
+        td:nth-child(5) { color: #ff99ff; }
+
+        .add-user-btn {
+            background-color: #4444aa;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #2c2c3e;
+            padding: 30px;
+            border-radius: 10px;
+            z-index: 1000;
+            width: 400px;
+        }
+
+        .modal h2 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            background-color: #1e1e2f;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .modal button {
+            background-color: #4444aa;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-right: 10px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Dashboard</h1>
+    <button class="add-user-btn" onclick="showModal()">Add New User</button>
+    
+    <div class="chart-container">
+        <canvas id="ageChart"></canvas>
+    </div>
+
+    <iframe width="990" height="557" src="https://www.youtube.com/embed/7WMGNT35XOA" title="Master Your Student Management Dashboard! VEED" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    
+    <!-- Add User Modal -->
+    <div class="modal" id="userModal">
+        <h2>Add New User</h2>
+        <input type="text" id="name" placeholder="Full Name">
+        <input type="email" id="email" placeholder="Email Address">
+        <input type="text" id="address" placeholder="Physical Address">
+        <input type="date" id="dob">
+        <input type="text" id="bio" placeholder="Bio">
+        <button onclick="addUser()">Create User</button>
+        <button onclick="hideModal()">Cancel</button>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Date of Birth</th>
+                <th>Bio</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+            <!-- User data will be dynamically inserted here -->
+        </tbody>
+    </table>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { 
+            getFirestore, 
+            collection, 
+            getDocs, 
+            addDoc,
+            deleteDoc,
+            doc 
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7jn56HDd6nME3dommemdPJHFaKHpjuhY",
+            authDomain: "prosper-a9810.firebaseapp.com",
+            projectId: "prosper-a9810",
+            storageBucket: "prosper-a9810.appspot.com",
+            messagingSenderId: "1040350127188",
+            appId: "1:1040350127188:web:da8987386085d778eaf9cl1",
+            measurementId: "G-6G8BMD6S3G"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const firestore = getFirestore(app);
+        let ageChart = null;
+
+        // Age calculation function
+        function calculateAge(dobString) {
+            const dob = new Date(dobString);
+            const diff = Date.now() - dob.getTime();
+            const ageDate = new Date(diff);
+            return Math.abs(ageDate.getUTCFullYear() - 1970);
+        }
+
+        // Create age groups
+        function createAgeGroups(users) {
+            const groups = {
+                '0-10': 0,
+                '11-20': 0,
+                '21-30': 0,
+                '31-40': 0,
+                '41-50': 0,
+                '51+': 0
+            };
+
+            users.forEach(user => {
+                if (!user.dob) return;
+                const age = calculateAge(user.dob);
+                if (age <= 10) groups['0-10']++;
+                else if (age <= 20) groups['11-20']++;
+                else if (age <= 30) groups['21-30']++;
+                else if (age <= 40) groups['31-40']++;
+                else if (age <= 50) groups['41-50']++;
+                else groups['51+']++;
+            });
+
+            return groups;
+        }
+
+        // Update chart function
+        function updateChart(users) {
+            const ageGroups = createAgeGroups(users);
+            const labels = Object.keys(ageGroups);
+            const data = Object.values(ageGroups);
+            const colors = ['#ff6666', '#66ccff', '#99ff99', '#ffcc00', '#ff99ff', '#4444aa'];
+
+            if (ageChart) {
+                ageChart.data.labels = labels;
+                ageChart.data.datasets[0].data = data;
+                ageChart.update();
+            } else {
+                const ctx = document.getElementById('ageChart').getContext('2d');
+                ageChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: colors,
+                            borderColor: '#1e1e2f',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#ffffff',
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Age Distribution',
+                                color: '#ffcc00',
+                                font: {
+                                    size: 18
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Modal functions
+        function showModal() {
+            document.getElementById('userModal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function hideModal() {
+            document.getElementById('userModal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // Add User functionality
+        async function addUser() {
+            const userData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                dob: document.getElementById('dob').value,
+                bio: document.getElementById('bio').value
+            };
+
+            try {
+                await addDoc(collection(firestore, "users"), userData);
+                hideModal();
+                fetchUsers();
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('address').value = '';
+                document.getElementById('dob').value = '';
+                document.getElementById('bio').value = '';
+            } catch (error) {
+                console.error("Error adding user: ", error);
+            }
+        }
+
+        // Delete User functionality
+        async function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                try {
+                    await deleteDoc(doc(firestore, "users", userId));
+                    fetchUsers();
+                } catch (error) {
+                    console.error("Error deleting user: ", error);
+                }
+            }
+        }
+
+        // Fetch and display users
+        async function fetchUsers() {
+            try {
+                const querySnapshot = await getDocs(collection(firestore, "users"));
+                const users = [];
+                const userTableBody = document.getElementById('userTableBody');
+                userTableBody.innerHTML = '';
+
+                querySnapshot.forEach((doc) => {
+                    const user = doc.data();
+                    users.push(user);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.address}</td>
+                        <td>${user.dob}</td>
+                        <td>${user.bio}</td>
+                    `;
+                    row.addEventListener('click', () => deleteUser(doc.id));
+                    userTableBody.appendChild(row);
+                });
+
+                updateChart(users);
+            } catch (error) {
+                console.error("Error fetching users: ", error);
+            }
+        }
+
+        // Initial load
+        fetchUsers();
+    </script>
+</body>
+</html>
