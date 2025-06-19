@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Week 1 Coding Lab - Variables</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #000;
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .video-section {
+            background-color: #1e1e2f;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 5px;
+        }
+        .lab-section {
+            display: flex;
+            height: 70vh;
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .info {
+            width: 30%;
+            padding: 20px;
+            background-color: #1e1e2f;
+            overflow-y: auto;
+        }
+        .editor, .output {
+            width: 35%;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+        .editor {
+            background-color: #1e1e2f;
+            color: #f8f8f2;
+        }
+        .output {
+            background-color: #ffffff;
+        }
+        button {
+            margin-top: 10px;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        .feedback {
+            margin-top: 10px;
+            color: #ffcc00;
+        }
+        .instructions {
+            background-color: #2a2a3a;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .task {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #2a2a3a;
+            border-radius: 5px;
+        }
+        .task h3 {
+            color: #4dabf7;
+            margin-top: 0;
+        }
+        .hint {
+            color: #adb5bd;
+            font-style: italic;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Java Week 1 Coding Lab - Variables</h1>
+    
+    <!-- Video Section -->
+    <div class="video-section">
+        <h2>Lab Introduction Video</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+    
+    <!-- Coding Lab Section -->
+    <div class="lab-section">
+        <!-- Instructions Section -->
+        <div class="info">
+            <div class="instructions">
+                <h2>Lab Instructions</h2>
+                <p>This lab will test your understanding of Java variables from Week 1. Complete each task by writing code in the editor. Click "Run Code" to test your solution.</p>
+                <p><strong>Note:</strong> All your code should be written inside the main method.</p>
+            </div>
+
+            <div class="task">
+                <h3>Task 1: Variable Declaration</h3>
+                <p>Declare the following variables with appropriate data types:</p>
+                <ul>
+                    <li>An integer variable named <code>studentAge</code> with value 20</li>
+                    <li>A double variable named <code>averageGrade</code> with value 85.5</li>
+                    <li>A boolean variable named <code>isEnrolled</code> with value true</li>
+                    <li>A String variable named <code>studentName</code> with value "John Doe"</li>
+                </ul>
+                <div class="hint">Hint: Remember to use the correct data types (int, double, boolean, String).</div>
+            </div>
+
+            <div class="task">
+                <h3>Task 2: Variable Operations</h3>
+                <p>Create a program that calculates the area of a rectangle:</p>
+                <ol>
+                    <li>Declare two integer variables: <code>length</code> (value 10) and <code>width</code> (value 5)</li>
+                    <li>Calculate the area (length × width) and store it in a new variable <code>area</code></li>
+                    <li>Print the result using: <code>System.out.println("Area: " + area);</code></li>
+                </ol>
+                <div class="hint">Hint: The area should be 50 when you run the program.</div>
+            </div>
+
+            <div class="task">
+                <h3>Task 3: Type Conversion</h3>
+                <p>Demonstrate type conversion between integers and doubles:</p>
+                <ol>
+                    <li>Declare a double variable <code>price</code> with value 19.99</li>
+                    <li>Convert it to an integer and store in <code>wholePrice</code> (this will truncate the decimal)</li>
+                    <li>Print both values to see the difference</li>
+                </ol>
+                <div class="hint">Hint: Use (int) for explicit type conversion.</div>
+            </div>
+
+            <div class="task">
+                <h3>Task 4: Constants</h3>
+                <p>Create a program that calculates the circumference of a circle:</p>
+                <ol>
+                    <li>Declare a constant <code>PI</code> with value 3.14159 (use the <code>final</code> keyword)</li>
+                    <li>Declare a double variable <code>radius</code> with value 5.0</li>
+                    <li>Calculate circumference (2 × PI × radius) and store in <code>circumference</code></li>
+                    <li>Print the result</li>
+                </ol>
+                <div class="hint">Hint: The formula for circumference is 2πr.</div>
+            </div>
+
+            <div class="task">
+                <h3>Task 5: Variable Scope</h3>
+                <p>Demonstrate understanding of variable scope:</p>
+                <ol>
+                    <li>Declare an integer variable <code>count</code> outside the main method (instance variable)</li>
+                    <li>Initialize it to 0 in the main method</li>
+                    <li>Create a block (using {}) inside main and declare another <code>count</code> variable there</li>
+                    <li>Print both variables to show they are different</li>
+                </ol>
+                <div class="hint">Hint: The inner count shadows the outer one within its block.</div>
+            </div>
+
+            <button id="showSolution">Show Solution</button>
+        </div>
+
+        <!-- Code Editor Section -->
+        <div class="editor" id="codeEditor"></div>
+
+        <!-- Output Section -->
+        <div class="output">
+            <iframe id="outputFrame"></iframe>
+        </div>
+    </div>
+    
+    <button id="runCode">Run Code</button>
+    <div class="feedback" id="feedback"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/clike/clike.min.js"></script>
+
+    <script>
+        const editor = CodeMirror(document.getElementById("codeEditor"), {
+            mode: "text/x-java",
+            lineNumbers: true,
+            theme: "default",
+            lineWrapping: true,
+            value: `public class Week1Lab {
+    public static void main(String[] args) {
+        // Write your code here for Task 1
+        
+        // Task 2: Area of rectangle
+        
+        // Task 3: Type conversion
+        
+        // Task 4: Circle circumference
+        
+        // Task 5: Variable scope
+    }
+}`,
+        });
+
+        // Run the code in the editor
+        document.getElementById('runCode').addEventListener('click', () => {
+            const code = editor.getValue();
+            const outputFrame = document.getElementById('outputFrame');
+            const output = outputFrame.contentWindow.document;
+
+            // Clear previous content
+            output.open();
+            output.write(`
+                <html>
+                <head>
+                    <title>Java Output</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            padding: 20px;
+                            color: #333;
+                        }
+                        pre {
+                            background-color: #f5f5f5;
+                            padding: 10px;
+                            border-radius: 5px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h2>Program Output</h2>
+                    <pre id="output"></pre>
+                    <script>
+                        // Redirect console.log to the page
+                        (function() {
+                            var oldLog = console.log;
+                            var output = document.getElementById('output');
+                            
+                            console.log = function(message) {
+                                output.innerHTML += message + '\\n';
+                                oldLog.apply(console, arguments);
+                            };
+                            
+                            try {
+                                ${code}
+                            } catch(e) {
+                                output.innerHTML += 'Error: ' + e.message;
+                            }
+                        })();
+                    </script>
+                </body>
+                </html>
+            `);
+            output.close();
+            
+            // Provide feedback
+            document.getElementById('feedback').textContent = 'Code executed. Check the output panel for results.';
+            document.getElementById('feedback').style.color = '#28a745';
+        });
+
+        // Show solution
+        document.getElementById('showSolution').addEventListener('click', () => {
+            editor.setValue(`public class Week1Lab {
+    static int count; // Instance variable for Task 5
+    
+    public static void main(String[] args) {
+        // Task 1: Variable Declaration
+        int studentAge = 20;
+        double averageGrade = 85.5;
+        boolean isEnrolled = true;
+        String studentName = "John Doe";
+        
+        System.out.println("Task 1 Output:");
+        System.out.println("Student: " + studentName);
+        System.out.println("Age: " + studentAge);
+        System.out.println("Average Grade: " + averageGrade);
+        System.out.println("Enrolled: " + isEnrolled);
+        System.out.println();
+        
+        // Task 2: Area of rectangle
+        int length = 10;
+        int width = 5;
+        int area = length * width;
+        
+        System.out.println("Task 2 Output:");
+        System.out.println("Area: " + area);
+        System.out.println();
+        
+        // Task 3: Type conversion
+        double price = 19.99;
+        int wholePrice = (int)price;
+        
+        System.out.println("Task 3 Output:");
+        System.out.println("Original price: " + price);
+        System.out.println("Whole price: " + wholePrice);
+        System.out.println();
+        
+        // Task 4: Constants
+        final double PI = 3.14159;
+        double radius = 5.0;
+        double circumference = 2 * PI * radius;
+        
+        System.out.println("Task 4 Output:");
+        System.out.println("Circumference: " + circumference);
+        System.out.println();
+        
+        // Task 5: Variable scope
+        count = 0; // Initialize instance variable
+        {
+            int count = 10; // Local variable shadows the instance variable
+            System.out.println("Task 5 Output:");
+            System.out.println("Inner count: " + count);
+        }
+        System.out.println("Outer count: " + count);
+    }
+}`);
+            document.getElementById('feedback').textContent = 'Solution loaded. Study the code and try to understand each part.';
+            document.getElementById('feedback').style.color = '#28a745';
+        });
+    </script>
+</body>
+</html>
