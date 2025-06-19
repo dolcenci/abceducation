@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Same head section as Psychology page -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Master Java programming with comprehensive learning materials covering core concepts and practical applications.">
+    <title>Java Programming Course</title>
+    <style>
+        /* Same CSS styles as Psychology page */
+
+body {
+            font-family: Arial, sans-serif;
+            background-color: #030202;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background-color: #007bff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #007bff;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .download-link {
+            display: block;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .download-linkpurple {
+            display: block;
+            padding: 10px 15px;
+            background-color: #9b59b6;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .download-link:hover {
+            background-color: #45a049;
+        }
+
+        .outline {
+            margin-bottom: 20px;
+        }
+
+        .outline h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .outline p {
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Overlay Sidebar Navigation Styles */
+        .sidebar-toggle {
+            position: fixed;
+            left: 20px;
+            top: 80px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: -300px;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 8px 10px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .sidebar-menu a:hover {
+            background-color: #e9ecef;
+        }
+
+        .sidebar-menu .week-item > a {
+            font-weight: bold;
+            background-color: #dee2e6;
+        }
+
+        .sidebar-menu .submenu {
+            list-style-type: none;
+            padding-left: 15px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .sidebar-menu .submenu a {
+            padding: 5px 10px;
+            font-size: 0.9em;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 998;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80%;
+                left: -80%;
+            }
+            
+            .sidebar.open {
+                left: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Same navigation bar -->
+    <nav>
+        <ul>
+            <li><a href="indexreal.html">Home</a></li>
+            <li><a href="indexreal.html">Questions</a></li>
+            <li><a href="indexreal.html">Instructors</a></li>
+            <li><a href="indexreal.html">Courses</a></li>
+            <li><a href="indexreal.html">Sign Up</a></li>
+            <li><a href="indexreal2.html">Profile</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="comment2.html">Forum</a></li>
+        </ul>
+    </nav>
+
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰ Menu</button>
+
+    <!-- Overlay for sidebar -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <ul class="sidebar-menu">
+            <li class="week-item">
+                <a href="#week1">Week 1: Java Variables</a>
+                <ul class="submenu">
+                    <li><a href="quizzes/quiz_java_week1.html">Content Viewer</a></li>
+                    <li><a href="quizzes/quizzes/quiz_java_week1.html">Quiz</a></li>
+                </ul>
+            </li>
+            <li class="week-item">
+                <a href="#week2">Week 2: Object-Oriented Java</a>
+                <ul class="submenu">
+                    <li><a href="quizzes/quiz_java_week2.html">Content Viewer</a></li>
+                    <li><a href="quizzes/quizzes/quiz_java_week2.html">Quiz</a></li>
+                </ul>
+            </li>
+            <li class="week-item">
+                <a href="#week3">Week 3: Control Flow</a>
+                <ul class="submenu">
+                    <li><a href="quizzes/quiz_java_week3.html">Content Viewer</a></li>
+                    <li><a href="quizzes/quizzes/quiz_java_week3.html">Quiz</a></li>
+                </ul>
+            </li>
+            <li class="week-item">
+                <a href="#week4">Week 4: Arrays & ArrayLists</a>
+                <ul class="submenu">
+                    <li><a href="quizzes/quiz_java_week4.html">Content Viewer</a></li>
+                    <li><a href="quizzes/quizzes/quiz_java_week4.html">Quiz</a></li>
+                </ul>
+            </li>
+            <li class="week-item">
+                <a href="#week5">Week 5: Loops & Iteration</a>
+                <ul class="submenu">
+                    <li><a href="quizzes/quiz_java_week5.html">Content Viewer</a></li>
+                    <li><a href="quizzes/quiz_java_week5.html">Quiz</a></li>
+                </ul>
+            </li>
+            <li class="week-item">
+                <a href="#week6">Week 6: String Handling</a>
+                <ul class="submenu">
+                    <li><a href="quizzes/quiz_java_week6.html">Content Viewer</a></li>
+                    <li><a href="quizzes/quiz_java_week6.html">Quiz</a></li>
+                </ul>
+            </li>
+            <li class="week-item">
+                <a href="cert.html">Certificate</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Java Programming Course</h1>
+            <p>Welcome to the Java Programming Course at ABC EDUCATION. Below are the downloadable learning materials for each week:</p>
+        </header>
+
+        <section>
+            <h2>Course Overview</h2>
+            <p>This comprehensive Java course covers fundamental programming concepts, object-oriented principles, and practical application development. Students will progress from basic syntax to complex programming challenges.</p>
+        </section>
+
+        <section>
+            <h2>Learning Objectives</h2>
+            <ul>
+                <li>Understand Java syntax and core programming concepts</li>
+                <li>Master object-oriented programming principles</li>
+                <li>Implement control structures and data handling</li>
+                <li>Work with arrays, collections, and strings</li>
+                <li>Develop problem-solving skills through coding exercises</li>
+            </ul>
+        </section>
+
+        <!-- Week 1: Variables -->
+        <section id="week1">
+            <h2>Week 1: Java Variables</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/so1iUWaLmKA" title="Java Variables" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <ul>
+                <li><a class="download-link" href="quizzes/quiz_java_week1.html">Week 1 Content Viewer</a></li>
+                <li><a class="download-link" href="quizzes/quizzes/quiz_java_week1.html">Week 1 Quiz</a></li>
+            </ul>
+            <div class="outline">
+                <h3>Outline</h3>
+                <ul>
+                    <li>Variable declaration and initialization</li>
+                    <li>Primitive data types (int, double, boolean)</li>
+                    <li>Type conversion and casting</li>
+                    <li>Variable scope and lifetime</li>
+                    <li>Constants and final keyword</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Week 2: Object-Oriented Java -->
+        <section id="week2">
+            <h2>Week 2: Object-Oriented Java</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/wuhJ-GkRRQc" title="OOP Concepts" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <ul>
+                <li><a class="download-link" href="quizzes/quiz_java_week2.html">Week 2 Content Viewer</a></li>
+                 <li><a class="download-link" href="quizzes/quizzes/quiz_java_week2.html">Week 2 Quiz</a></li>
+            </ul>
+            <div class="outline">
+                <h3>Outline</h3>
+                <ul>
+                    <li>Classes and objects</li>
+                    <li>Constructors and method overloading</li>
+                    <li>Encapsulation and access modifiers</li>
+                    <li>Static members and constants</li>
+                    <li>Basic exception handling</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Week 3: Control Flow -->
+        <section id="week3">
+            <h2>Week 3: Control Flow</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/MY03bt_0JQI" title="Control Flow" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <ul>
+                <li><a class="download-link" href="quizzes/quiz_java_week3.html">Week 3 Content Viewer</a></li>
+                 <li><a class="download-link" href="quizzes/quizzes/quiz_java_week3.html">Week 3 Quiz</a></li>
+            </ul>
+            <div class="outline">
+                <h3>Outline</h3>
+                <ul>
+                    <li>Conditional statements (if, else-if, switch)</li>
+                    <li>Logical and ternary operators</li>
+                    <li>Loop structures (for, while, do-while)</li>
+                    <li>Break and continue statements</li>
+                    <li>Nested control structures</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Week 4: Arrays & ArrayLists -->
+        <section id="week4">
+            <h2>Week 4: Arrays & ArrayLists</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/ei_4Nt7XWOw" title="Arrays" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <ul>
+                <li><a class="download-link" href="quizzes/quiz_java_week4.html">Week 4 Content Viewer</a></li>
+                 <li><a class="download-link" href="quizzes/quizzes/quiz_java_week4.html">Week 4 Quiz</a></li>
+            </ul>
+            <div class="outline">
+                <h3>Outline</h3>
+                <ul>
+                    <li>Array declaration and initialization</li>
+                    <li>Multidimensional arrays</li>
+                    <li>ArrayList operations</li>
+                    <li>Wrapper classes</li>
+                    <li>Common collection operations</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Week 5: Loops -->
+        <section id="week5">
+            <h2>Week 5: Loops & Iteration</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/MiZVbD6LFOU" title="Java Loops" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <ul>
+                <li><a class="download-link" href="quizzes/quiz_java_week5.html">Week 5 Content Viewer</a></li>
+                  <li><a class="download-link" href="quizzes/quiz_java_week5.html">Week 5 Quiz</a></li>
+            </ul>
+            <div class="outline">
+                <h3>Outline</h3>
+                <ul>
+                    <li>For-each loop</li>
+                    <li>Nested loops</li>
+                    <li>Iterator patterns</li>
+                    <li>Loop optimization</li>
+                    <li>Common loop pitfalls</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Week 6: String Methods -->
+        <section id="week6">
+            <h2>Week 6: String Handling</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/zEesfztqg3Y" title="Java Strings" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <ul>
+                <li><a class="download-link" href="quizzes/quiz_java_week6.html">Week 6 Content Viewer</a></li>
+                  <li><a class="download-link" href="quizzes/quiz_java_week6.html">Week 6 Quiz</a></li>
+            </ul>
+            <div class="outline">
+                <h3>Outline</h3>
+                <ul>
+                    <li>String manipulation methods</li>
+                    <li>StringBuilder class</li>
+                    <li>Regular expressions</li>
+                    <li>String formatting</li>
+                    <li>Text file I/O basics</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Certificate Of Completion</h2>
+            <ul>
+                <li><a class="download-linkpurple" href="cert.html">CERTIFICATE OF COMPLETION</a></li>
+            </ul>
+        </section>
+    </div>
+
+    <script>
+        // Toggle sidebar and overlay
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            
+            // Change button text based on state
+            this.textContent = sidebar.classList.contains('open') ? '✕ Close' : '☰ Menu';
+        });
+
+        // Close sidebar when clicking on overlay
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            sidebarToggle.textContent = '☰ Menu';
+        });
+    </script>
+</body>
+</html>
