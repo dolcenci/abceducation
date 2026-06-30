@@ -4,329 +4,406 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Frontend Bootcamp</title>
+    <title>ABC Education | SQL Course</title>
+    <!-- CSS Libraries -->
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&amp;family=Permanent+Marker&amp;display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Permanent+Marker&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i&display=swap">
     <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/Users/NTULI/Documents/work stuff/courses bootstrap/assets/css/News-Cards.css">
-    <link rel="stylesheet" href="/Users/NTULI/Documents/work stuff/courses/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="/Users/NTULI/Documents/work stuff/calendar2/style.css">
-    <link rel="stylesheet" href="/Users/NTULI/Documents/backup/assets/css/Team-Boxed.css">
-    <link rel="stylesheet" href="/Users/NTULI/Documents/backup/assets/css/Team.css">
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/style-1.css">
-    <link rel="stylesheet" href="/Users/NTULI/Documents/work stuff/bootstrap-bootcamp-website-main/bootstrap-bootcamp-website-main/about-us-assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/Users/NTULI/Documents/work stuff/bootstrap-bootcamp-website-main/bootstrap-bootcamp-website-main/about-us-assets/fonts/simple-line-icons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css">
-    <link rel="stylesheet" href="/Users/NTULI/Documents/work stuff/bootstrap-bootcamp-website-main/bootstrap-bootcamp-website-main/about-us-assets/css/vanilla-zoom.min.css">
     <link rel="stylesheet" href="assets/css/Recipe-Card.css">
+    <style>
+        /* SQL Theme Colors */
+        :root {
+            --course-primary: #00758f;
+            --course-secondary: #004b5e;
+            --course-accent: #5a9fb3;
+            --course-light: #e5f3f8;
+        }
+        .course-theme {
+            background: linear-gradient(145deg, var(--course-primary), var(--course-secondary));
+            color: #fff;
+        }
+        .course-theme-light {
+            background: var(--course-light);
+            color: #004b5e;
+        }
+        .course-btn {
+            background: var(--course-accent);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 0.6rem 1.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .course-btn:hover {
+            background: #004b5e;
+            transform: scale(1.05);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(0, 117, 143, 0.4);
+        }
+        .course-card-custom {
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #fff;
+            border: none;
+        }
+        .course-card-custom:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .stat-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .stat-item i {
+            font-size: 2.5rem;
+            color: var(--course-accent);
+        }
+        .curriculum-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-weight: 400;
+        }
+        .curriculum-list i {
+            color: var(--course-accent);
+            margin-right: 12px;
+        }
+        .testimonial-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--course-accent);
+        }
+        .testimonial-card img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
+        .feature-icon {
+            font-size: 2.2rem;
+            color: var(--course-accent);
+        }
+        .bg-soft-primary {
+            background: var(--course-light);
+        }
+        .text-primary-custom {
+            color: var(--course-primary) !important;
+        }
+        .btn-outline-custom {
+            border: 2px solid var(--course-accent);
+            color: var(--course-accent);
+            background: transparent;
+            border-radius: 30px;
+            padding: 0.6rem 1.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-custom:hover {
+            background: var(--course-accent);
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
+
+    <!-- Navigation -->
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark py-3">
-        <div class="container"><a class="navbar-brand" href="#">ABC Education</a><button data-bs-toggle="collapse" data-bs-target="#navmenu" class="navbar-toggler" type="button"><span class="navbar-toggler-icon"></span></button>
+        <div class="container">
+            <a class="navbar-brand" href="index.html">ABC Education</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="http://localhost/profilepage/displayprofile2.php">Profile</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#questions">Questions</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#instructors">Instructors</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about-us.html">About-Us</a></li>
-                    <li class="nav-item"></li>
-                </ul><a class="btn btn-primary shadow" role="button" href="https://us05web.zoom.us/s/7099953744?pwd=Ukw2aWhQaHdNbjVMM1pmb2VRZ2QvZz09%20Meeting%20ID:%20709%20995%203744%20Passcode:%20Cafe#success">Start Class</a><a class="btn btn-primary shadow" role="button" href="calendar.html">My Timetable</a>
-                    <a class="btn btn-primary shadow" role="button" href="learningmaterialpsy.html">Learning Material</a>
-                <form name="PayFastPayNowForm" action="https://payment.payfast.io/eng/process" method="post">
-<input required type="hidden" name="cmd" value="_paynow">
-<input required type="hidden" name="receiver" pattern="[0-9]" value="14630467">
-<input required type="hidden" name="amount" value="199">
-<input required type="hidden" name="item_name" maxlength="255" value="PSYCHOLOGY">
-<input type="hidden" name="item_description" maxlength="255" value="A COURSE ABOUT THE STUDY OF THE MIND">
-<table>
-<tr>
-<td colspan=2 align=center>
-<input type="image" src="https://my.payfast.io/images/buttons/BuyNow/Primary-Large-BuyNow.png" alt="Buy Now" title="Buy Now with Payfast">
-</td>
-</tr>
-</table>
-</form>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#learn">Course</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#curriculum">Curriculum</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#enroll">Enroll</a></li>
+                </ul>
+                <a class="btn btn-outline-light ms-2" href="https://us05web.zoom.us/s/7099953744?pwd=Ukw2aWhQaHdNbjVMM1pmb2VRZ2QvZz09" target="_blank">Start Class</a>
             </div>
         </div>
     </nav>
-    <section class="text-center text-sm-start text-light bg-dark p-5 p-lg-0 pt-lg-5">
+
+    <!-- Hero Section -->
+    <section class="course-theme text-center text-sm-start p-5 p-lg-0 pt-lg-5" style="padding-top: 80px !important;">
         <div class="container">
             <div class="d-sm-flex justify-content-between align-items-center">
                 <div>
-                    <h1>The SQL course as a journey.</h1>
-                    <p class="lead my-4">Welcome to the SQL programming course, an essential skill if one is to delve into the complex world of databases with ease and simplicity  </p><a class="btn btn-primary btn-lg" role="button" data-bs-target="#enroll" href="https://us05web.zoom.us/s/7099953744?pwd=Ukw2aWhQaHdNbjVMM1pmb2VRZ2QvZz09%20Meeting%20ID:%20709%20995%203744%20Passcode:%20Cafe#success" target="_blank">Attend Class</a>
-                </div><img class="img-fluid d-none d-sm-block w-50" src="assets/img/python1.jpg" alt="">
+                    <h1 class="display-4 fw-bold">Master <span style="color: #8fcbd8;">SQL</span> & Databases</h1>
+                    <p class="lead my-4">SQL is the language of data. This course will teach you to design, query, and manage databases—a critical skill for any data-driven role in tech, finance, or analytics.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a class="btn course-btn btn-lg" href="#enroll">Enroll Now</a>
+                        <a class="btn btn-outline-light btn-lg" href="#curriculum">View Curriculum</a>
+                    </div>
+                    <div class="mt-4 d-flex flex-wrap gap-4">
+                        <span><i class="bi bi-clock"></i> 6 Months</span>
+                        <span><i class="bi bi-award"></i> Certificate Included</span>
+                        <span><i class="bi bi-people"></i> 2,500+ Students</span>
+                    </div>
+                </div>
+                <img class="img-fluid d-none d-sm-block w-50" src="assets/img/sql1.png" alt="SQL Course">
             </div>
         </div>
     </section>
-    <section class="text-light bg-primary p-5">
+
+    <!-- Stats -->
+    <section class="py-4 bg-soft-primary">
         <div class="container">
-            <div class="d-md-flex justify-content-between align-items-center">
-                <h3 class="mb-3 mb-md-0">click the button on the right to attend class</h3>
-                <div class="input-group news-input"><input class="form-control form-control" type="text" placeholder="Enter Email"><a class="btn btn-dark btn-lg" role="button" href="https://us05web.zoom.us/s/7099953744?pwd=Ukw2aWhQaHdNbjVMM1pmb2VRZ2QvZz09%20Meeting%20ID:%20709%20995%203744%20Passcode:%20Cafe#success">start class</a></div>
+            <div class="row text-center g-3">
+                <div class="col-md-3 col-6">
+                    <div class="stat-item bg-white shadow-sm">
+                        <i class="bi bi-database"></i>
+                        <h3 class="fw-bold mt-2 text-primary-custom">30+</h3>
+                        <p class="text-muted">Practice Databases</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item bg-white shadow-sm">
+                        <i class="bi bi-person-check"></i>
+                        <h3 class="fw-bold mt-2 text-primary-custom">95%</h3>
+                        <p class="text-muted">Job Readiness</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item bg-white shadow-sm">
+                        <i class="bi bi-star"></i>
+                        <h3 class="fw-bold mt-2 text-primary-custom">4.9</h3>
+                        <p class="text-muted">Course Rating</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item bg-white shadow-sm">
+                        <i class="bi bi-globe"></i>
+                        <h3 class="fw-bold mt-2 text-primary-custom">60+</h3>
+                        <p class="text-muted">Employers Hiring</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-     <!--
-this whole section if the course description part . the whole of it because it doesnt work and it is malfunctioning. if you want to take a crack at fixing it try it later on but anything goes wrong keep it hidden.
--->
-<!--
-<section class="text-center text-sm-start text-light bg-dark p-5 p-lg-0 pt-lg-5">
-    <h2 class="text-center mb-4">Courses</h2>
-    <section class="hi">
-        <div class="icons"><a href="#">
-                <div class="layer"><span></span><span></span><span></span><span></span><span class="fas fa-atom fa-3x"></span></div>
-                <div class="text"> Chemistry </div>
-            </a><a href="#">
-                <div class="layer"><span></span><span></span><span></span><span></span><span class="fas fa-donate fa-3x"></span></div>
-                <div class="text"> Accounting </div>
-            </a><a href="#">
-                <div class="layer"><span></span><span></span><span></span><span></span><span class="fas fa-brain fa-3x"></span></div>
-                <div class="text"> Psychology </div>
-            </a><a href="#">
-                <div class="layer"><span></span><span></span><span></span><span></span><span class="fas fa-balance-scale-left fa-3x"></span></div>
-                <div class="text"> Law </div>
-            </a><a href="#">
-                <div class="layer"><span></span><span></span><span></span><span></span><span class="fas fa-desktop fa-3x"></span></div>
-                <div class="text"> IT </div>
-            </a></div>
-        <section>
-            <div class="container"></div>
-        </section>
-        <section>
-            <div class="container">
-                <div>
-                    <figure class="snip1527">
-                        <div class="image"><img alt="pr-sample23" /></div>
-                        <figcaption>
-                            <div class="date"><span class="day">28</span><span class="month">Oct</span></div>
-                            <h3>SQL</h3>
-                            <p>
 
-                                SQL, Short for structured query language, this is the programming lanuae that is used to develop databases after they have been designed, 
-                              it contains all the syntax for creating a database including commands like the create table, update table and even aggregate functions.
-                            </p><button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#enroll">
-                                Enroll
-                            </button>
-                        </figcaption><a href="#"></a>
-                    </figure>
-                    <figure class="snip1527 hover">
-                        <div class="image"><img alt="pr-sample24" /></div>
-                        <figcaption>
-                            <div class="date"><span class="day">17</span><span class="month">Nov</span></div>
-                            <h3>Psychology</h3>
-                            <p>
-
-                                 
-
-
-                               Structured Query Language (SQL) is a standardized programming language that is used to manage relational databases and perform various operations on the data in them. Initially created in the 1970s, SQL is regularly used not only by database administrators but also by developers writing data integration scripts and data analysts looking to set up and run analytical queries.
-                            </p><button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#enroll">
-                                Enroll
-                            </button>
-                        </figcaption><a href="#"></a>
-                    </figure>
-                    <figure class="snip1527">
-                        <div class="image"><img alt="pr-sample25" /></div>
-                        <figcaption>
-                            <div class="date"><span class="day">01</span><span class="month">Dec</span></div>
-                            <h3>Law</h3>
-                            <p>
-
-                                A lawnisters debt is always repaid.&quot; Thats what you
-                                could find yourself saying
-                                after a tough court appearence.
-                                do you have a passion for defending people or being in a courtroom?? then the law course is the one for you.
-                            </p><button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#enroll">
-                                Enroll
-                            </button>
-                        </figcaption><a href="#"></a>
-                    </figure>
-                </div>
-                <div>
-                    <figure class="snip1527">
-                        <div class="image"><img alt="pr-sample23" /></div>
-                        <figcaption>
-                            <div class="date"><span class="day">28</span><span class="month">Oct</span></div>
-                            <h3>Finance</h3>
-                            <p>
-
-                                Are you a person who makes sure everything is accounted for down to the last cent??
-                                then the finance course in ABC Education will equip you with the tools to become a finance proffessional
-                                . o&#39;Whether a charted accountant&#39;or a bank teller. weve got you covered.
-                            </p><button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#enroll">
-                                Enroll
-                            </button>
-                        </figcaption><a href="#"></a>
-                    </figure>
-                </div>
-            </div>
-        </section>
-    </section>
-</section>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- Course Description & Video -->
     <section id="learn" class="p-5">
         <div class="container">
-            <div class="row justify-content-between align-items-center"><div class="col-md">
-            <img src="assets/img/sql2.jpg" class="img-fluid" alt="">
-          </div><div class="col-md p-5">
-            <h2>Python</h2>
-            <p class="lead">
-              Python: a short, sweet and simple hih level lanuae .its used to code servers , software and to conduct data analysis  and Its design philosophy emphasizes code readability with the use of significant indentation </p>
-               <p>Entry Requirements:</p>
-              <p>national senior certificate(matric), 40% and above for english.</p>
-            <p>
-             Entry Requirements:   
-              </p>
-               
-            <a href="https://abceducation100.000webhostapp.com/quizpsy.html" class="btn btn-light mt-3">
-              <i class="bi bi-chevron-right"></i> Read More
-            </a>
-          </div></div>
-        </div>
-    </section>
-    
-     <section id="learn" class="p-5">
-        <div class="container">
-            <div class="row justify-content-between align-items-center"><div class="col-md">
-            <img src="assets/img/images.jfif" class="img-fluid" alt="">
-          </div><div class="col-md p-5">
-            <h2>Quiz</h2>
-            <p class="lead">
-              Great news. Weve prapered a quiz for you.
-            </p>
-            <p>
-            We know you want to get a taste of what the course feels like. That is why we have prepared a quiz made by one of our lectures. click the button below to start.
-            </p>
-            <a href="https://abceducation100.000webhostapp.com/quizpsy.html" class="btn btn-light mt-3">
-              <i class="bi bi-chevron-right"></i> Read More
-            </a>
-          </div></div>
-        </div>
-    </section>
-    
-    
-      
-    
-    <section class="text-light bg-dark p-5" id="learn">
-        <div class="container">
-            <div class="row justify-content-between align-items-center"><div class="col-md p-5">
-            <h2>PSYCHOLOGY.</h2>
-            <p class="lead">
-              ...
-            </p>
-            <p>
-            Python is a high-level, general-purpose programming language known for its simple, readable syntax, making it accessible to beginners while still powerful enough for complex applications like data science, machine learning, and web development; its design prioritizes code readability with features like significant indentation, allowing for rapid development and easy collaboration, and is widely used due to its extensive standard library and rich ecosystem of third-party modules. 
-            </p>
-            <a href="https://us05web.zoom.us/s/7099953744?pwd=Ukw2aWhQaHdNbjVMM1pmb2VRZ2QvZz09%20Meeting%20ID:%20709%20995%203744%20Passcode:%20Cafe#success" class="btn btn-light mt-3">
-              <i class="bi bi-chevron-right"></i> attend class
-            </a>
-          </div><div class="col-md">
-            <img src="assets/img/react.svg" class="img-fluid" alt="">
-          </div></div>
-        </div>
-    </section>
-    <section id="questions" class="p-5">
-        <div class="container">
-            <h2 class="text-center mb-4">Frequently Asked Questions</h2>
-            <div class="accordion accordion-flush" role="tablist" id="questions">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#question-one" aria-expanded="true" aria-controls="questions .item-1"> Where exactly are you located? </button></h2>
-                    <div class="accordion-collapse collapse show item-1" role="tabpanel" data-bs-parent="#questions" id="question-one">
-                        <div class="accordion-body"><span> The humorous answer would be the internet but our headquarters are actually in the upper side of Potchefstroom. </span></div>
+            <div class="row g-5 align-items-center">
+                <div class="col-md-6">
+                    <div class="ratio ratio-16x9 shadow rounded">
+                        <iframe src="https://www.youtube.com/embed/zyeL7xbX6eU" title="SQL Course Overview" allowfullscreen></iframe>
                     </div>
                 </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#question-two" aria-expanded="false" aria-controls="questions .item-2"> How much does it cost to attend? </button></h2>
-                    <div class="accordion-collapse collapse item-2" role="tabpanel" data-bs-parent="#questions" id="question-two">
-                        <div class="accordion-body"><span> The first 3 online meetings/classes are free. But order to attend the classes that follow after that you will have to pay. How much exactly?? click the view prices button to find out. </span></div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#question-three" aria-expanded="false" aria-controls="questions .item-3"> What is ABC EDUCATION? </button></h2>
-                    <div class="accordion-collapse collapse item-3" role="tabpanel" data-bs-parent="#questions" id="question-three">
-                        <div class="accordion-body"><span> ABC EDUCATION is an online learning platform where you can study any course you want at a fraction of a cost. </span></div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#question-four" aria-expanded="false" aria-controls="questions .item-4"> What Happens If I miss a class? </button></h2>
-                    <div class="accordion-collapse collapse item-4" role="tabpanel" data-bs-parent="#questions" id="question-four">
-                        <div class="accordion-body"><span> If you miss a class a video of the class youve missed will appear in place of your session. all you have to do is click on the event and the recording will appear. At this point weve got you so covered that you wouldnt have any looming questions. But even this question bugs THe smartest of men. </span></div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#question-five" aria-expanded="false" aria-controls="questions .item-5"> Do you help me find a job? </button></h2>
-                    <div class="accordion-collapse collapse item-5" role="tabpanel" data-bs-parent="#questions" id="question-five">
-                        <div class="accordion-body"><span> At ABC Education it is our perogative to help you find a job. our lectures keep in contact with employers from humungous national companies to find out what they are looking for in a typical employee. They then create a lecture program that makes sure you are in line with what they are looking. </span></div>
+                <div class="col-md-6">
+                    <h2 class="fw-bold text-primary-custom">Why Learn SQL?</h2>
+                    <p class="lead">SQL is the most essential skill for data professionals. Our course provides hands-on experience with real databases, preparing you for a career in data analysis, database administration, or data engineering.</p>
+                    <ul class="list-unstyled curriculum-list">
+                        <li><i class="bi bi-check-circle-fill"></i> <strong>Comprehensive Curriculum</strong> – From basic queries to advanced database management.</li>
+                        <li><i class="bi bi-check-circle-fill"></i> <strong>Real-World Projects</strong> – Work with real datasets and solve practical problems.</li>
+                        <li><i class="bi bi-check-circle-fill"></i> <strong>Expert Instructors</strong> – Learn from experienced database professionals.</li>
+                        <li><i class="bi bi-check-circle-fill"></i> <strong>Career Pathways</strong> – Data analyst, DBA, data engineer, and more.</li>
+                    </ul>
+                    <div class="mt-4">
+                        <span class="badge bg-primary-custom p-2 me-2">Entry Requirements:</span>
+                        <span>Matric certificate, 40% English</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Curriculum -->
+    <section id="curriculum" class="p-5 bg-soft-primary">
+        <div class="container">
+            <h2 class="text-center fw-bold text-primary-custom mb-5">Course Curriculum</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="course-card-custom p-4 h-100">
+                        <i class="bi bi-search feature-icon"></i>
+                        <h4 class="mt-3">SQL Fundamentals</h4>
+                        <p>Learn SELECT, INSERT, UPDATE, DELETE, and filtering techniques. Build a strong foundation in querying data.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="course-card-custom p-4 h-100">
+                        <i class="bi bi-diagram-3 feature-icon"></i>
+                        <h4 class="mt-3">Database Design</h4>
+                        <p>Master normalization, ER diagrams, and schema design. Learn to structure data for efficiency and integrity.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="course-card-custom p-4 h-100">
+                        <i class="bi bi-arrows-expand feature-icon"></i>
+                        <h4 class="mt-3">Joins & Subqueries</h4>
+                        <p>Write complex queries using INNER JOIN, LEFT JOIN, and subqueries. Combine data from multiple tables with ease.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="course-card-custom p-4 h-100">
+                        <i class="bi bi-graph-up feature-icon"></i>
+                        <h4 class="mt-3">Aggregation & Analysis</h4>
+                        <p>Use GROUP BY, HAVING, and aggregate functions to analyze data. Generate insights from large datasets.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="course-card-custom p-4 h-100">
+                        <i class="bi bi-shield-lock feature-icon"></i>
+                        <h4 class="mt-3">Database Security</h4>
+                        <p>Understand user permissions, roles, and security best practices. Protect your data from unauthorized access.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="course-card-custom p-4 h-100">
+                        <i class="bi bi-cloud feature-icon"></i>
+                        <h4 class="mt-3">Advanced SQL</h4>
+                        <p>Explore stored procedures, triggers, and window functions. Master the tools used by professional DBAs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="p-5">
+        <div class="container">
+            <h2 class="text-center fw-bold text-primary-custom mb-5">What Our Students Say</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="assets/img/download (1).jfif" class="rounded-circle me-3" alt="Student">
+                            <div>
+                                <h5 class="mb-0">Sipho M.</h5>
+                                <small class="text-muted">Data Analyst</small>
+                            </div>
+                        </div>
+                        <p>"This SQL course was exactly what I needed to transition into data analytics. The hands-on projects made all the difference."</p>
+                        <div class="text-warning">★★★★★</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="assets/img/download (2).jfif" class="rounded-circle me-3" alt="Student">
+                            <div>
+                                <h5 class="mb-0">Lerato K.</h5>
+                                <small class="text-muted">Database Administrator</small>
+                            </div>
+                        </div>
+                        <p>"I'm now a DBA at a major bank. This course gave me the confidence and skills to manage large-scale databases."</p>
+                        <div class="text-warning">★★★★★</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="assets/img/download.jfif" class="rounded-circle me-3" alt="Student">
+                            <div>
+                                <h5 class="mb-0">Thabo N.</h5>
+                                <small class="text-muted">Data Engineer</small>
+                            </div>
+                        </div>
+                        <p>"The advanced SQL module was a game-changer. I'm now building data pipelines for a tech company."</p>
+                        <div class="text-warning">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enroll / CTA -->
+    <section id="enroll" class="p-5 course-theme">
+        <div class="container text-center">
+            <h2 class="fw-bold">Start Your SQL Journey</h2>
+            <p class="lead mb-4">Join thousands of students who have become data professionals. Enroll now and start mastering the language of data.</p>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="bg-white p-4 rounded-4 shadow">
+                        <h3 class="text-primary-custom">Full Course</h3>
+                        <p class="display-5 fw-bold text-primary-custom">R199<span class="fs-6">/month</span></p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="bi bi-check-circle-fill text-success"></i> All modules & projects</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Live Q&A sessions</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Certificate of completion</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Career support</li>
+                        </ul>
+                        <form name="PayFastPayNowForm" action="https://payment.payfast.io/eng/process" method="post">
+                            <input type="hidden" name="cmd" value="_paynow">
+                            <input type="hidden" name="receiver" value="14630467">
+                            <input type="hidden" name="amount" value="199">
+                            <input type="hidden" name="item_name" value="SQL COURSE">
+                            <input type="hidden" name="item_description" value="COMPREHENSIVE SQL COURSE">
+                            <button type="submit" class="btn course-btn w-100">Enroll Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="p-5 bg-soft-primary">
+        <div class="container">
+            <h2 class="text-center fw-bold text-primary-custom mb-4">Frequently Asked Questions</h2>
+            <div class="accordion accordion-flush" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">What are the entry requirements?</button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">You need a National Senior Certificate (Matric) with at least 40% for English. No prior database experience is required.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">How long is the course?</button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">The full course is designed to be completed in 6 months, but you can learn at your own pace. The short course takes 2-4 months.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">What careers can I pursue?</button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Graduates work as data analysts, database administrators, data engineers, and business intelligence professionals. SQL skills are in high demand across all industries.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="text-center text-white bg-dark p-5 position-relative">
         <div class="container">
-            <p class="lead">Copyright © 2023 ABC Education</p><a href="#" class="position-absolute bottom-0 end-0 p-5"><i class="bi bi-arrow-up-circle h1"></i></a>
-        </div>
-    </footer>
-    <div class="modal fade" role="dialog" tabindex="-1" id="enroll" aria-labelledby="enrollLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="enrollLabel">Enrollment</h5><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="lead">Fill out this form and we will get back to you</p>
-                    <form>
-                        <div class="mb-3"><label class="form-label col-form-label" for="first-name"> First Name: </label><input class="form-control form-control" type="text" id="first-name"></div>
-                        <div class="mb-3"><label class="form-label col-form-label" for="last-name">Last Name:</label><input class="form-control form-control" type="text" id="last-name"></div>
-                        <div class="mb-3"><label class="form-label col-form-label" for="email">Email:</label><input class="form-control form-control" type="email" id="email"></div>
-                        <div class="mb-3"><label class="form-label col-form-label" for="phone">Phone:</label><input class="form-control form-control" type="tel" id="phone"></div>
-                    </form>
-                </div>
-                <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal"> Close </button><button class="btn btn-primary" type="button">Submit</button></div>
+            <p class="lead">Copyright © 2023 ABC Education</p>
+            <a href="#" class="position-absolute bottom-0 end-0 p-5"><i class="bi bi-arrow-up-circle h1"></i></a>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="privacystatement.html" class="text-white">Privacy Statement</a>
+                <a href="terms.html" class="text-white">Terms of Service</a>
             </div>
         </div>
-    </div><script>
-      mapboxgl.accessToken =
-        'pk.eyJ1IjoiYnRyYXZlcnN5IiwiYSI6ImNrbmh0dXF1NzBtbnMyb3MzcTBpaG10eXcifQ.h5ZyYCglnMdOLAGGiL1Auw'
-      var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [-71.060982, 42.35725],
-        zoom: 18,
-      })
-    </script>
+    </footer>
+
+    <!-- Scripts -->
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
-    <script src="https://download.agora.io/sdk/release/AgoraRTC_N.js"></script>
     <script src="assets/js/script.js"></script>
-    <script src="/Users/NTULI/Documents/work stuff/bootstrap-bootcamp-website-main/bootstrap-bootcamp-website-main/about-us-assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js"></script>
-    <script src="/Users/NTULI/Documents/work stuff/bootstrap-bootcamp-website-main/bootstrap-bootcamp-website-main/about-us-assets/js/vanilla-zoom.js"></script>
-    <script src="/Users/NTULI/Documents/work stuff/bootstrap-bootcamp-website-main/bootstrap-bootcamp-website-main/about-us-assets/js/theme.js"></script>
 </body>
 
 </html>
